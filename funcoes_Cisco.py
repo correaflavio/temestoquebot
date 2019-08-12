@@ -40,6 +40,8 @@ def smartsheet(planilha):
         sheet="6200566423545732"
     elif "agenda" in planilha:
         sheet="7416587629160324"
+    elif "pid_n1" in planilha:
+        sheet="3981179922737028"
 
 
     #planilha de managers
@@ -50,7 +52,7 @@ def smartsheet(planilha):
         'Authorization': "Bearer "+ smartsheet_token,
         'Content-Type': "application/json",
         'cache-control': "no-cache",
-        'Postman-Token': "50a08645-32c6-4b43-9dcd-fb4db45c942e"
+        'Postman-Token': "6y1ult32nio7vth2d2nnwbnprx"
         }
 
     

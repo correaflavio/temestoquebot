@@ -13,7 +13,7 @@ msg=ValidaWebhook(webhook_name,webhook_url)
 if msg=="erro":
     print ("Erro de Webhook")
 
-
+# Selecione (c) para teste e (w) para producao
 formato = "w"
 
 

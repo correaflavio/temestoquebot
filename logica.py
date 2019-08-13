@@ -1,4 +1,4 @@
-﻿from funcoes_Cisco import ajuda, smartmanager, smartmeraki, smartpam, smartse, autorizauser, smartps, smartdap, smartsolution, smartagenda
+﻿from funcoes_Cisco import ajuda, smartpid, smartmanager, smartmeraki, smartpam, smartse, autorizauser, smartps, smartdap, smartsolution, smartagenda
 from prime import testa_prime,prime_produto,prime_servico
 from webexteams import getwebexRoomID, webexmsgRoomviaID
 

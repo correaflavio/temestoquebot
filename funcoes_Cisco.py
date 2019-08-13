@@ -12,7 +12,8 @@ def smartsheet(planilha):
     # Este codigo abre uma determinada planilha no smartsheet e a retorna
 
     #token esta na variável de ambiente
-    smartsheet_token=os.environ['SMART_TOKEN']
+    #smartsheet_token=os.environ['SMART_TOKEN']
+    smartsheet_token="j7txpag2g7iddvq0jtd3rahl6m"
 
     # devolve erro caso variavel de ambiente do token nao encontrada
     if smartsheet_token=="":
@@ -42,6 +43,7 @@ def smartsheet(planilha):
         sheet="7416587629160324"
     elif "pid" in planilha:
         sheet="3981179922737028"
+        print ("Planilha 3981179922737028")
 
 
     #planilha de managers
@@ -52,7 +54,7 @@ def smartsheet(planilha):
         'Authorization': "Bearer "+ smartsheet_token,
         'Content-Type': "application/json",
         'cache-control': "no-cache",
-        'Postman-Token': "6y1ult32nio7vth2d2nnwbnprx"
+#        'Postman-Token': "6y1ult32nio7vth2d2nnwbnprx"
         }
 
     
@@ -61,6 +63,7 @@ def smartsheet(planilha):
     #pega conteudo pleno da planilha
     if response.status_code==200:
         json_res = json.loads(response.text)
+        #print (json_res)
     else:
     # devolve erro caso nao consiga acessar smartsheet
         return "erro"
@@ -277,7 +280,8 @@ def smartpid(pid):
 
     # quantas linhas tem a planilha
     linhas = data['totalRowCount']
-
+    print (linhas)
+    
     # loop para procurar o pam e imprime
 
     msg=""
@@ -292,12 +296,14 @@ def smartpid(pid):
         try:
             # acessa a primeira celula da linha (parceiro)
             linha_pid=linha['cells'][0]['value']
-            
+                 
             # gera a linha formatada caso parceiro encontrado
             
             if pid in linha_pid.lower():
-                msg=msg+formata_pid(linha)
+                print (linha_pid + " contains given substring " +pid)
                 encontrado=encontrado+1
+                msg=msg+formata_pid(linha)
+                
         except:
             pass
         count=count+1
@@ -921,7 +927,6 @@ def formata_pid(dados):
         qty_available=""
         updated=""
         updated_by=""
-        localidade=""
       
         # tenta pegar valores. Tenta pois se a celula estiver vazia, dará erro de conteúdo, por isto o 'try'
         try:
@@ -1071,6 +1076,7 @@ Detalhe do Parceiro: detail partner ***nome do parceiro***  \n\n
 **Procurar Ajuda para Parceiros:**  \n
 
 Agenda para parceiros: agenda partner ***quarter***  \n
+Procurar por pid: pid partner ***pid procurado***
 """
     
     return msg

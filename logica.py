@@ -43,7 +43,7 @@ def logica(comando,usermail):
         #parceiro=parceiro.rstrip()
 
     
-    msg=""
+    #msg=""
     
     # Comandos para todos usuários:
     
@@ -66,6 +66,7 @@ def logica(comando,usermail):
                 #print ("Local:")
                 #print (local)
                 msg=smartpid(pid,local)
+                return msg
             
             #Comando tipo "pid local_id pid_id"
             elif len(lista_comando) == 3:
@@ -76,6 +77,7 @@ def logica(comando,usermail):
                 #print ("Local:")
                 #print (local)
                 msg=smartpid(pid,local)
+                return msg
                 
             #Nenhum comando conhecido
             else:
@@ -84,16 +86,16 @@ def logica(comando,usermail):
 
     
 
-    
     #if msg=="" or msg==None:
-    #    msg="Use 'help' for help :-)"
+    #   return
+       #msg="Use 'help' for help :-)"
 
     # 26-7-19
     # tenta logar tudo na sala "log do partnerbot"
-    try:
-        log="bot: Tem Estoque |" + "user:" + usermail + "| comando:" + comando
-        webexmsgRoomviaID(getwebexRoomID("log_bot"),log)
-    except:
-        pass
+    #try:
+    #    log="bot: Tem Estoque |" + "user:" + usermail + "| comando:" + comando
+    #    webexmsgRoomviaID(getwebexRoomID("log_bot"),log)
+    #except:
+    #    pass
 
     return msg

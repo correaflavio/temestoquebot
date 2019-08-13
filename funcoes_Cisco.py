@@ -104,7 +104,8 @@ def smartpid(pid,local):
     # aborta caso nao tenha sido possivel acessar smartsheet
     #if data=="erro":
     #    msg="Erro de acesso\n"
-    #    return msg
+    
+    #return msg
 
 def findpid(pid,data):
     # quantas linhas tem a planilha
@@ -205,8 +206,9 @@ def formata_pid(dados, local):
             
             #monta a linha e imprime
             msg=msg+(str(local).upper() + " **PID:** "+ pid + " **Quantidade:** " + qty_available +  " unidade(s)." + " Atualizado em " + updated + " por " + updated_by + "  \n\n")
-            print (msg)
+            #print (msg)
             return msg
+            
         
         else:
             try:
@@ -228,7 +230,7 @@ def formata_pid(dados, local):
             
             #monta a linha e imprime
             msg=msg+(str(local).upper() + " **PID:** "+ pid + " **Quantidade:** " + qty_available + " unidade(s)." + " Atualizado em " + updated + " por " + updated_by + "  \n\n")
-            print (msg)
+            #print (msg)
             return msg
     
 

@@ -79,6 +79,11 @@ def logica(comando,usermail):
             if "agenda" in box:
                 # a variavel parceiro aqui na verdade leva o quarter procurado exemplo: q1
                 msg=smartagenda(parceiro)
+                
+            # procura pids no estoque - 13.9.19
+            if "pid" in box:
+                # a variavel parceiro aqui na verdade leva o pid procurado exemplo: 2960X
+                msg=smartpid(parceiro)
 
             if "detail" in box and parceiro != "":
                 msg=smartpam(parceiro)
@@ -130,7 +135,7 @@ def logica(comando,usermail):
     # tenta logar tudo na sala "log do partnerbot"
     try:
         log="user:"+usermail+" comando:"+comando
-        webexmsgRoomviaID(getwebexRoomID("log do partnerbot"),log)
+        webexmsgRoomviaID(getwebexRoomID("Log do TemEstoque"),log)
     except:
         pass
 

@@ -40,7 +40,7 @@ def smartsheet(planilha):
         sheet="6200566423545732"
     elif "agenda" in planilha:
         sheet="7416587629160324"
-    elif "pid_n1" in planilha:
+    elif "pid" in planilha:
         sheet="3981179922737028"
 
 
@@ -258,6 +258,58 @@ def smartagenda(quarter):
 
     return msg
 
+def smartpid(pid):
+    
+    # Procura por pids
+    # 13.9.2019
+    if pid=="":
+        return
+
+    # planilha do smartsheet
+    # chama a funcao que busca planilha no smartsheet e devolve como JSON
+    data = smartsheet("pid")
+
+    # aborta caso nao tenha sido possivel acessar smartsheet
+    if data=="erro":
+        msg="Erro de acesso\n"
+        return msg
+
+
+    # quantas linhas tem a planilha
+    linhas = data['totalRowCount']
+
+    # loop para procurar o pam e imprime
+
+    msg=""
+    count=0
+    encontrado=0
+    
+    while (count<linhas):
+
+        # valida 1 linha por vez
+        linha=data['rows'][count]
+
+        try:
+            # acessa a primeira celula da linha (parceiro)
+            linha_pid=linha['cells'][0]['value']
+            
+            # gera a linha formatada caso parceiro encontrado
+            
+            if pid in linha_pid.lower():
+                msg=msg+formata_pid(linha)
+                encontrado=encontrado+1
+        except:
+            pass
+        count=count+1
+
+                    
+        # devolva negativa caso nada encontrado
+    
+    if encontrado==0:
+        msg="Pid: Nenhum resultado encontrado.  "
+
+
+    return msg
 
 
 
@@ -857,7 +909,45 @@ def formata_agenda(dados):
 
     return msg
 
+def formata_pid(dados):
 
+    #lista de pids
+    #13.09.2019
+    
+    # zera variaveis
+        
+        msg=""
+        pid=""
+        qty_available=""
+        updated=""
+        updated_by=""
+        localidade=""
+      
+        # tenta pegar valores. Tenta pois se a celula estiver vazia, dará erro de conteúdo, por isto o 'try'
+        try:
+            pid=dados['cells'][0]['value']
+        except:
+            pass
+        try:
+            qty_available=dados['cells'][7]['value']
+        except:
+            pass
+        try:
+            updated_by=dados['cells'][8]['value']
+        except:
+            pass
+        try:
+            updated=dados['cells'][9]['value']
+        except:
+            pass
+        
+        #monta a linha e imprime
+        
+        msg=msg+("**PID**: "+pid+" **Quantidade:** "+qty_available+" **Atualizado:** "+updated+" "+updated_by+"  \n\n")
+     
+    
+        return msg
+    
 
 def formata_DAP(dados):
 

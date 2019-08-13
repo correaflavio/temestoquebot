@@ -19,31 +19,16 @@ def smartsheet(planilha):
     if smartsheet_token=="":
         return "erro"
 
-    if "sec" in planilha:
-        sheet="1219329522984836"
-    elif "dna" in planilha:
-        sheet="835914437027716"
-    elif "collab" in planilha:
-        sheet="2994385685112708"
-    elif "dc" in planilha:
-        sheet="5992706112546692"
-    elif "sem" in planilha:
-        sheet="2210243842205572"
-    elif "pam" in planilha:
-        sheet="8872345856173956"
-    elif "meraki" in planilha:
-        sheet="6475499091322756"
-    elif "4PS" in planilha:
-        sheet="1400202272761732"
-    elif "dap" in planilha:
-        sheet="7330531516934020"
-    elif "solution" in planilha:
-        sheet="6200566423545732"
-    elif "agenda" in planilha:
-        sheet="7416587629160324"
-    elif "pid" in planilha:
+    if "scansource" in planilha:
         sheet="3981179922737028"
-        print ("Planilha 3981179922737028")
+    elif "comstor" in planilha:
+        sheet="6726686227097476"
+    elif "ingram" in planilha:
+        sheet="5371646502788"
+    elif "fabrica" in planilha:
+        sheet="4374521617639300"
+    elif "alcateia" in planilha:
+        sheet="4103938677991300"
 
 
     #planilha de managers
@@ -77,191 +62,7 @@ def smartsheet(planilha):
 #########################################################
 
 
-def smartse(parceiro,arquitetura,especialidade):
-
-    # Procura SE do parceiro, retorna msg com dados ou resultado negativo caso nao encontrado
-
-    if parceiro=="":
-        return
-
-    # planilha do smartsheet
-    # chama a funcao que busca planilha no smartsheet e devolve como JSON
-    data = smartsheet(arquitetura)
-
-    # aborta caso nao tenha sido possivel acessar smartsheet
-    if data=="erro":
-        msg="Erro de acesso\n"
-        return msg
-
-    # quantas linhas tem a planilha
-    linhas = data['totalRowCount']
-
-    #leva conteudo da planilha para variavel sheet
-    #sheet=data['rows']
-
-    # loop para procurar o pam e imprime
-
-    msg=""
-    count=0
-    encontrado=0
-
-    while (count<linhas):
-
-        # valida 1 linha por vez
-        linha=data['rows'][count]
-
-        # acessa a primeira celula da linha (parceiro)
-        celulaparceiro=linha['cells'][0]['value']
-        
-        # gera a linha formatada caso parceiro encontrado
-        if parceiro in celulaparceiro.lower():
-            msg=msg+("  \n**Partner:**"+celulaparceiro+"  \n")
-            msg=msg+formata_SE(linha)
-            encontrado=encontrado+1
-        
-        count=count+1
-
-                    
-    # devolva negativa caso nada encontrado
-    if encontrado==0:
-        msg=msg+"SE: Nenhum resultado encontrado.  "
-
-
-
-    return msg
-
-def smartsolution(parceiro):
-
-    # Procura parceiros de solucao (por vertical, depois por nome de parceiro), retorna msg com dados ou resultado negativo caso nao encontrado
-    # Daniel - 23.7.19
-
-    if parceiro=="":
-        return
-
-    # planilha do smartsheet
-    # chama a funcao que busca planilha no smartsheet e devolve como JSON
-    data = smartsheet("solution")
-
-    # aborta caso nao tenha sido possivel acessar smartsheet
-    if data=="erro":
-        msg="Erro de acesso\n"
-        return msg
-
-
-    # quantas linhas tem a planilha
-    linhas = data['totalRowCount']
-
-    # loop para procurar por vertical
-
-    msg=""
-    count=0
-    encontrado=0
-    
-    while (count<linhas):
-
-        # valida 1 linha por vez
-        linha=data['rows'][count]
-
-        try:
-            # acessa a segunda celula da linha (vertical)
-            vertical=linha['cells'][1]['value']
-            
-            # gera a linha formatada caso parceiro encontrado
-            
-            if parceiro in vertical.lower():
-                msg=msg+formata_solution(linha)
-                encontrado=encontrado+1
-        except:
-            pass
-        count=count+1
-
-    # procura por parceiro Cisco caso nenhuma solucao vertical encontrada
-    if encontrado==0:
-        count=0
-        while (count<linhas):
-
-            # valida 1 linha por vez
-            linha=data['rows'][count]
-
-            try:
-                # acessa a primeira celula da linha (parceiro)
-                vertical=linha['cells'][0]['value']
-                
-                # gera a linha formatada caso parceiro encontrado
-                
-                if parceiro in vertical.lower():
-                    msg=msg+formata_solution(linha)
-                    encontrado=encontrado+1
-            except:
-                pass
-            count=count+1
-
-                                        
-    
-    
-    # devolva negativa caso nada encontrado
-    
-    if encontrado==0:
-        msg="Solution Partner: Nenhum resultado encontrado.  "
-
-
-    return msg
-
-
-def smartagenda(quarter):
-
-    # Procura agenda de eventos
-    # 26.7.2019
-    if quarter=="":
-        return
-
-    # planilha do smartsheet
-    # chama a funcao que busca planilha no smartsheet e devolve como JSON
-    data = smartsheet("agenda")
-
-    # aborta caso nao tenha sido possivel acessar smartsheet
-    if data=="erro":
-        msg="Erro de acesso\n"
-        return msg
-
-
-    # quantas linhas tem a planilha
-    linhas = data['totalRowCount']
-
-    # loop para procurar o pam e imprime
-
-    msg=""
-    count=0
-    encontrado=0
-    
-    while (count<linhas):
-
-        # valida 1 linha por vez
-        linha=data['rows'][count]
-
-        try:
-            # acessa a primeira celula da linha (parceiro)
-            linha_agenda=linha['cells'][0]['value']
-            
-            # gera a linha formatada caso parceiro encontrado
-            
-            if quarter in linha_agenda.lower():
-                msg=msg+formata_agenda(linha)
-                encontrado=encontrado+1
-        except:
-            pass
-        count=count+1
-
-                    
-        # devolva negativa caso nada encontrado
-    
-    if encontrado==0:
-        msg="Agenda: Nenhum resultado encontrado.  "
-
-
-    return msg
-
-def smartpid(pid):
+def smartpid(pid,local):
     
     # Procura por pids
     # 13.9.2019
@@ -270,52 +71,77 @@ def smartpid(pid):
 
     # planilha do smartsheet
     # chama a funcao que busca planilha no smartsheet e devolve como JSON
-    data = smartsheet("pid")
+    if local == "scansource":
+        data = smartsheet("scansource")
+        findpid(pid,data)
+    elif local == "comstor":
+        data = smartsheet("comstor")
+        findpid(pid,data)
+    elif local == "alcateia":
+        data = smartsheet("alcateia")
+        findpid(pid,data)
+    elif local == "fabrica":
+        data = smartsheet("fabrica")
+        findpid(pid,data)
+    elif local == "All":
+        data = smartsheet("scansource")
+        findpid(pid,data)
+        data = smartsheet("comstor")
+        data = findpid(pid,data)
+        data = smartsheet("alcateia")
+        findpid(pid,data)
+        data = smartsheet("fabrica")
+        findpid(pid,data)
+    else: msg="local invalido"
+        
 
     # aborta caso nao tenha sido possivel acessar smartsheet
-    if data=="erro":
-        msg="Erro de acesso\n"
-        return msg
+    #if data=="erro":
+    #    msg="Erro de acesso\n"
+    #    return msg
 
-
+def findpid(pid,data):
     # quantas linhas tem a planilha
     linhas = data['totalRowCount']
-    print ("# de linhas na tabela: " + str(linhas))
-    
+    #print (linhas)
+    #print ("# de linhas na tabela: " + str(linhas))
+    local = data['name']
+    #print (nome_disti)
     # loop para procurar o pam e imprime
 
     msg=""
-    print(msg)
     count=0
-    print(count)
     encontrado=0
-    print(encontrado)
     
     while (count<linhas):
 
         # valida 1 linha por vez
         linha=data['rows'][count]
-        print(linha)
+        #print (linha)
+        #print(linha)
         # acessa a primeira celula da linha (parceiro)
         linha_pid=linha['cells'][0]['value']
-        print (linha_pid)         
+        #print (linha_pid)
+        #print (linha_pid)         
         # gera a linha formatada caso parceiro encontrado
             
         if pid in linha_pid.lower():
-            msg=msg+formata_pid(linha)
-                #print (linha_pid + " contains given substring " +pid)
-                #encontrado=encontrado+1
-                #print ("Encontrado " + encontrado + " vezes.")
-                #print (msg)
+            msg=msg+formata_pid(linha,local)
+            #print (linha_pid + " contains given substring " +pid)
+            #encontrado=encontrado+1
+            #print ("Encontrado " + encontrado + " vezes.")
+            #print (msg)
             encontrado=encontrado+1
+            print ("pid encontrado " + str(encontrado) + " vezes")
                 
         count=count+1
-        print(count)
-        
-                    
+        #print ("Loop count = " + str(count))
+        #print(count)
+                
         # devolva negativa caso nada encontrado
     
-    if encontrado==0:
+    if encontrado == 0:
+        print ("PID não encontrado")
         msg="Pid: Nenhum resultado encontrado.  "
 
 
@@ -323,609 +149,84 @@ def smartpid(pid):
 
 
 
-def smartdap(parceiro):
-
-    # Procura infos DAP do parceiro, retorna msg com dados ou resultado negativo caso nao encontrado
-    # 19.7.2019
-    if parceiro=="":
-        return
-
-    # planilha do smartsheet
-    # chama a funcao que busca planilha no smartsheet e devolve como JSON
-    data = smartsheet("dap")
-
-    # aborta caso nao tenha sido possivel acessar smartsheet
-    if data=="erro":
-        msg="Erro de acesso\n"
-        return msg
-
-
-    # quantas linhas tem a planilha
-    linhas = data['totalRowCount']
-
-    # loop para procurar o pam e imprime
-
-    msg=""
-    count=0
-    encontrado=0
-    
-    while (count<linhas):
-
-        # valida 1 linha por vez
-        linha=data['rows'][count]
-
-        try:
-            # acessa a primeira celula da linha (parceiro)
-            celulaparceiro=linha['cells'][1]['value']
-            
-            # gera a linha formatada caso parceiro encontrado
-            
-            if parceiro in celulaparceiro.lower():
-                msg=msg+formata_DAP(linha)
-                encontrado=encontrado+1
-        except:
-            pass
-        count=count+1
-
-                    
-        # devolva negativa caso nada encontrado
-    
-    if encontrado==0:
-        msg="DAP: Nenhum resultado encontrado.  "
-
-
-    return msg
-
-
-
-def smartmeraki(parceiro):
-
-    # Procura SE Certificado Meraki do parceiro, retorna msg com dados ou resultado negativo caso nao encontrado
-    # 19.7.2019
-
-    if parceiro=="":
-        return
-
-    # planilha do smartsheet
-    # chama a funcao que busca planilha no smartsheet e devolve como JSON
-    data = smartsheet("meraki")
-
-
-    # aborta caso nao tenha sido possivel acessar smartsheet
-    if data=="erro":
-        msg="Erro de acesso\n"
-        return msg
-
-
-    # quantas linhas tem a planilha
-    linhas = data['totalRowCount']
-
-    #leva conteudo da planilha para variavel sheet
-    #sheet=data['rows']
-
-    # loop para procurar o pam e imprime
-
-    msg=""
-    count=0
-    encontrado=0
-    
-    while (count<linhas):
-
-        # valida 1 linha por vez
-        linha=data['rows'][count]
-
-        try:
-            # acessa a primeira celula da linha (parceiro)
-            celulaparceiro=linha['cells'][0]['value']
-            
-            # gera a linha formatada caso parceiro encontrado
-            
-            if parceiro in celulaparceiro.lower():
-                msg=msg+formata_SE_Meraki(linha)
-                encontrado=encontrado+1
-        except:
-            pass
-        count=count+1
-
-                    
-        # devolva negativa caso nada encontrado
-    
-    if encontrado==0:
-        msg="SE: Nenhum resultado encontrado.  "
-
-
-    return msg
-
-def smartps(parceiro):
-
-    # Procura SE de Public Sector do parceiro, retorna msg com dados ou resultado negativo caso nao encontrado
-
-    if parceiro=="":
-        return
-
-    # planilha do smartsheet
-    # chama a funcao que busca planilha no smartsheet e devolve como JSON
-    data = smartsheet("4PS")
-
-
-    # aborta caso nao tenha sido possivel acessar smartsheet
-    if data=="erro":
-        msg="Erro de acesso\n"
-        return msg
-
-
-    # quantas linhas tem a planilha
-    linhas = data['totalRowCount']
-
-    # loop para procurar o pam e imprime
-
-    msg=""
-    count=0
-    encontrado=0
-    
-    while (count<linhas):
-
-        # valida 1 linha por vez
-        linha=data['rows'][count]
-
-        try:
-            # acessa a primeira celula da linha (parceiro)
-            celulaparceiro=linha['cells'][0]['value']
-            
-            # gera a linha formatada caso parceiro encontrado
-            
-            if parceiro in celulaparceiro.lower():
-                msg=msg+formata_SE_PS(linha)
-                encontrado=encontrado+1
-        except:
-            pass
-        count=count+1
-
-                    
-        # devolva negativa caso nada encontrado
-    
-    if encontrado==0:
-        msg="SE: Nenhum resultado encontrado.  "
-
-
-    return msg
-
-
-
-def smartmanager(parceiro):
-
-    # Procura SEM do parceiro, retorna msg com dados ou resultado negativo caso nao encontrado
-
-    if parceiro=="":
-        return
-
-    # planilha do smartsheet
-    # chama a funcao que busca planilha no smartsheet e devolve como JSON
-    data = smartsheet("sem")
-
-
-    # aborta caso nao tenha sido possivel acessar smartsheet
-    if data=="erro":
-        msg="Erro de acesso\n"
-        return msg
-
-
-    # quantas linhas tem a planilha
-    linhas = data['totalRowCount']
-
-    #leva conteudo da planilha para variavel sheet
-    #sheet=data['rows']
-
-    # loop para procurar o pam e imprime
-
-    msg=""
-    count=0
-    encontrado=0
-    
-    while (count<linhas):
-
-        # valida 1 linha por vez
-        linha=data['rows'][count]
-
-        # acessa a primeira celula da linha (parceiro)
-        celulaparceiro=linha['cells'][0]['value']
-        
-        # gera a linha formatada caso parceiro encontrado
-        if parceiro in celulaparceiro.lower():
-            msg=msg+formata_SEM(linha)
-            encontrado=encontrado+1
-        
-        count=count+1
-
-                    
-        # devolva negativa caso nada encontrado
-    
-    if encontrado==0:
-        msg="SEM: Nenhum resultado encontrado.  "
-
-
-    return msg
-
-def smartpam(parceiro):
-
-    # Procura PAM do parceiro, retorna msg com dados ou resultado negativo caso nao encontrado
-
-    if parceiro=="":
-        return
-
-    # planilha do smartsheet
-    # chama a funcao que busca planilha no smartsheet e devolve como JSON
-    data = smartsheet("pam")
-
-
-    # aborta caso nao tenha sido possivel acessar smartsheet
-    if data=="erro":
-        msg="Erro de acesso\n"
-        return msg
-
-    # quantas linhas tem a planilha
-    linhas = data['totalRowCount']
-
-    #leva conteudo da planilha para variavel sheet
-    #sheet=data['rows']
-
-    # loop para procurar o pam e imprime
-
-    msg=""
-    count=0
-    encontrado=0
-    
-    while (count<linhas):
-
-        # valida 1 linha por vez
-        linha=data['rows'][count]
-
-        # acessa a primeira celula da linha (parceiro)
-        celulaparceiro=linha['cells'][0]['value']
-        
-        # gera a linha formatada caso parceiro encontrado
-        if parceiro in celulaparceiro.lower():
-            msg=msg+formata_PAM(linha)
-            encontrado=encontrado+1
-        
-        count=count+1
-
-                    
-    # devolva negativa caso nada encontrado
-    if encontrado==0:
-        msg="PAM: Nenhum resultado encontrado.  "
-
-
-    return msg
-
-
 #########################################################
 ## FUNCOES de formatacao de texto para saida Webexteams
 
 #########################################################
 
-
-def formata_SEM(dados):
-
-#monta linha do SEM
-
-# zera variaveis
-    
-    msg=""
-    semparceiro=""
-    semcity=""
-    semregion=""
-    semtitle=""
-    semname=""
-    semmail=""
-    semphone=""
-
-    # tenta pegar valores. Tenta pois se a celula estiver vazia, dará erro de conteúdo, por isto o 'try'
-    try:
-        semparceiro=dados['cells'][0]['value']
-    except:
-        pass
-    try:
-        semcity=dados['cells'][1]['value']
-    except:
-        pass
-    try:
-        semregion=dados['cells'][2]['value']
-    except:
-        pass
-    try:
-        semtitle=dados['cells'][3]['value']
-    except:
-        pass
-    try:
-        semname=dados['cells'][4]['value']
-    except:
-        pass
-    try:
-        semmail=dados['cells'][5]['value']
-    except:
-        pass
-    try:
-        semphone=dados['cells'][6]['value']
-    except:
-        pass
-
-    #monta a linha e imprime
-    
-    msg=msg+("**Manager:**"+semname+" **Partner:**"+semparceiro+" **Title:**"+semtitle+" "+semphone+" "+semmail+"  \n")
-    msg=msg+("**Region:**"+semregion+" "+semcity+"  \n\n")
-
-
-    return msg
-
-
-def formata_SE_Meraki(dados):
-
-#monta linha do SE
-
-# zera variaveis
-    
-    msg=""
-    separceiro=""
-    senome=""
-    sesobrenome=""
-    semail=""
-    
-    # tenta pegar valores. Tenta pois se a celula estiver vazia, dará erro de conteúdo, por isto o 'try'
-    try:
-        separceiro=dados['cells'][0]['value']
-    except:
-        pass
-    try:
-        senome=dados['cells'][1]['value']
-    except:
-        pass
-    try:
-        sesobrenome=dados['cells'][2]['value']
-    except:
-        pass
-    try:
-        semail=dados['cells'][12]['value']
-    except:
-        pass
- 
-    #monta a linha e imprime
-    
-    msg=msg+("**Certified SE:**"+senome+" "+sesobrenome+"** Partner:**"+separceiro+" "+semail+"  \n\n")
-   
-    return msg
-
-def formata_SE_PS(dados):
-
-#monta linha do SE PS
-
-# zera variaveis
-    
-    msg=""
-    separceiro=""
-    senome=""
-    selocalidade=""
-    semail=""
-    secompet=""
-    
-    # tenta pegar valores. Tenta pois se a celula estiver vazia, dará erro de conteúdo, por isto o 'try'
-    try:
-        separceiro=dados['cells'][0]['value']
-    except:
-        pass
-    try:
-        senome=dados['cells'][1]['value']
-    except:
-        pass
-    try:
-        semail=dados['cells'][2]['value']
-    except:
-        pass
-    try:
-        selocalidade=dados['cells'][3]['value']
-    except:
-        pass
-    try:
-        secompet=dados['cells'][4]['value']
-    except:
-        pass
- 
-    #monta a linha e imprime
-    
-    msg=msg+("**Parceiro:**"+separceiro+" **Nome:**"+senome+" "+semail+" "+selocalidade+"  \n")
-    msg=msg+("**Arquiteturas que cobre:"+secompet+"  \n\n")
-   
-    return msg
-
-def formata_solution(dados):
-
-#monta linha de parceiros de solucao
-
-# zera variaveis
-    
-    msg=""
-    vparceiro=""
-    vertical=""
-    vsolution=""
-    vdescription=""
-    
-    # tenta pegar valores. Tenta pois se a celula estiver vazia, dará erro de conteúdo, por isto o 'try'
-    try:
-        vparceiro=dados['cells'][0]['value']
-    except:
-        pass
-    try:
-        vertical=dados['cells'][1]['value']
-    except:
-        pass
-    try:
-        vsolution=dados['cells'][2]['value']
-    except:
-        pass
-    try:
-        vdescription=dados['cells'][3]['value']
-    except:
-        pass
-    
-    #monta a linha e imprime
-    
-    msg=msg+("**Parceiro:**"+vparceiro+" **Vertical:**"+vertical+"  \n")
-    msg=msg+("**Nome da oferta:** "+vsolution+"  \n")
-    msg=msg+("**Descrição da oferta:**"+vdescription+"  \n\n")
-   
-    return msg
-
-
-def formata_SE(dados):
-
-# monta linha do SE
-
-# zera variaveis
-    
-    msg=""
-    separceiro=""
-    sename=""
-    setel=""
-    semail=""
-    secomp=""
-    
-
-    # tenta pegar valores. Tenta pois se a celula estiver vazia, dará erro de conteúdo, por isto o 'try'
-    try:
-        separceiro=dados['cells'][0]['value']
-    except:
-        pass
-    try:
-        sename=dados['cells'][1]['value']
-    except:
-        pass
-    try:
-        setel=dados['cells'][2]['value']
-    except:
-        pass
-    try:
-        semail=dados['cells'][3]['value']
-    except:
-        pass
-    try:
-        secomp=dados['cells'][4]['value']
-    except:
-        pass
-    
-    #identifica competencias
-    compet=""
-    for x in secomp.split(','):
-        
-        # remove espacos em branco nas laterais
-        x=x.rstrip()
-        x=x.lstrip()
-            
-        if x !="":
-            compet = compet + " " + x + " "
-
-    #monta a linha e imprime
-   
-    msg=msg+("**SE:** "+sename+": "+semail+" "+setel+"  \n")
-    # imprime competencias somente se tiver
-    if compet != "":
-        msg=msg+("**Competencies:**"+compet+"  \n")
-            
-    return msg
-
-
-def formata_PAM(dados):
-
-#monta linha do PAM
-
-# zera variaveis
-    
-    msg=""
-    pamparceiro=""
-    pamname=""
-    pamcity=""
-    pammail=""
-    pamphone=""
-  
-    # tenta pegar valores. Tenta pois se a celula estiver vazia, dará erro de conteúdo, por isto o 'try'
-    try:
-        pamparceiro=dados['cells'][0]['value']
-    except:
-        pass
-    try:
-        pamcity=dados['cells'][1]['value']
-    except:
-        pass
-    try:
-        pamname=dados['cells'][2]['value']
-    except:
-        pass
-    try:
-        pammail=dados['cells'][3]['value']
-    except:
-        pass
-    try:
-        pamphone=dados['cells'][4]['value']
-    except:
-        pass
-    
-    #monta a linha e imprime
-    
-    msg=msg+("**PAM do Parceiro:** "+pamparceiro+": "+pamname+" "+pammail+"@cisco.com "+pamphone+" "+pamcity+"  \n\n")
- 
-
-    return msg
-
-
-def formata_agenda(dados):
-
-#agenda de eventos para parceiros
-#26-07-19
-
-# zera variaveis
-    
-    msg=""
-    quarter=""
-    mes=""
-    evento=""
-    dia_programado=""
-    localidade=""
-  
-    # tenta pegar valores. Tenta pois se a celula estiver vazia, dará erro de conteúdo, por isto o 'try'
-    try:
-        quarter=dados['cells'][0]['value']
-    except:
-        pass
-    try:
-        mes=dados['cells'][1]['value']
-    except:
-        pass
-    try:
-        evento=dados['cells'][2]['value']
-    except:
-        pass
-    try:
-        dia_programado=dados['cells'][3]['value']
-    except:
-        pass
-    try:
-        localidade=dados['cells'][4]['value']
-    except:
-        pass
-    
-    #monta a linha e imprime
-    
-    msg=msg+("**Evento**: "+evento+" **Local:** "+localidade+" "+dia_programado+"  \n\n")
- 
-
-    return msg
-
-def formata_pid(dados):
+def formata_pid(dados, local):
 
     #lista de pids
     #13.09.2019
     
     # zera variaveis
+        #print ("cheguei na funcao formata_pid")
+        msg=""
+        pid=""
+        qty_available=""
+        updated=""
+        updated_by=""
+        #print (dados)
+        # tenta pegar valores. Tenta pois se a celula estiver vazia, dará erro de conteúdo, por isto o 'try'
+        if local == "fabrica":
+            try:
+                pid=str(dados['cells'][0]['value'])
+            except:
+                pass
+            try:
+                qty_available=str(dados['cells'][1]['value'])
+            except:
+                pass
+            try:
+                updated_by=str(dados['cells'][2]['value'])
+            except:
+                pass
+            try:
+                updated=str(dados['cells'][3]['value'])
+            except:
+                pass
+            
+            #monta a linha e imprime
+            msg=msg+(str(local).upper() + " **PID:** "+ pid + " **Quantidade:** " + qty_available + " Atualizado empif " + updated + " por " + updated_by + "  \n\n")
+            print (msg)
         
+        
+            return msg
+        
+        
+        else:
+            try:
+                pid=str(dados['cells'][0]['value'])
+            except:
+                pass
+            try:
+                qty_available=str(dados['cells'][7]['value'])
+            except:
+                pass
+            try:
+                updated_by=str(dados['cells'][8]['value'])
+            except:
+                pass
+            try:
+                updated=str(dados['cells'][9]['value'])
+            except:
+                pass
+            
+            #monta a linha e imprime
+            msg=msg+(str(local).upper() + " **PID:** "+ pid + " **Quantidade:** " + qty_available + " Atualizado empif " + updated + " por " + updated_by + "  \n\n")
+            print (msg)
+        
+        
+            return msg
+    
+
+def formata_fabrica(dados):
+
+    #lista de pids
+    #13.09.2019
+        
+    # zera variaveis
+            
         msg=""
         pid=""
         qty_available=""
@@ -938,120 +239,24 @@ def formata_pid(dados):
         except:
             pass
         try:
-            qty_available=str(dados['cells'][7]['value'])
+            qty_available=str(dados['cells'][1]['value'])
         except:
             pass
         try:
-            updated_by=str(dados['cells'][8]['value'])
+            updated_by=str(dados['cells'][2]['value'])
         except:
             pass
         try:
-            updated=str(dados['cells'][9]['value'])
+            updated=str(dados['cells'][3]['value'])
         except:
             pass
-        
+            
         #monta a linha e imprime
-        msg=msg+("**PID**: "+ pid + " **Quantidade:** " + qty_available + " **Atualizado:** " + updated + " " + updated_by + "  \n\n")
-        print (msg)
-     
-    
+        msg=msg+(" **FABRICA** "+ " **PID** "+ pid + " **Quantidade:** " + qty_available + " Atualizado em  " + updated + " por " + updated_by + "  \n\n")
+        #print (msg)
+         
+        
         return msg
-    
-
-def formata_DAP(dados):
-
-#monta linha do PAM
-
-# zera variaveis
-    
-    msg=""
-    dapparceiro=""
-    dapcert=""
-    dapdist=""
-    dappam=""
-    dapskills=list()
-    dapcontacts=list()
-  
-    # tenta pegar valores. Tenta pois se a celula estiver vazia, dará erro de conteúdo, por isto o 'try'
-    try:
-        dapparceiro=dados['cells'][1]['value']
-    except:
-        pass
-    try:
-        dapcert=dados['cells'][3]['value']
-    except:
-        pass
-    try:
-        dapdist=dados['cells'][4]['value']
-    except:
-        pass
-    try:
-        dappam=dados['cells'][7]['value']
-    except:
-        pass
-    
-    # monta lista de competencias do parceiro, caso tenha
-    try:
-        dapskills.append(dados['cells'][8]['value'])
-    except:
-        pass
-    try:
-        dapskills.append(dados['cells'][9]['value'])
-    except:
-        pass
-    try:
-        dapskills.append(dados['cells'][10]['value'])
-    except:
-        pass
-    try:
-        dapskills.append(dados['cells'][11]['value'])
-    except:
-        pass
-    try:
-        dapskills.append(dados['cells'][12]['value'])
-    except:
-        pass
-    try:
-        dapskills.append(dados['cells'][13]['value'])
-    except:
-        pass
-    # monta lista de contatos do dist, caso tenha    
-    try:
-        dapcontacts.append(dados['cells'][14]['value'])
-    except:
-        pass
-    try:
-        dapcontacts.append(dados['cells'][15]['value'])
-    except:
-        pass
-    try:
-        dapcontacts.append(dados['cells'][16]['value'])
-    except:
-        pass
-    
-    
-
-    #monta a linha e imprime
-    
-    # competencias
-    compet=""
-    for b in dapskills:
-        if b!="":
-            compet=compet+b+' '
-
-    # contatos Dist
-    contacts=""
-    for b in dapcontacts:
-        if b!="":
-            contacts=contacts+b+' '
-
-    msg=msg+("\n**Parceiro:** "+dapparceiro+": **Certificacao:**"+dapcert+"  \n")
-    msg=msg+("**PAM:** "+dappam+"** DAP do Distribuidor:**"+dapdist+"  \n")
-    msg=msg+("**Especializacoes:**"+compet+"  \n")
-    msg=msg+("**Contato no Dist:**"+contacts+"  \n")
-
-    return msg
-
 
 
 

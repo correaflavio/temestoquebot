@@ -285,31 +285,32 @@ def smartpid(pid):
     # loop para procurar o pam e imprime
 
     msg=""
+    print(msg)
     count=0
+    print(count)
     encontrado=0
+    print(encontrado)
     
     while (count<linhas):
 
         # valida 1 linha por vez
         linha=data['rows'][count]
-
-        try:
-            # acessa a primeira celula da linha (parceiro)
-            linha_pid=linha['cells'][0]['value']
-                 
-            # gera a linha formatada caso parceiro encontrado
+        print(linha)
+        # acessa a primeira celula da linha (parceiro)
+        linha_pid=linha['cells'][0]['value']
+        print (linha_pid)         
+        # gera a linha formatada caso parceiro encontrado
             
-            if pid in linha_pid.lower():
+        if pid in linha_pid.lower():
+            msg=msg+formata_pid(linha)
                 #print (linha_pid + " contains given substring " +pid)
                 #encontrado=encontrado+1
                 #print ("Encontrado " + encontrado + " vezes.")
-                msg=msg+formata_pid(linha)
                 #print (msg)
                 
-        except:
-            pass
         count=count+1
-
+        print(count)
+        
                     
         # devolva negativa caso nada encontrado
     
@@ -932,24 +933,24 @@ def formata_pid(dados):
         #print (dados)
         # tenta pegar valores. Tenta pois se a celula estiver vazia, dará erro de conteúdo, por isto o 'try'
         try:
-            pid=dados['cells'][0]['value']
+            pid=str(dados['cells'][0]['value'])
         except:
             pass
         try:
-            qty_available=dados['cells'][7]['value']
+            qty_available=str(dados['cells'][7]['value'])
         except:
             pass
         try:
-            updated_by=dados['cells'][8]['value']
+            updated_by=str(dados['cells'][8]['value'])
         except:
             pass
         try:
-            updated=dados['cells'][9]['value']
+            updated=str(dados['cells'][9]['value'])
         except:
             pass
         
         #monta a linha e imprime
-        msg=msg+("**PID**: "+pid+" **Quantidade:** "+qty_available+" **Atualizado:** "+updated+" "+updated_by+"  \n\n")
+        msg=msg+("**PID**: "+ pid + " **Quantidade:** " + qty_available + " **Atualizado:** " + updated + " " + updated_by + "  \n\n")
         print (msg)
      
     

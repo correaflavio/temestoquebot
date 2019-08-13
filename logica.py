@@ -13,8 +13,8 @@ def logica(comando,usermail):
     #Primeiro item e'o comando em si, os demais sao parametros deste comando
     #tudo minusculo
     comando=comando.lower()
-    print("comando:")
-    print(comando)
+    #print("comando:")
+    #print(comando)
     
     # identifica e trata comandos relacionados a parceiros - palavra chave partner
     # logo a primeira parte do comando e' o que queremos procurar e
@@ -23,11 +23,11 @@ def logica(comando,usermail):
     #sp=comando.split("partner")
     #sp=comando.split("disti")
     lista_comando=comando.split()
-    print ("lista de comandos:")
-    print(lista_comando)
+    #print ("lista de comandos:")
+    #print(lista_comando)
     qty_comandos = len(lista_comando)
-    print("qt de comandos:")
-    print(qty_comandos)
+    #print("qt de comandos:")
+    #print(qty_comandos)
 
     # comando ou a primeira palavra na variavel box
     #box=lista_comando[0]
@@ -45,46 +45,54 @@ def logica(comando,usermail):
     
     msg=""
     
-    # chamadas de acordo com os parametros
-
-    # Funcoes somente para users Cisco
-
-    if autorizauser(usermail)==True:
-        # funcoes relacionadas a parceiro
-        #if "partner" in comando:
-        if len(lista_comando) == 2:
-            pid = lista_comando[1]
-            print("pid:")
-            print (pid)
-            local = "All"
-            print ("Local:")
-            print (local)
-            msg=smartpid(pid,local)
-        
-        elif len(lista_comando) == 3:
-            pid = lista_comando[2]
-            print("pid:")
-            print (pid)
-            local = lista_comando[1]
-            print ("Local:")
-            print (local)
-            msg=smartpid(pid,local)
-
-
+    # Comandos para todos usuários:
+    
     if "help" in comando:
         msg=ajuda()
 
-    # Funcoes para todos
+    # Funcoes somente para users Cisco
+    
+    else:
+        #verifica se o usuários é da Cisco
+        if autorizauser(usermail)==True:
+            # funcoes relacionadas a parceiro
+            #comandos para usuarios Cisco:
+            #Comando tipo "pid pid_id"
+            if len(lista_comando) == 2:
+                pid = lista_comando[1]
+                #print("pid:")
+                #print (pid)
+                local = "All"
+                #print ("Local:")
+                #print (local)
+                msg=smartpid(pid,local)
+            
+            #Comando tipo "pid local_id pid_id"
+            elif len(lista_comando) == 3:
+                pid = lista_comando[2]
+                #print("pid:")
+                #print (pid)
+                local = lista_comando[1]
+                #print ("Local:")
+                #print (local)
+                msg=smartpid(pid,local)
+                
+            #Nenhum comando conhecido
+            else:
+                msg:"Desculpe não conheço esse comando, utilizar 'help' para saber os comandos disponíveis."
+
 
     
-    if msg=="" or msg==None:
-        msg="Use 'help' for help :-)"
+
+    
+    #if msg=="" or msg==None:
+    #    msg="Use 'help' for help :-)"
 
     # 26-7-19
     # tenta logar tudo na sala "log do partnerbot"
     try:
-        log="user:"+usermail+" comando:"+comando
-        webexmsgRoomviaID(getwebexRoomID("Log do TemEstoque"),log)
+        log="bot: Tem Estoque |" + "user:" + usermail + "| comando:" + comando
+        webexmsgRoomviaID(getwebexRoomID("log_bot"),log)
     except:
         pass
 

@@ -80,6 +80,10 @@ def smartpid(pid,local):
     elif local == "alcateia":
         data = smartsheet("alcateia")
         findpid(pid,data)
+    elif local == "ingram":
+        data = smartsheet("ingram")
+        findpid(pid,data)
+        
     elif local == "fabrica":
         data = smartsheet("fabrica")
         findpid(pid,data)
@@ -87,8 +91,10 @@ def smartpid(pid,local):
         data = smartsheet("scansource")
         findpid(pid,data)
         data = smartsheet("comstor")
-        data = findpid(pid,data)
+        findpid(pid,data)
         data = smartsheet("alcateia")
+        findpid(pid,data)
+        data = smartsheet("ingram")
         findpid(pid,data)
         data = smartsheet("fabrica")
         findpid(pid,data)
@@ -105,7 +111,9 @@ def findpid(pid,data):
     linhas = data['totalRowCount']
     #print (linhas)
     #print ("# de linhas na tabela: " + str(linhas))
-    local = data['name']
+    local = data['name'].lower()
+    #print (local)
+    
     #print (nome_disti)
     # loop para procurar o pam e imprime
 
@@ -121,27 +129,34 @@ def findpid(pid,data):
         #print(linha)
         # acessa a primeira celula da linha (parceiro)
         linha_pid=linha['cells'][0]['value']
+        if local == "fábrica":
+            qty_available = linha['cells'][1]['value']
+        else:
+            qty_available = linha['cells'][7]['value']
         #print (linha_pid)
         #print (linha_pid)         
         # gera a linha formatada caso parceiro encontrado
             
-        if pid in linha_pid.lower():
+        if pid in linha_pid.lower() and qty_available > 0:
+            #print (local, qty_available)
             msg=msg+formata_pid(linha,local)
             #print (linha_pid + " contains given substring " +pid)
             #encontrado=encontrado+1
             #print ("Encontrado " + encontrado + " vezes.")
             #print (msg)
             encontrado=encontrado+1
-            print ("pid encontrado " + str(encontrado) + " vezes")
+            #print ("pid encontrado " + str(encontrado) + " vezes em estoque na " + str(local))
+
                 
         count=count+1
         #print ("Loop count = " + str(count))
         #print(count)
+
                 
         # devolva negativa caso nada encontrado
     
     if encontrado == 0:
-        print ("PID não encontrado")
+        #print ("PID não encontrado em estoque na " + str(local))
         msg="Pid: Nenhum resultado encontrado.  "
 
 
@@ -161,6 +176,8 @@ def formata_pid(dados, local):
     
     # zera variaveis
         #print ("cheguei na funcao formata_pid")
+        print(dados)
+        print(local)
         msg=""
         pid=""
         qty_available=""
@@ -168,13 +185,13 @@ def formata_pid(dados, local):
         updated_by=""
         #print (dados)
         # tenta pegar valores. Tenta pois se a celula estiver vazia, dará erro de conteúdo, por isto o 'try'
-        if local == "fabrica":
+        if local == "fábrica":
             try:
                 pid=str(dados['cells'][0]['value'])
             except:
                 pass
             try:
-                qty_available=str(dados['cells'][1]['value'])
+                qty_available=str(dados['cells'][1]['value']).rstrip(".0")
             except:
                 pass
             try:
@@ -187,12 +204,9 @@ def formata_pid(dados, local):
                 pass
             
             #monta a linha e imprime
-            msg=msg+(str(local).upper() + " **PID:** "+ pid + " **Quantidade:** " + qty_available + " Atualizado empif " + updated + " por " + updated_by + "  \n\n")
+            msg=msg+(str(local).upper() + " **PID:** "+ pid + " **Quantidade:** " + qty_available +  " unidade(s)." + " Atualizado em " + updated + " por " + updated_by + "  \n\n")
             print (msg)
-        
-        
             return msg
-        
         
         else:
             try:
@@ -200,7 +214,7 @@ def formata_pid(dados, local):
             except:
                 pass
             try:
-                qty_available=str(dados['cells'][7]['value'])
+                qty_available=str(dados['cells'][7]['value']).rstrip(".0")
             except:
                 pass
             try:
@@ -213,50 +227,10 @@ def formata_pid(dados, local):
                 pass
             
             #monta a linha e imprime
-            msg=msg+(str(local).upper() + " **PID:** "+ pid + " **Quantidade:** " + qty_available + " Atualizado empif " + updated + " por " + updated_by + "  \n\n")
+            msg=msg+(str(local).upper() + " **PID:** "+ pid + " **Quantidade:** " + qty_available + " unidade(s)." + " Atualizado em " + updated + " por " + updated_by + "  \n\n")
             print (msg)
-        
-        
             return msg
     
-
-def formata_fabrica(dados):
-
-    #lista de pids
-    #13.09.2019
-        
-    # zera variaveis
-            
-        msg=""
-        pid=""
-        qty_available=""
-        updated=""
-        updated_by=""
-        #print (dados)
-        # tenta pegar valores. Tenta pois se a celula estiver vazia, dará erro de conteúdo, por isto o 'try'
-        try:
-            pid=str(dados['cells'][0]['value'])
-        except:
-            pass
-        try:
-            qty_available=str(dados['cells'][1]['value'])
-        except:
-            pass
-        try:
-            updated_by=str(dados['cells'][2]['value'])
-        except:
-            pass
-        try:
-            updated=str(dados['cells'][3]['value'])
-        except:
-            pass
-            
-        #monta a linha e imprime
-        msg=msg+(" **FABRICA** "+ " **PID** "+ pid + " **Quantidade:** " + qty_available + " Atualizado em  " + updated + " por " + updated_by + "  \n\n")
-        #print (msg)
-         
-        
-        return msg
 
 
 
@@ -270,22 +244,11 @@ def ajuda():
     # Funcao ajuda deste bot
     msg="""
 Forma de uso:  \n
-**Procurar Systems Engineer (SE) dos parceiros:**  \n
+**Procura se tem um partnumber (PID) em estoque:**  \n
 ___
-Procurar SE do parceiro: se ***dna|dc|sec|collab*** partner ***nome do parceiro***  \n
-Procurar SE de Public Sector: seps partner ***nome do parceiro***  \n
-Procurar Certificado Meraki: meraki partner ***nome do parceiro***  \n
-Procurar Manager do Parceiro: manager partner ***nome do parceiro**  \n\n
-**Procurar Ajuda sobre os Parceiros:**  \n
-___
-Procurar PAM do parceiro: pam partner ***nome do parceiro***  \n
-Procura Parceiro por solução: solution partner ***nome da vertical*** ou ***nome do parceiro***  \n
-Procurar Distribuidor do parceiro: dap partner ***nome do parceiro***  \n\n
-Detalhe do Parceiro: detail partner ***nome do parceiro***  \n\n
-**Procurar Ajuda para Parceiros:**  \n
-
-Agenda para parceiros: agenda partner ***quarter***  \n
-Procurar por pid: pid partner ***pid procurado***
+Consulta o estoque de todos os distis e fabrica: pid ***pid_id***  \n
+Consulta o estoque de um disti e da fabrica: pid ***local*** ***pid_id***  \n
+Valores válidos para local são: Scansource, Comstor, Ingram, Alcateia e Fabrica  \n
 """
     
     return msg

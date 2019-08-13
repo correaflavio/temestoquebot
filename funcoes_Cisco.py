@@ -280,7 +280,7 @@ def smartpid(pid):
 
     # quantas linhas tem a planilha
     linhas = data['totalRowCount']
-    print (linhas)
+    print ("# de linhas na tabela: " + str(linhas))
     
     # loop para procurar o pam e imprime
 
@@ -300,9 +300,11 @@ def smartpid(pid):
             # gera a linha formatada caso parceiro encontrado
             
             if pid in linha_pid.lower():
-                print (linha_pid + " contains given substring " +pid)
-                encontrado=encontrado+1
+                #print (linha_pid + " contains given substring " +pid)
+                #encontrado=encontrado+1
+                #print ("Encontrado " + encontrado + " vezes.")
                 msg=msg+formata_pid(linha)
+                #print (msg)
                 
         except:
             pass
@@ -927,7 +929,7 @@ def formata_pid(dados):
         qty_available=""
         updated=""
         updated_by=""
-      
+        #print (dados)
         # tenta pegar valores. Tenta pois se a celula estiver vazia, dará erro de conteúdo, por isto o 'try'
         try:
             pid=dados['cells'][0]['value']
@@ -947,8 +949,8 @@ def formata_pid(dados):
             pass
         
         #monta a linha e imprime
-        
         msg=msg+("**PID**: "+pid+" **Quantidade:** "+qty_available+" **Atualizado:** "+updated+" "+updated_by+"  \n\n")
+        print (msg)
      
     
         return msg

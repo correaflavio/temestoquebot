@@ -307,6 +307,7 @@ def smartpid(pid):
                 #encontrado=encontrado+1
                 #print ("Encontrado " + encontrado + " vezes.")
                 #print (msg)
+            encontrado=encontrado+1
                 
         count=count+1
         print(count)

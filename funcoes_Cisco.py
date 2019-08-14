@@ -187,8 +187,8 @@ def formata_pid(dados, local):
     updated_by=""
     #print (dados)
     # tenta pegar valores. Tenta pois se a celula estiver vazia, dará erro de conteúdo, por isto o 'try'
-    '''
-    if local == "fábrica":
+    
+    if local == "fabrica":
         try:
             pid=str(dados['cells'][0]['value'])
         except:
@@ -210,32 +210,31 @@ def formata_pid(dados, local):
         msg=msg+(str(local).upper() + " **PID:** "+ pid + " **Quantidade:** " + qty_available +  " unidade(s)." + " Atualizado em " + updated + " por " + updated_by + "  \n\n")
         #print (msg)
         return msg
-            
-     '''   
-    #else:
-    try:
-        pid=str(dados['cells'][0]['value'])
-    except:
-        pass
-    try:
-        qty_available=str(dados['cells'][7]['value']).rstrip(".0")
-    except:
-        pass
-    try:
-        updated_by=str(dados['cells'][8]['value'])
-    except:
-        pass
-    try:
-        updated=str(dados['cells'][9]['value'])
-    except:
-        pass
+               
+    else:
+        try:
+            pid=str(dados['cells'][0]['value'])
+        except:
+            pass
+        try:
+            qty_available=str(dados['cells'][7]['value']).rstrip(".0")
+        except:
+            pass
+        try:
+            updated_by=str(dados['cells'][8]['value'])
+        except:
+            pass
+        try:
+            updated=str(dados['cells'][9]['value'])
+        except:
+            pass
             
         #monta a linha e imprime
-    msg=msg+(str(local).upper() + " **PID:** "+ pid + " **Quantidade:** " + qty_available + " unidade(s)." + " Atualizado em " + updated + " por " + updated_by + "  \n\n")
+        msg=msg+(str(local).upper() + " **PID:** "+ pid + " **Quantidade:** " + qty_available + " unidade(s)." + " Atualizado em " + updated + " por " + updated_by + "  \n\n")
         #print ("msg formata pid")
-    print (msg)
-    return msg
-    print ("msn formata pid depois de retornar o resultado")
+        print (msg)
+        return msg
+        print ("msn formata pid depois de retornar o resultado")
         
     #return msg
     

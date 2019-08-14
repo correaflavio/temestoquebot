@@ -97,7 +97,9 @@ def smartpid(pid,local):
         msg = msg + findpid(pid,data)
         data = smartsheet("fabrica")
         msg = msg + findpid(pid,data)
-    else: msg="local invalido"
+    else: 
+        msg = "Local inválido. Locais válidos: Ingram, Scansource, Alcateia, Comstor e Fabrica"
+        return msg
         
 
     #aborta caso nao tenha sido possivel acessar smartsheet
@@ -160,7 +162,7 @@ def findpid(pid,data):
     
     if encontrado == 0:
         #print ("PID não encontrado em estoque na " + str(local))
-        msg="Pid: Nenhum resultado encontrado.  "
+        msg=(str(local).upper() + " **PID:** "+ pid + " não tem estoque " + "  \n\n")
 
     return msg
 
@@ -207,8 +209,8 @@ def formata_pid(dados, local):
             pass
             
         #monta a linha e imprime
-        msg=msg+(str(local).upper() + " **PID:** "+ pid + " **Quantidade:** " + qty_available +  " unidade(s)." + " Atualizado em " + updated + " por " + updated_by + "  \n\n")
-        #print (msg)
+        msg=msg+(str(local).upper() + " **PID:** "+ pid + " **Quantidade:** " + qty_available +  " unidade(s)." + " Atualizado em " + updated.split("T")[0].strip() + "  \n\n")
+        print (msg)
         return msg
                
     else:
@@ -230,7 +232,7 @@ def formata_pid(dados, local):
             pass
             
         #monta a linha e imprime
-        msg=msg+(str(local).upper() + " **PID:** "+ pid + " **Quantidade:** " + qty_available + " unidade(s)." + " Atualizado em " + updated + " por " + updated_by + "  \n\n")
+        msg=msg+(str(local).upper() + " **PID:** "+ pid + " **Quantidade:** " + qty_available + " unidade(s)." + " Atualizado em " + updated.split("T")[0].strip() + "  \n\n")
         #print ("msg formata pid")
         print (msg)
         return msg

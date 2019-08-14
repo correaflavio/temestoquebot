@@ -130,7 +130,7 @@ def findpid(pid,data):
         # acessa a primeira celula da linha (parceiro)
         linha_pid=linha['cells'][0]['value']
         # quantidade esta na columa 2 se for o reporta da fabrica ou columa 8 se for dos distribuidores
-        if local == "fábrica":
+        if local == "fabrica":
             qty_available = linha['cells'][1]['value']
         else:
             qty_available = linha['cells'][7]['value']

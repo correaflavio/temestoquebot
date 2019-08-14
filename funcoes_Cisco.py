@@ -253,8 +253,8 @@ def ajuda():
 Forma de uso:  \n
 **Procura se tem um partnumber (PID) em estoque:**  \n
 ___
-Consulta o estoque de todos os distis e fabrica: pid ***pid_id***  \n
-Consulta o estoque de um disti e da fabrica: pid ***local*** ***pid_id***  \n
+Consulta o estoque de todos os distis e fabrica: pid ***pid_id*** - Exemplo: pid 9300 \n
+Consulta o estoque de um disti e da fabrica: pid ***local*** ***pid_id*** - Exemplo: pid fabrica 1815 \n
 Valores válidos para local são: Scansource, Comstor, Ingram, Alcateia e Fabrica  \n
 """
     

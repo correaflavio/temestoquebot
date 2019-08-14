@@ -56,17 +56,17 @@ def logica(comando,usermail):
         #verifica se o usuários é da Cisco
         if autorizauser(usermail)==True:
             
-            if lista_comando[0] == "pid":
+            if lista_comando[0] == "estoque":
                 # funcoes relacionadas a parceiro
                 #comandos para usuarios Cisco:
                 #Comando tipo "pid pid_id"
                 if len(lista_comando) == 2:
                     pid = lista_comando[1]
-                    print("pid:")
-                    print (pid)
+                    #print("pid:")
+                    #print (pid)
                     local = "All"
-                    print ("Local:")
-                    print (local)
+                    #print ("Local:")
+                    #print (local)
                     msg=smartpid(pid,local)
                     #return smartpid(pid,local)
                     return msg
@@ -74,11 +74,11 @@ def logica(comando,usermail):
                 #Comando tipo "pid local_id pid_id"
                 elif len(lista_comando) == 3:
                     pid = lista_comando[2]
-                    print("pid:")
-                    print (pid)
+                    #print("pid:")
+                    #print (pid)
                     local = lista_comando[1]
-                    print ("Local:")
-                    print (local)
+                    #print ("Local:")
+                    #print (local)
                     msg=smartpid(pid,local)
                     #return smartpid(pid,local)
                     return msg

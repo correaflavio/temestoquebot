@@ -73,39 +73,38 @@ def smartpid(pid,local):
     # chama a funcao que busca planilha no smartsheet e devolve como JSON
     if local == "scansource":
         data = smartsheet("scansource")
-        findpid(pid,data)
+        msg = findpid(pid,data)
     elif local == "comstor":
         data = smartsheet("comstor")
-        findpid(pid,data)
+        msg = findpid(pid,data)
     elif local == "alcateia":
         data = smartsheet("alcateia")
-        findpid(pid,data)
+        msg = findpid(pid,data)
     elif local == "ingram":
         data = smartsheet("ingram")
-        findpid(pid,data)
-        
+        msg = findpid(pid,data)
     elif local == "fabrica":
         data = smartsheet("fabrica")
-        findpid(pid,data)
+        msg = findpid(pid,data)
     elif local == "All":
         data = smartsheet("scansource")
-        findpid(pid,data)
+        msg = findpid(pid,data)
         data = smartsheet("comstor")
-        findpid(pid,data)
+        msg = msg + findpid(pid,data)
         data = smartsheet("alcateia")
-        findpid(pid,data)
+        msg = msg + findpid(pid,data)
         data = smartsheet("ingram")
-        findpid(pid,data)
+        msg = msg + findpid(pid,data)
         data = smartsheet("fabrica")
-        findpid(pid,data)
+        msg = msg + findpid(pid,data)
     else: msg="local invalido"
         
 
-    # aborta caso nao tenha sido possivel acessar smartsheet
-    #if data=="erro":
-    #    msg="Erro de acesso\n"
+    #aborta caso nao tenha sido possivel acessar smartsheet
+    if data=="erro":
+        msg="Erro de acesso\n"
     
-    #return msg
+    return msg
 
 def findpid(pid,data):
     # quantas linhas tem a planilha
@@ -130,6 +129,7 @@ def findpid(pid,data):
         #print(linha)
         # acessa a primeira celula da linha (parceiro)
         linha_pid=linha['cells'][0]['value']
+        # quantidade esta na columa 2 se for o reporta da fabrica ou columa 8 se for dos distribuidores
         if local == "fábrica":
             qty_available = linha['cells'][1]['value']
         else:
@@ -147,6 +147,7 @@ def findpid(pid,data):
             #print (msg)
             encontrado=encontrado+1
             #print ("pid encontrado " + str(encontrado) + " vezes em estoque na " + str(local))
+            #return msg
 
                 
         count=count+1
@@ -155,11 +156,11 @@ def findpid(pid,data):
 
                 
         # devolva negativa caso nada encontrado
+    #print (msg)
     
     if encontrado == 0:
         #print ("PID não encontrado em estoque na " + str(local))
         msg="Pid: Nenhum resultado encontrado.  "
-
 
     return msg
 
@@ -176,62 +177,67 @@ def formata_pid(dados, local):
     #13.09.2019
     
     # zera variaveis
-        #print ("cheguei na funcao formata_pid")
-        print(dados)
-        print(local)
-        msg=""
-        pid=""
-        qty_available=""
-        updated=""
-        updated_by=""
-        #print (dados)
-        # tenta pegar valores. Tenta pois se a celula estiver vazia, dará erro de conteúdo, por isto o 'try'
-        if local == "fábrica":
-            try:
-                pid=str(dados['cells'][0]['value'])
-            except:
-                pass
-            try:
-                qty_available=str(dados['cells'][1]['value']).rstrip(".0")
-            except:
-                pass
-            try:
-                updated_by=str(dados['cells'][2]['value'])
-            except:
-                pass
-            try:
-                updated=str(dados['cells'][3]['value'])
-            except:
-                pass
+    #print ("cheguei na funcao formata_pid")
+    #print(dados)
+    #print(local)
+    msg=""
+    pid=""
+    qty_available=""
+    updated=""
+    updated_by=""
+    #print (dados)
+    # tenta pegar valores. Tenta pois se a celula estiver vazia, dará erro de conteúdo, por isto o 'try'
+    '''
+    if local == "fábrica":
+        try:
+            pid=str(dados['cells'][0]['value'])
+        except:
+            pass
+        try:
+            qty_available=str(dados['cells'][1]['value']).rstrip(".0")
+        except:
+            pass
+        try:
+            updated_by=str(dados['cells'][2]['value'])
+        except:
+            pass
+        try:
+            updated=str(dados['cells'][3]['value'])
+        except:
+            pass
             
-            #monta a linha e imprime
-            msg=msg+(str(local).upper() + " **PID:** "+ pid + " **Quantidade:** " + qty_available +  " unidade(s)." + " Atualizado em " + updated + " por " + updated_by + "  \n\n")
-            #print (msg)
-            return msg
+        #monta a linha e imprime
+        msg=msg+(str(local).upper() + " **PID:** "+ pid + " **Quantidade:** " + qty_available +  " unidade(s)." + " Atualizado em " + updated + " por " + updated_by + "  \n\n")
+        #print (msg)
+        return msg
             
+     '''   
+    #else:
+    try:
+        pid=str(dados['cells'][0]['value'])
+    except:
+        pass
+    try:
+        qty_available=str(dados['cells'][7]['value']).rstrip(".0")
+    except:
+        pass
+    try:
+        updated_by=str(dados['cells'][8]['value'])
+    except:
+        pass
+    try:
+        updated=str(dados['cells'][9]['value'])
+    except:
+        pass
+            
+        #monta a linha e imprime
+    msg=msg+(str(local).upper() + " **PID:** "+ pid + " **Quantidade:** " + qty_available + " unidade(s)." + " Atualizado em " + updated + " por " + updated_by + "  \n\n")
+        #print ("msg formata pid")
+    print (msg)
+    return msg
+    print ("msn formata pid depois de retornar o resultado")
         
-        else:
-            try:
-                pid=str(dados['cells'][0]['value'])
-            except:
-                pass
-            try:
-                qty_available=str(dados['cells'][7]['value']).rstrip(".0")
-            except:
-                pass
-            try:
-                updated_by=str(dados['cells'][8]['value'])
-            except:
-                pass
-            try:
-                updated=str(dados['cells'][9]['value'])
-            except:
-                pass
-            
-            #monta a linha e imprime
-            msg=msg+(str(local).upper() + " **PID:** "+ pid + " **Quantidade:** " + qty_available + " unidade(s)." + " Atualizado em " + updated + " por " + updated_by + "  \n\n")
-            #print (msg)
-            return msg
+    #return msg
     
 
 

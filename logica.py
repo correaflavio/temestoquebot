@@ -8,14 +8,14 @@ def logica(comando,usermail):
     # O usuario pode ser uzado como filtro para se executar ou negar o comando
     #
     # Retorna mensagem para ser enviada para console ou Webex teams
-    
+
     #Separa o comando por espacos
     #Primeiro item e'o comando em si, os demais sao parametros deste comando
     #tudo minusculo
     comando=comando.lower()
     #print("comando:")
     #print(comando)
-    
+
     # identifica e trata comandos relacionados a parceiros - palavra chave partner
     # logo a primeira parte do comando e' o que queremos procurar e
     # a segunda e' o nome do parceiro
@@ -30,8 +30,8 @@ def logica(comando,usermail):
     #print(qty_comandos)
 
     # comando ou a primeira palavra na variavel box
-    #box=lista_comando[0]
-    #print ("box:") 
+    box=lista_comando[0]
+    #print ("box:")
     #print(box)
 
     # ajusta a segunda variavel com o nome do parceiro eliminando elista_comandoacos a esquerda e direita
@@ -42,53 +42,61 @@ def logica(comando,usermail):
         # remove elista_comandoacos no final, caso existam
         #parceiro=parceiro.rstrip()
 
-    
+
     #msg=""
-    
+
     # Comandos para todos usuários:
-    
+
     if "help" in comando:
         msg=ajuda()
 
     # Funcoes somente para users Cisco
-    
+
     else:
         #verifica se o usuários é da Cisco
-        if autorizauser(usermail)==True:
+        if autorizauser(usermail)==True and lista_comando[0] == "pid":
             # funcoes relacionadas a parceiro
             #comandos para usuarios Cisco:
             #Comando tipo "pid pid_id"
             if len(lista_comando) == 2:
                 pid = lista_comando[1]
-                #print("pid:")
-                #print (pid)
+                print("pid:")
+                print (pid)
                 local = "All"
-                #print ("Local:")
-                #print (local)
+                print ("Local:")
+                print (local)
                 msg=smartpid(pid,local)
+                #return smartpid(pid,local)
                 return msg
-            
+
             #Comando tipo "pid local_id pid_id"
             elif len(lista_comando) == 3:
                 pid = lista_comando[2]
-                #print("pid:")
-                #print (pid)
+                print("pid:")
+                print (pid)
                 local = lista_comando[1]
-                #print ("Local:")
-                #print (local)
+                print ("Local:")
+                print (local)
                 msg=smartpid(pid,local)
+                #return smartpid(pid,local)
                 return msg
-                
+
             #Nenhum comando conhecido
             else:
-                msg:"Desculpe não conheço esse comando, utilizar 'help' para saber os comandos disponíveis."
+                msg = "Desculpe não conheço esse comando, utilizar 'help' para saber os comandos disponíveis."
+                return msg
+        else:
+            msg = "Você não está autorizado a utilizar esses comandos"
+            return msg
 
 
-    
 
-    #if msg=="" or msg==None:
-    #   return
-       #msg="Use 'help' for help :-)"
+
+
+    if msg=="" or msg==None:
+       #return
+       msg="Use 'help' for help :-)"
+       return msg
 
     # 26-7-19
     # tenta logar tudo na sala "log do partnerbot"

@@ -100,7 +100,7 @@ def logica(comando,usermail):
        msg="Use 'help' for help :-)"
        return msg
 
-     26-7-19
+    #26-7-19
     #tenta logar tudo na sala "log do partnerbot"
     try:
         log="bot: Tem Estoque |" + "user:" + usermail + "| comando:" + comando

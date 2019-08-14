@@ -54,34 +54,36 @@ def logica(comando,usermail):
 
     else:
         #verifica se o usuários é da Cisco
-        if autorizauser(usermail)==True and lista_comando[0] == "pid":
-            # funcoes relacionadas a parceiro
-            #comandos para usuarios Cisco:
-            #Comando tipo "pid pid_id"
-            if len(lista_comando) == 2:
-                pid = lista_comando[1]
-                print("pid:")
-                print (pid)
-                local = "All"
-                print ("Local:")
-                print (local)
-                msg=smartpid(pid,local)
-                #return smartpid(pid,local)
-                return msg
+        if autorizauser(usermail)==True:
+            
+            if lista_comando[0] == "pid":
+                # funcoes relacionadas a parceiro
+                #comandos para usuarios Cisco:
+                #Comando tipo "pid pid_id"
+                if len(lista_comando) == 2:
+                    pid = lista_comando[1]
+                    print("pid:")
+                    print (pid)
+                    local = "All"
+                    print ("Local:")
+                    print (local)
+                    msg=smartpid(pid,local)
+                    #return smartpid(pid,local)
+                    return msg
 
-            #Comando tipo "pid local_id pid_id"
-            elif len(lista_comando) == 3:
-                pid = lista_comando[2]
-                print("pid:")
-                print (pid)
-                local = lista_comando[1]
-                print ("Local:")
-                print (local)
-                msg=smartpid(pid,local)
-                #return smartpid(pid,local)
-                return msg
+                #Comando tipo "pid local_id pid_id"
+                elif len(lista_comando) == 3:
+                    pid = lista_comando[2]
+                    print("pid:")
+                    print (pid)
+                    local = lista_comando[1]
+                    print ("Local:")
+                    print (local)
+                    msg=smartpid(pid,local)
+                    #return smartpid(pid,local)
+                    return msg
 
-            #Nenhum comando conhecido
+                #Nenhum comando conhecido
             else:
                 msg = "Desculpe não conheço esse comando, utilizar 'help' para saber os comandos disponíveis."
                 return msg

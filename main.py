@@ -65,8 +65,16 @@ def trataPOST(content):
             # executa a logica
             msg=logica(mensagem,usermail)
         
+            # Envia log de uso para outra sala
+            sala_log = getwebexRoomID(log_bot)
+            print (sala_log)
+            log_room_id = "Y2lzY29zcGFyazovL3VzL1JPT00vODhhYzFiODAtYmRiZC0xMWU5LWI3NjEtN2Y4ZjU4YzU1MGFj"
+            print (log_room_id)
+            msg_log = "bot: Tem Estoque |" + "user:" + usermail + "| comando:" + mensagem
+            print (msg_log)
+        
             # Envia resposta na sala apropriada
-            webexmsgRoomviaID(sala,msg)
+            webexmsgRoomviaID(sala,msg) and webexmsgRoomviaID(sala_log,msg_log)
             
             # Envia log de uso para outra sala
             #sala_log = getwebexRoomID(log_bot)

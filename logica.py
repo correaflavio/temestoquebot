@@ -105,8 +105,11 @@ def logica(comando,usermail):
     try:
         log="bot: Tem Estoque |" + "user:" + usermail + "| comando:" + comando
         print (log)
-        print (getwebexRoomID)
-        webexmsgRoomviaID(getwebexRoomID("log_bot"),log)
+        sala = getwebexRoomID()
+        print (sala)
+        log_room_id = "Y2lzY29zcGFyazovL3VzL1JPT00vODhhYzFiODAtYmRiZC0xMWU5LWI3NjEtN2Y4ZjU4YzU1MGFj"
+        print (log_room_id)
+        webexmsgRoomviaID(sala,log)
     except:
         pass
 

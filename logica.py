@@ -102,13 +102,13 @@ def logica(comando,usermail):
 
     #26-7-19
     #tenta logar tudo na sala "log do partnerbot"
-    #try:
-    #   log="bot: Tem Estoque |" + "user:" + usermail + "| comando:" + comando
-    #    print (log)
-    #    sala = getwebexRoomID()
-    #    print (sala)
-    #    log_room_id = "Y2lzY29zcGFyazovL3VzL1JPT00vODhhYzFiODAtYmRiZC0xMWU5LWI3NjEtN2Y4ZjU4YzU1MGFj"
-    #    print (log_room_id)
+    try:
+        log="bot: Tem Estoque |" + "user:" + usermail + "| comando:" + comando
+        print (log)
+        sala = getwebexRoomID()
+        print (sala)
+        log_room_id = "Y2lzY29zcGFyazovL3VzL1JPT00vODhhYzFiODAtYmRiZC0xMWU5LWI3NjEtN2Y4ZjU4YzU1MGFj"
+        print (log_room_id)
     #    webexmsgRoomviaID(sala,log)
     except:
         pass

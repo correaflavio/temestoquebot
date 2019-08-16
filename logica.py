@@ -104,6 +104,8 @@ def logica(comando,usermail):
     #tenta logar tudo na sala "log do partnerbot"
     try:
         log="bot: Tem Estoque |" + "user:" + usermail + "| comando:" + comando
+        print (log)
+        print (getwebexRoomID)
         webexmsgRoomviaID(getwebexRoomID("log_bot"),log)
     except:
         pass

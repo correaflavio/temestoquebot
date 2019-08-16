@@ -16,6 +16,16 @@ def logica(comando,usermail):
     #print("comando:")
     #print(comando)
 
+    # Envia log do comando usado para outra sala
+    sala_log = getwebexRoomID(log_bot)
+    print (sala_log)
+    log_room_id = "Y2lzY29zcGFyazovL3VzL1JPT00vODhhYzFiODAtYmRiZC0xMWU5LWI3NjEtN2Y4ZjU4YzU1MGFj"
+    print (log_room_id)
+    msg_log = "bot: Tem Estoque |" + "user:" + usermail + "| comando:" + mensagem
+    print (msg_log)
+    webexmsgRoomviaID(sala_log,msg_log)
+
+
     # identifica e trata comandos relacionados a parceiros - palavra chave partner
     # logo a primeira parte do comando e' o que queremos procurar e
     # a segunda e' o nome do parceiro

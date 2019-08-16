@@ -74,7 +74,8 @@ def trataPOST(content):
             log_room_id = "Y2lzY29zcGFyazovL3VzL1JPT00vODhhYzFiODAtYmRiZC0xMWU5LWI3NjEtN2Y4ZjU4YzU1MGFj"
             print (log_room_id)
             msg_log = "bot: Tem Estoque |" + "user:" + usermail + "| comando:" + mensagem
-            webexmsgRoomviaID(sala_log,msg_log)
+            print (msg_log)
+            #webexmsgRoomviaID(sala_log,msg_log)
 
     except:
             print("POST nao reconhecido")

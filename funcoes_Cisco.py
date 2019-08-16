@@ -13,7 +13,6 @@ def smartsheet(planilha):
 
     #token esta na variável de ambiente
     smartsheet_token=os.environ['SMART_TOKEN']
-    #smartsheet_token="j7txpag2g7iddvq0jtd3rahl6m"
 
     # devolve erro caso variavel de ambiente do token nao encontrada
     if smartsheet_token=="":

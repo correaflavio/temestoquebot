@@ -61,6 +61,8 @@ def trataPOST(content):
             usermail=webextalk[2]
             mensagem=webextalk[0]
             sala=webextalk[1]
+            print ("Usuário "+ usermail + " solicitou " + mensagem)
+
 
             # executa a logica
             msg=logica(mensagem,usermail)

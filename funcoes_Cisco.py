@@ -71,8 +71,13 @@ def log_bot_smartsheet():
 
     #URL smartsheet para adicionar linhas 
     url = "https://api.smartsheet.com/2.0/sheets/"+ smartsheet_bot_log_id + "/rows"
+    print (url)
 
-    payload = '{"cells": [{"columnId": 1904224842868612, "value": bot_name}, {"columnId": 6407824470239108, "value": user_id}, {"columnId": 4156024656553860, "value": comando}]}'
+    payload = "{\"toTop\":true, \"cells\": [ {\"columnId\": 1904224842868612, \"value\": bot_name}, {\"columnId\": 6407824470239108, \"value\": \"user_id\"}, {\"columnId\": 4156024656553860, \"value\": \"comando\"}] }"
+    
+    """
+    '{"cells": [{"columnId": 1904224842868612, "value": bot_name}, {"columnId": 6407824470239108, "value": user_id}, {"columnId": 4156024656553860, "value": comando}]}'
+    """
     
     headers = {
         'Authorization': "Bearer "+ smartsheet_token,
@@ -81,6 +86,7 @@ def log_bot_smartsheet():
         }
 
     response = requests.request("POST", url, data=payload, headers=headers)
+    print(response.text)
     
     #pega conteudo pleno da planilha
     if response.status_code==200:
@@ -91,6 +97,8 @@ def log_bot_smartsheet():
         return "erro"
 
     return json_res
+
+
 
 """
 

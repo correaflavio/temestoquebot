@@ -80,13 +80,11 @@ def trataPOST(content):
             
         # Envia log de uso para outra sala
         log_bot_room_name = "log_bot"
-        sala_log = getwebexRoomID(log_bot_room_name)
-        print (sala_log)
-        log_room_id = "Y2lzY29zcGFyazovL3VzL1JPT00vODhhYzFiODAtYmRiZC0xMWU5LWI3NjEtN2Y4ZjU4YzU1MGFj"
-        print (log_room_id)
+        #Log hardcoded para uma sala o Webex Teams
+        sala_log = "Y2lzY29zcGFyazovL3VzL1JPT00vODhhYzFiODAtYmRiZC0xMWU5LWI3NjEtN2Y4ZjU4YzU1MGFj"
         msg_log = "bot: Tem Estoque |" + "user:" + usermail + "| comando:" + mensagem
         print (msg_log)
-        #webexmsgRoomviaID(sala_log,msg_log)
+        webexmsgRoomviaID(sala_log,msg_log)
 
     else:
         print("POST nao reconhecido")

@@ -73,8 +73,7 @@ def log_bot_smartsheet():
     url = "https://api.smartsheet.com/2.0/sheets/"+ smartsheet_bot_log_id + "/rows"
     print (url)
 
-    payload = '{"cells": [{"columnId": 1904224842868612, "value": bot_name}, {"columnId": 6407824470239108, "value": user_id}, {"columnId": 4156024656553860, "value": comando}]}'
-    
+    payload = "{\"toTop\":true, \"cells\": [ {\"columnId\": 1904224842868612, \"value\": true}, {\"columnId\": 6407824470239108, \"value\": \"New status\", \"strict\": false}] }"
     """
     "{\"toTop\":true, \"cells\": [ {\"columnId\": 1904224842868612, \"value\": bot_name}, {\"columnId\": 6407824470239108, \"value\": \"user_id\"}, {\"columnId\": 4156024656553860, \"value\": \"comando\"}] }"
     """

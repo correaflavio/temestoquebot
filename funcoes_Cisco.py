@@ -90,7 +90,7 @@ def log_bot_smartsheet():
         'cache-control': "no-cache"
         }
 
-    response = requests.request("POST", url, data=payload, headers=headers)
+    response = requests.request("POST", url, data=json.dumps(payload), headers=headers)
     print(response.text)
     
     #pega conteudo pleno da planilha

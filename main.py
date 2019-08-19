@@ -3,7 +3,7 @@ from webexteams_console_tools import webexconsole
 from webexteams import *
 from logica import logica
 from http.server import BaseHTTPRequestHandler, HTTPServer
-from temestoquebot.funcoes_Cisco import log_bot_smartsheet
+from funcoes_Cisco import log_bot_smartsheet
 import logging
 import json 
 import os

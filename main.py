@@ -81,7 +81,7 @@ def trataPOST(content):
         webexmsgRoomviaID(sala,msg)
         
         print ("Cheguei na funcao de log no smartsheet")    
-        log_bot_smartsheet()
+        log_bot_smartsheet(usermail,mensagem)
         # Envia log de uso para outra sala
         #log_bot_room_name = "log_bot"
         #Log hardcoded para uma sala o Webex Teams

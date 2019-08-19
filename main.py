@@ -79,7 +79,8 @@ def trataPOST(content):
         webexmsgRoomviaID(sala,msg)
             
         # Envia log de uso para outra sala
-        sala_log = getwebexRoomID(log_bot)
+        log_bot_room_name = "log_bot"
+        sala_log = getwebexRoomID(log_bot_room_name)
         print (sala_log)
         log_room_id = "Y2lzY29zcGFyazovL3VzL1JPT00vODhhYzFiODAtYmRiZC0xMWU5LWI3NjEtN2Y4ZjU4YzU1MGFj"
         print (log_room_id)

@@ -74,6 +74,7 @@ def log_bot_smartsheet():
     print (url)
 
     payload = "{\"toTop\":true, \"cells\": [ {\"columnId\": 1904224842868612, \"value\": \"bot_name\"}, {\"columnId\": 6407824470239108, \"value\": \"user_id\", {\"columnId\": 4156024656553860, \"value\": \"comando\"}] }"
+    print (payload)
     """
     "{\"toTop\":true, \"cells\": [ {\"columnId\": 1904224842868612, \"value\": bot_name}, {\"columnId\": 6407824470239108, \"value\": \"user_id\"}, {\"columnId\": 4156024656553860, \"value\": \"comando\"}] }"
     """

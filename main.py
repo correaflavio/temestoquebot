@@ -14,7 +14,7 @@ if msg=="erro":
     print ("Erro de Webhook")
 
 # Selecione (c) para teste e (w) para producao
-formato = "w"
+formato = "c"
 
 
 # http server
@@ -52,45 +52,43 @@ def trataPOST(content):
 
     # resposta as perguntas
     # trata mensagem quando nao e' gerada pelo bot. Se nao e' bot, entao usuario
-    try:     
-        if content['name']==webhook_name and content['data']['personEmail']!=botmail:
-            # identifica id da mensagem
-            msg_id=(content['data']['id'])
-            # identifica dados da mensagem
-            webextalk=getwebexMsg(msg_id)
-            usermail=webextalk[2]
-            mensagem=webextalk[0]
-            sala=webextalk[1]
-            print ("Usuário "+ usermail + " solicitou " + mensagem)
+    if content['name']==webhook_name and content['data']['personEmail']!=botmail:
+        # identifica id da mensagem
+        msg_id=(content['data']['id'])
+        # identifica dados da mensagem
+        webextalk=getwebexMsg(msg_id)
+        usermail=webextalk[2]
+        mensagem=webextalk[0]
+        sala=webextalk[1]
+        print ("Usuário "+ usermail + " solicitou " + mensagem)
 
 
-            # executa a logica
-            msg=logica(mensagem,usermail)
+        # executa a logica
+        msg=logica(mensagem,usermail)
         
-            # Envia log de uso para outra sala
-            #sala_log = getwebexRoomID(log_bot)
-            #print (sala_log)
-            #log_room_id = "Y2lzY29zcGFyazovL3VzL1JPT00vODhhYzFiODAtYmRiZC0xMWU5LWI3NjEtN2Y4ZjU4YzU1MGFj"
-            #print (log_room_id)
-            #msg_log = "bot: Tem Estoque |" + "user:" + usermail + "| comando:" + mensagem
-            #print (msg_log)
-            #webexmsgRoomviaID(sala_log,msg_log)
+        # Envia log de uso para outra sala
+        #sala_log = getwebexRoomID(log_bot)
+        #print (sala_log)
+        #log_room_id = "Y2lzY29zcGFyazovL3VzL1JPT00vODhhYzFiODAtYmRiZC0xMWU5LWI3NjEtN2Y4ZjU4YzU1MGFj"
+        #print (log_room_id)
+        #msg_log = "bot: Tem Estoque |" + "user:" + usermail + "| comando:" + mensagem
+        #print (msg_log)
+        #webexmsgRoomviaID(sala_log,msg_log)
             
-            # Envia resposta na sala apropriada
-            webexmsgRoomviaID(sala,msg)
+        # Envia resposta na sala apropriada
+        webexmsgRoomviaID(sala,msg)
             
-            # Envia log de uso para outra sala
-            #sala_log = getwebexRoomID(log_bot)
-            #print (sala_log)
-            #log_room_id = "Y2lzY29zcGFyazovL3VzL1JPT00vODhhYzFiODAtYmRiZC0xMWU5LWI3NjEtN2Y4ZjU4YzU1MGFj"
-            #print (log_room_id)
-            #msg_log = "bot: Tem Estoque |" + "user:" + usermail + "| comando:" + mensagem
-            #print (msg_log)
-            #webexmsgRoomviaID(sala_log,msg_log)
+        # Envia log de uso para outra sala
+        sala_log = getwebexRoomID(log_bot)
+        print (sala_log)
+        log_room_id = "Y2lzY29zcGFyazovL3VzL1JPT00vODhhYzFiODAtYmRiZC0xMWU5LWI3NjEtN2Y4ZjU4YzU1MGFj"
+        print (log_room_id)
+        msg_log = "bot: Tem Estoque |" + "user:" + usermail + "| comando:" + mensagem
+        print (msg_log)
+        #webexmsgRoomviaID(sala_log,msg_log)
 
-    except:
-            print("POST nao reconhecido")
-            pass
+    else:
+        print("POST nao reconhecido")
 
 
 

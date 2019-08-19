@@ -76,15 +76,18 @@ def trataPOST(content):
         #webexmsgRoomviaID(sala_log,msg_log)
             
         # Envia resposta na sala apropriada
+        print ("Cheguei na funcao post no webex teams")
         webexmsgRoomviaID(sala,msg)
-            
+        
+        print ("Cheguei na funcao de log no smartsheet")    
+        log_bot_smartsheet()
         # Envia log de uso para outra sala
-        log_bot_room_name = "log_bot"
+        #log_bot_room_name = "log_bot"
         #Log hardcoded para uma sala o Webex Teams
-        sala_log = "Y2lzY29zcGFyazovL3VzL1JPT00vODhhYzFiODAtYmRiZC0xMWU5LWI3NjEtN2Y4ZjU4YzU1MGFj"
-        msg_log = "bot: Tem Estoque |" + "user:" + usermail + "| comando:" + mensagem
-        print (msg_log)
-        webexmsgRoomviaID(sala_log,msg_log)
+        #sala_log = "Y2lzY29zcGFyazovL3VzL1JPT00vODhhYzFiODAtYmRiZC0xMWU5LWI3NjEtN2Y4ZjU4YzU1MGFj"
+        #msg_log = "bot: Tem Estoque |" + "user:" + usermail + "| comando:" + mensagem
+        #print (msg_log)
+        #webexmsgRoomviaID(sala_log,msg_log)
 
     else:
         print("POST nao reconhecido")

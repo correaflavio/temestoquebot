@@ -55,6 +55,85 @@ def smartsheet(planilha):
     return json_res
 
 
+def log_bot_smartsheet():
+
+    # Este codigo registra em uma planilha do smartsheet o uso dos bots
+
+    #token esta na variável de ambiente
+    smartsheet_token=os.environ['SMART_TOKEN']
+    
+    smartsheet_bot_log_id = "6418465415292804"
+    
+    bot_name = "test"
+    user_id = "test"
+    comando = "test"
+    
+
+    #URL smartsheet para adicionar linhas 
+    url = "https://api.smartsheet.com/2.0/sheets/"+ smartsheet_bot_log_id + "/rows"
+
+    payload = '{"cells": [{"columnId": 1904224842868612, "value": bot_name}, {"columnId": 6407824470239108, "value": user_id}, {"columnId": 4156024656553860, "value": comando}]}'
+    
+    headers = {
+        'Authorization': "Bearer "+ smartsheet_token,
+        'Content-Type': "application/json",
+        'cache-control': "no-cache"
+        }
+
+    response = requests.request("POST", url, data=payload, headers=headers)
+    
+    #pega conteudo pleno da planilha
+    if response.status_code==200:
+        json_res = json.loads(response.text)
+        #print (json_res)
+    else:
+    # devolve erro caso nao consiga acessar smartsheet
+        return "erro"
+
+    return json_res
+
+"""
+
+"columns": [
+        {
+            "id": 1904224842868612,
+            "version": 0,
+            "index": 0,
+            "title": "Bot Name",
+            "type": "TEXT_NUMBER",
+            "primary": true,
+            "validation": false,
+            "width": 150
+        },
+        {
+            "id": 6407824470239108,
+            "version": 0,
+            "index": 1,
+            "title": "User ID",
+            "type": "TEXT_NUMBER",
+            "validation": false,
+            "width": 150
+        },
+        {
+            "id": 4156024656553860,
+            "version": 0,
+            "index": 2,
+            "title": "Command",
+            "type": "TEXT_NUMBER",
+            "validation": false,
+            "width": 150
+        },
+        {
+            "id": 8659624283924356,
+            "version": 0,
+            "index": 3,
+            "title": "Date",
+            "type": "TEXT_NUMBER",
+            "validation": false,
+            "width": 150
+        }
+    ]
+"""
 #########################################################
 ## FUNCOES de Busca de informacoes
 

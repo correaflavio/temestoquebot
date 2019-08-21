@@ -256,7 +256,7 @@ def formata_pid(dados, local):
             pass
             
         #monta a linha e imprime
-        msg=msg+(" **PID:** "+ pid + " **Quantidade:** " + qty_available +  " unidade(s)." + " Atualizado em " + updated.split("T")[0].strip() + "  \n")
+        msg=msg+(" **PID:** "+ pid + " **Qtd:** " + qty_available + "  \n")
         print (msg)
         return msg
                
@@ -279,7 +279,7 @@ def formata_pid(dados, local):
             pass
             
         #monta a linha e imprime
-        msg=msg+(" **PID:** "+ pid + " **Quantidade:** " + qty_available + " unidade(s)." + " Atualizado em " + updated.split("T")[0].strip() + "  \n")
+        msg=msg+(" **PID:** "+ pid + " **Qtd:** " + qty_available + "  \n")
         #print ("msg formata pid")
         print (msg)
         return msg

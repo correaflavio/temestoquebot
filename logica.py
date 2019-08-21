@@ -57,8 +57,17 @@ def logica(comando,usermail):
                 # funcoes relacionadas a parceiro
                 #comandos para usuarios Cisco:
                 #Comando tipo "pid pid_id"
+                if len (lista_comando) == 1:
+                    msg = "Digite o partnumber desejado. Utilizar 'help' para saber os comandos válidos disponíveis."
+                    return msg
                 if len(lista_comando) == 2:
                     pid = lista_comando[1]
+                    if pid.lower() =="" or None:
+                        msg = "Digite o partnumber desejado. Utilizar 'help' para saber os comandos válidos disponíveis."
+                        return msg
+                    if pid.lower() == "fabrica" or "comstor" or "ingram" or "scansource" or "alcateia":
+                        msg = "Partnumber do produto não é válido. Utilizar 'help' para saber os comandos válidos disponíveis."
+                        return msg
                     #print("pid:")
                     #print (pid)
                     local = "All"
@@ -74,6 +83,10 @@ def logica(comando,usermail):
                     #print("pid:")
                     #print (pid)
                     local = lista_comando[1]
+                    
+                    if pid.lower() == "fabrica" or "comstor" or "ingram" or "scansource" or "alcateia":
+                        msg = "Partnumber do produto não é válido. Utilizar 'help' para saber os comandos válidos disponíveis."
+                        return msg
                     #print ("Local:")
                     #print (local)
                     msg=smartpid(pid,local)

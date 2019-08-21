@@ -31,9 +31,6 @@ def logica(comando,usermail):
 
     # comando ou a primeira palavra na variavel box
     box=lista_comando[0]
-    #print ("box:")
-    #print(box)
-
     # ajusta a segunda variavel com o nome do parceiro eliminando elista_comandoacos a esquerda e direita
     #if len(lista_comando)>1:
     #    disti=lista_comando[1].strip()
@@ -82,6 +79,10 @@ def logica(comando,usermail):
                     msg=smartpid(pid,local)
                     #return smartpid(pid,local)
                     return msg
+                else:
+                    msg = "Desculpe não conheço esse comando, utilizar 'help' para saber os comandos disponíveis."
+                    return msg
+                    
 
                 #Nenhum comando conhecido
             else:
@@ -99,18 +100,5 @@ def logica(comando,usermail):
        #return
        msg="Use 'help' for help :-)"
        return msg
-
-    #26-7-19
-    #tenta logar tudo na sala "log do partnerbot"
-    try:
-        log="bot: Tem Estoque |" + "user:" + usermail + "| comando:" + comando
-        print (log)
-        sala = getwebexRoomID()
-        print (sala)
-        log_room_id = "Y2lzY29zcGFyazovL3VzL1JPT00vODhhYzFiODAtYmRiZC0xMWU5LWI3NjEtN2Y4ZjU4YzU1MGFj"
-        print (log_room_id)
-    #    webexmsgRoomviaID(sala,log)
-    except:
-        pass
 
     return msg

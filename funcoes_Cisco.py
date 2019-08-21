@@ -203,7 +203,7 @@ def findpid(pid,data):
     
     if encontrado == 0:
         #print ("PID não encontrado em estoque na " + str(local))
-        msg=(str(local).upper() + " **PID:** "+ pid + " não tem estoque " + "  \n\n")
+        msg=(str(local).upper() + " **PID:** "+ pid + " não tem estoque " + "  \n")
 
     return msg
 
@@ -232,6 +232,7 @@ def formata_pid(dados, local):
     # tenta pegar valores. Tenta pois se a celula estiver vazia, dará erro de conteúdo, por isto o 'try'
     
     if local == "fabrica":
+
         try:
             pid=str(dados['cells'][0]['value'])
         except:
@@ -250,7 +251,7 @@ def formata_pid(dados, local):
             pass
             
         #monta a linha e imprime
-        msg=msg+(str(local).upper() + " **PID:** "+ pid + " **Quantidade:** " + qty_available +  " unidade(s)." + " Atualizado em " + updated.split("T")[0].strip() + "  \n\n")
+        msg=msg+(str(local).upper() + " **PID:** "+ pid + " **Quantidade:** " + qty_available +  " unidade(s)." + " Atualizado em " + updated.split("T")[0].strip() + "  \n")
         print (msg)
         return msg
                
@@ -273,7 +274,7 @@ def formata_pid(dados, local):
             pass
             
         #monta a linha e imprime
-        msg=msg+(str(local).upper() + " **PID:** "+ pid + " **Quantidade:** " + qty_available + " unidade(s)." + " Atualizado em " + updated.split("T")[0].strip() + "  \n\n")
+        msg=msg+(str(local).upper() + " **PID:** "+ pid + " **Quantidade:** " + qty_available + " unidade(s)." + " Atualizado em " + updated.split("T")[0].strip() + "  \n")
         #print ("msg formata pid")
         print (msg)
         return msg

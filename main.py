@@ -133,6 +133,9 @@ if formato=="c":
         # logica para usuarios
         msg=logica(box,usermail)
         print (msg)
+        
+        comando = "debug " + box    
+        log_bot_smartsheet(usermail,comando)
 
 elif formato=='w':
     

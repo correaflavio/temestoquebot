@@ -208,7 +208,7 @@ def findpid(pid,data):
     
     if encontrado == 0:
         #print ("PID não encontrado em estoque na " + str(local))
-        msg=("**Local:** " + str(local.upper()) + " **PID:** "+ pid + " não tem estoque " + "  \n")
+        msg=("  \n" + "**Local:** " + str(local.upper()) + " **PID:** "+ pid + " não tem estoque " + "  \n")
 
     return msg
 

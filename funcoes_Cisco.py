@@ -152,6 +152,8 @@ def smartpid(pid,local):
 def findpid(pid,data):
     # quantas linhas tem a planilha
     linhas = data['totalRowCount']
+    data_modificacao = data['modifiedAt']
+
     #print (linhas)
     #print ("# de linhas na tabela: " + str(linhas))
     local = data['name'].lower()
@@ -163,6 +165,9 @@ def findpid(pid,data):
     msg=""
     count=0
     encontrado=0
+    
+    # formata nome do Distribuidir e a data de atualizacao da planilha (pega a data e elimina a hora)
+    msg=msg+("  \n**Local:**" + local " **Atualizado:**"+ data_modificacao.split("T")[0]+"  \n")
     
     while (count<linhas):
 

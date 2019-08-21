@@ -167,7 +167,7 @@ def findpid(pid,data):
     encontrado=0
     
     # formata nome do Distribuidir e a data de atualizacao da planilha (pega a data e elimina a hora)
-    msg=msg+("  \n**Local:**" + local " **Atualizado:**"+ data_modificacao.split("T")[0]+"  \n")
+    msg=msg+("  \n**Local:** " + local + " **Atualizado:** "+ data_modificacao.split("T")[0]+"  \n")
     
     while (count<linhas):
 

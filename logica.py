@@ -66,7 +66,7 @@ def logica(comando,usermail):
                     if pid.lower() =="" or None:
                         msg = "Digite o partnumber desejado. Utilizar 'help' para saber os comandos válidos disponíveis."
                         return msg
-                    if str(pid.lower()) == "fabrica" or "comstor" or "ingram" or "scansource" or "alcateia":
+                    elif str(pid.lower()) == "fabrica" or "comstor" or "ingram" or "scansource" or "alcateia":
                         msg = "Partnumber do produto não é válido. Utilizar 'help' para saber os comandos válidos disponíveis."
                         return msg
                     #print("pid:")

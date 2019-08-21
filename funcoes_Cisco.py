@@ -167,7 +167,7 @@ def findpid(pid,data):
     encontrado=0
     
     # formata nome do Distribuidir e a data de atualizacao da planilha (pega a data e elimina a hora)
-    msg=msg+("  \n**Local:** " + local + " **Atualizado:** "+ data_modificacao.split("T")[0]+"  \n")
+    msg=msg+("  \n**Local:** " + str(local.upper()) + " **Atualizado:** "+ data_modificacao.split("T")[0]+"  \n")
     
     while (count<linhas):
 
@@ -208,7 +208,7 @@ def findpid(pid,data):
     
     if encontrado == 0:
         #print ("PID não encontrado em estoque na " + str(local))
-        msg=(str(local).upper() + " **PID:** "+ pid + " não tem estoque " + "  \n")
+        msg=(" **PID:** "+ pid + " não tem estoque " + "  \n")
 
     return msg
 
@@ -256,7 +256,7 @@ def formata_pid(dados, local):
             pass
             
         #monta a linha e imprime
-        msg=msg+(str(local).upper() + " **PID:** "+ pid + " **Quantidade:** " + qty_available +  " unidade(s)." + " Atualizado em " + updated.split("T")[0].strip() + "  \n")
+        msg=msg+(" **PID:** "+ pid + " **Quantidade:** " + qty_available +  " unidade(s)." + " Atualizado em " + updated.split("T")[0].strip() + "  \n")
         print (msg)
         return msg
                
@@ -279,7 +279,7 @@ def formata_pid(dados, local):
             pass
             
         #monta a linha e imprime
-        msg=msg+(str(local).upper() + " **PID:** "+ pid + " **Quantidade:** " + qty_available + " unidade(s)." + " Atualizado em " + updated.split("T")[0].strip() + "  \n")
+        msg=msg+(" **PID:** "+ pid + " **Quantidade:** " + qty_available + " unidade(s)." + " Atualizado em " + updated.split("T")[0].strip() + "  \n")
         #print ("msg formata pid")
         print (msg)
         return msg

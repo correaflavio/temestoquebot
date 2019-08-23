@@ -208,7 +208,7 @@ def findpid(pid, data, data_ft_brasil, data_ft_importado, local):
         if pid in linha_pid.lower() and qty_available > 0:
             #verificar se produto está no fast track
             print ("Cheguei no find ft dentro do find pid")
-            msg = find_ft(pid, data_ft_brasil, data_ft_importado,local)
+            msg = find_ft(pid, data_ft_brasil, data_ft_importado,local, linha)
             #print (local, qty_available)
             #msg=msg+formata_pid(linha,local,ft)
             #print (linha_pid + " contains given substring " +pid)
@@ -235,7 +235,7 @@ def findpid(pid, data, data_ft_brasil, data_ft_importado, local):
     return msg
 
 
-def find_ft(pid, data_ft_brasil, data_ft_importado,local):
+def find_ft(pid, data_ft_brasil, data_ft_importado,local, linha):
     # quantas linhas tem a planilha
     print ("Pid: " + pid)
     linhas_ft_brasil = data_ft_brasil['totalRowCount']
@@ -274,12 +274,12 @@ def find_ft(pid, data_ft_brasil, data_ft_importado,local):
         
         #verifica se produto está no fast track    
         if pid in linha_pid.lower():
-            ft = linha_ft['cells'][3]['value']
+            ft = str(linha_ft['cells'][3]['value'])
             encontrado=encontrado+1
             print ("Find ft  Encontrado x " + str(encontrado) + " vezes.")
             print ("Pid " + str(pid) + " com ft: " + str(ft) + "%")
             #msg=msg+formata_pid(linha_ft,local,ft)
-            msg=formata_pid(linha_ft,local,ft)
+            msg=formata_pid(linha,local,ft)
             
         count=count+1
     
@@ -325,6 +325,11 @@ def find_ft(pid, data_ft_brasil, data_ft_importado,local):
 
 def formata_pid(dados, local, ft):
 
+    print("dados = ")
+    print(dados)
+    print ("ft = ")
+    print (ft)
+    print (type(ft))
     #lista de pids
     #13.09.2019
     
@@ -337,7 +342,6 @@ def formata_pid(dados, local, ft):
     qty_available=""
     updated=""
     updated_by=""
-    ft=""
 
     #print (dados)
     # tenta pegar valores. Tenta pois se a celula estiver vazia, dará erro de conteúdo, por isto o 'try'
@@ -365,7 +369,7 @@ def formata_pid(dados, local, ft):
         if ft == "" or ft == None:
             msg=msg+(" **PID:** "+ pid + " **Qtd:** " + qty_available + "  \n")
         else: 
-            msg=msg+(" **PID:** "+ pid + " **Qtd:** " + qty_available + " **FastTrack:** " + ft + "%" "  \n")
+            msg=msg+(" **PID:** "+ pid + " **Qtd:** " + qty_available + " **FastTrack:** " + ft + "%" + "  \n")
         print (msg)
         return msg
                
@@ -386,12 +390,13 @@ def formata_pid(dados, local, ft):
             updated=str(dados['cells'][9]['value'])
         except:
             pass
-            
+        
+        print ("ft = " + str(ft))    
         #monta a linha e imprime
         if ft == "" or ft == None:
             msg=msg+(" **PID:** "+ pid + " **Qtd:** " + qty_available + "  \n")
         else: 
-            msg=msg+(" **PID:** "+ pid + " **Qtd:** " + qty_available + " **FastTrack:** " + ft + "%" "  \n")
+            msg=msg+(" **PID:** "+ pid + " **Qtd:** " + qty_available + " **FastTrack:** " + ft + "%" + "  \n")
         #print ("msg formata pid")
         print (msg)
         return msg

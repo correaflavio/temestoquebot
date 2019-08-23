@@ -77,10 +77,10 @@ def log_bot_smartsheet(user,comando):
 
     #URL smartsheet para adicionar linhas 
     url = "https://api.smartsheet.com/2.0/sheets/"+ smartsheet_bot_log_id + "/rows"
-    print (url)
+    #print (url)
     #payload com cada columa e o comando por coluna
     payload = {"toTop":True, "cells": [{"columnId": 1904224842868612, "value": bot_name}, {"columnId": 6407824470239108, "value": user_id}, {"columnId": 4156024656553860, "value": command}]}
-    print (payload)
+    #print (payload)
     
     headers = {
         'Authorization': "Bearer "+ smartsheet_token,
@@ -89,7 +89,7 @@ def log_bot_smartsheet(user,comando):
         }
 
     response = requests.request("POST", url, data=json.dumps(payload), headers=headers)
-    print(response.text)
+    #print(response.text)
     
     #pega conteudo pleno da planilha
     if response.status_code==200:
@@ -207,7 +207,7 @@ def findpid(pid, data, data_ft_brasil, data_ft_importado, local):
             
         if pid in linha_pid.lower() and qty_available > 0:
             #verificar se produto está no fast track
-            print ("Cheguei no find ft dentro do find pid")
+            #print ("Cheguei no find ft dentro do find pid")
             msg = find_ft(pid, data_ft_brasil, data_ft_importado,local, linha)
             #print (local, qty_available)
             #msg=msg+formata_pid(linha,local,ft)
@@ -237,11 +237,11 @@ def findpid(pid, data, data_ft_brasil, data_ft_importado, local):
 
 def find_ft(pid, data_ft_brasil, data_ft_importado,local, linha):
     # quantas linhas tem a planilha
-    print ("Pid: " + pid)
+    #print ("Pid: " + pid)
     linhas_ft_brasil = data_ft_brasil['totalRowCount']
     linhas_ft_importado = data_ft_importado['totalRowCount']
-    print ("# de linhas na tabela ft brasil: " + str(linhas_ft_brasil))
-    print ("# de linhas na tabela ft importado: " + str(linhas_ft_importado))
+    #print ("# de linhas na tabela ft brasil: " + str(linhas_ft_brasil))
+    #print ("# de linhas na tabela ft importado: " + str(linhas_ft_importado))
     
     msg=""
     count=0
@@ -266,20 +266,21 @@ def find_ft(pid, data_ft_brasil, data_ft_importado,local, linha):
         #print (type(linha_pid_0))
         
         linha_pid=linha_ft['cells'][0]['value']
-        print ("linha pid:")
-        print ("")
+        #print ("linha pid:")
+        #print ("")
 
-        print ("Linha #" + str(count) + ":" + str(linha_pid))        
-        print ("")
+        #print ("Linha #" + str(count) + ":" + str(linha_pid))        
+        #print ("")
         
         #verifica se produto está no fast track    
         if pid in linha_pid.lower():
             ft = str(linha_ft['cells'][3]['value'])
             encontrado=encontrado+1
-            print ("Find ft  Encontrado x " + str(encontrado) + " vezes.")
-            print ("Pid " + str(pid) + " com ft: " + str(ft) + "%")
+            #print ("Find ft  Encontrado x " + str(encontrado) + " vezes.")
+            #print ("Pid " + str(pid) + " com ft: " + str(ft) + "%")
+            
             #msg=msg+formata_pid(linha_ft,local,ft)
-            msg=formata_pid(linha,local,ft)
+            msg=msg+formata_pid(linha,local,ft)
             
         count=count+1
     
@@ -325,11 +326,11 @@ def find_ft(pid, data_ft_brasil, data_ft_importado,local, linha):
 
 def formata_pid(dados, local, ft):
 
-    print("dados = ")
-    print(dados)
-    print ("ft = ")
-    print (ft)
-    print (type(ft))
+    #print("dados = ")
+    #print(dados)
+    #print ("ft = ")
+    #print (ft)
+    #print (type(ft))
     #lista de pids
     #13.09.2019
     
@@ -370,8 +371,10 @@ def formata_pid(dados, local, ft):
             msg=msg+(" **PID:** "+ pid + " **Qtd:** " + qty_available + "  \n")
         else: 
             msg=msg+(" **PID:** "+ pid + " **Qtd:** " + qty_available + " **FastTrack:** " + ft + "%" + "  \n")
-        print (msg)
-        return msg
+
+        #print ("msg formata pid")        
+        #print (msg)
+        #return msg
                
     else:
         try:
@@ -391,16 +394,16 @@ def formata_pid(dados, local, ft):
         except:
             pass
         
-        print ("ft = " + str(ft))    
+        #print ("ft = " + str(ft))    
         #monta a linha e imprime
         if ft == "" or ft == None:
             msg=msg+(" **PID:** "+ pid + " **Qtd:** " + qty_available + "  \n")
         else: 
             msg=msg+(" **PID:** "+ pid + " **Qtd:** " + qty_available + " **FastTrack:** " + ft + "%" + "  \n")
+        
         #print ("msg formata pid")
-        print (msg)
-        return msg
-        print ("msn formata pid depois de retornar o resultado")
+    #print (msg)
+    return msg
         
     #return msg
     

@@ -85,9 +85,9 @@ def logica(comando,usermail):
                     #print (pid)
                     local = lista_comando[1]
                     
-                    if pid.lower() == "fabrica" or "comstor" or "ingram" or "scansource" or "alcateia":
-                        msg = "Partnumber do produto não é válido. Utilizar 'help' para saber os comandos válidos disponíveis."
-                        return msg
+                    #if pid.lower() == "fabrica" or "comstor" or "ingram" or "scansource" or "alcateia":
+                    #    msg = "Partnumber do produto não é válido. Utilizar 'help' para saber os comandos válidos disponíveis. Cod: 123"
+                    #    return msg
                     #print ("Local:")
                     #print (local)
                     msg=smartpid(pid,local)

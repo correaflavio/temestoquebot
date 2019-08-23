@@ -15,7 +15,7 @@ if msg=="erro":
     print ("Erro de Webhook")
 
 # Selecione (c) para teste e (w) para producao
-formato = "w"
+formato = "c"
 
 
 # http server

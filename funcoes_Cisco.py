@@ -122,40 +122,40 @@ def smartpid(pid,local):
         data = smartsheet("scansource")
         data_ft_brasil = smartsheet("ft_brasil")
         data_ft_importado = smartsheet("ft_importado")
-        msg = findpid(pid,data, data_ft_brasil, data_ft_importado)
+        msg = findpid(pid,data, data_ft_brasil, data_ft_importado,local)
     elif local == "comstor":
         data = smartsheet("comstor")
         data_ft_brasil = smartsheet("ft_brasil")
         data_ft_importado = smartsheet("ft_importado")
-        msg = findpid(pid,data, data_ft_brasil, data_ft_importado)
+        msg = findpid(pid,data, data_ft_brasil, data_ft_importado,local)
     elif local == "alcateia":
         data = smartsheet("alcateia")
         data_ft_brasil = smartsheet("ft_brasil")
         data_ft_importado = smartsheet("ft_importado")
-        msg = findpid(pid,data, data_ft_brasil, data_ft_importado)
+        msg = findpid(pid,data, data_ft_brasil, data_ft_importado,local)
     elif local == "ingram":
         data = smartsheet("ingram")
         data_ft_brasil = smartsheet("ft_brasil")
         data_ft_importado = smartsheet("ft_importado")
-        msg = findpid(pid,data, data_ft_brasil, data_ft_importado)
+        msg = findpid(pid,data, data_ft_brasil, data_ft_importado,local)
     elif local == "fabrica":
         data = smartsheet("fabrica")
         data_ft_brasil = smartsheet("ft_brasil")
         data_ft_importado = smartsheet("ft_importado")
-        msg = findpid(pid,data, data_ft_brasil, data_ft_importado)
+        msg = findpid(pid,data, data_ft_brasil, data_ft_importado,local)
     elif local == "All":
         data_ft_brasil = smartsheet("ft_brasil")
         data_ft_importado = smartsheet("ft_importado")
         data = smartsheet("scansource")
-        msg = findpid(pid,data, data_ft_brasil, data_ft_importado)
+        msg = findpid(pid,data, data_ft_brasil, data_ft_importado,local)
         data = smartsheet("comstor")
-        msg = msg + findpid(pid,data, data_ft_brasil, data_ft_importado)
+        msg = msg + findpid(pid,data, data_ft_brasil, data_ft_importado,local)
         data = smartsheet("alcateia")
-        msg = msg + findpid(pid,data, data_ft_brasil, data_ft_importado)
+        msg = msg + findpid(pid,data, data_ft_brasil, data_ft_importado,local)
         data = smartsheet("ingram")
-        msg = msg + findpid(pid,data, data_ft_brasil, data_ft_importado)
+        msg = msg + findpid(pid,data, data_ft_brasil, data_ft_importado,local)
         data = smartsheet("fabrica")
-        msg = msg + findpid(pid,data, data_ft_brasil, data_ft_importado)
+        msg = msg + findpid(pid,data, data_ft_brasil, data_ft_importado,local)
     else: 
         msg = "Local inválido. Locais válidos: Ingram, Scansource, Alcateia, Comstor e Fabrica"
         return msg
@@ -168,7 +168,7 @@ def smartpid(pid,local):
     return msg
 
 
-def findpid(pid, data, data_ft_brasil, data_ft_importado):
+def findpid(pid, data, data_ft_brasil, data_ft_importado, local):
     # quantas linhas tem a planilha
     linhas = data['totalRowCount']
     data_modificacao = data['modifiedAt']
@@ -208,28 +208,22 @@ def findpid(pid, data, data_ft_brasil, data_ft_importado):
         if pid in linha_pid.lower() and qty_available > 0:
             #verificar se produto está no fast track
             print ("Cheguei no find ft dentro do find pid")
-            
-            msg = find_ft(pid, data_ft_brasil, data_ft_importado)
-            
+            msg = find_ft(pid, data_ft_brasil, data_ft_importado,local)
             #print (local, qty_available)
-            
-            
             #msg=msg+formata_pid(linha,local,ft)
-            
             #print (linha_pid + " contains given substring " +pid)
             #encontrado=encontrado+1
             #print ("Encontrado " + encontrado + " vezes.")
             #print (msg)
             encontrado=encontrado+1
-            print ("Findpid Encontrado x " + str(encontrado) + " vezes.")
+            #print ("Findpid Encontrado x " + str(encontrado) + " vezes.")
             #print ("pid encontrado " + str(encontrado) + " vezes em estoque na " + str(local))
             #return msg
                 
         count=count+1
-        print ("Findpid count = " + str(count))
-        #print ("Loop count = " + str(count))
-        #print(count)
-
+        #print ("Findpid count = " + str(count))
+        
+        
                 
         # devolva negativa caso nada encontrado
     #print (msg)
@@ -241,7 +235,7 @@ def findpid(pid, data, data_ft_brasil, data_ft_importado):
     return msg
 
 
-def find_ft(pid, data_ft_brasil, data_ft_importado):
+def find_ft(pid, data_ft_brasil, data_ft_importado,local):
     # quantas linhas tem a planilha
     print ("Pid: " + pid)
     linhas_ft_brasil = data_ft_brasil['totalRowCount']
@@ -259,17 +253,17 @@ def find_ft(pid, data_ft_brasil, data_ft_importado):
         # valida 1 linha por vez
         linha_ft=data_ft_brasil['rows'][count]
         #print (linha)
-        print ("Linha ft:")
-        print(linha_ft)                
-        print ("")
+        #print ("Linha ft:")
+        #print(linha_ft)                
+        #print ("")
 
         # acessa a primeira celula da linha
         linha_pid_0=linha_ft['cells'][0]
-        print ("linha_pid_0:")
-        print (linha_pid_0)
-        print ("")
-        print ("linha_pid_0 type: ")
-        print (type(linha_pid_0))
+        #print ("linha_pid_0:")
+        #print (linha_pid_0)
+        #print ("")
+        #print ("linha_pid_0 type: ")
+        #print (type(linha_pid_0))
         
         linha_pid=linha_ft['cells'][0]['value']
         print ("linha pid:")
@@ -284,6 +278,9 @@ def find_ft(pid, data_ft_brasil, data_ft_importado):
             encontrado=encontrado+1
             print ("Find ft  Encontrado x " + str(encontrado) + " vezes.")
             print ("Pid " + str(pid) + " com ft: " + str(ft) + "%")
+            msg=msg+formata_pid(linha_ft,local,ft)
+            
+            
         count=count+1
     
     """ 

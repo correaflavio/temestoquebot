@@ -312,9 +312,9 @@ def find_ft(pid, data_ft_brasil, data_ft_importado,local):
     
     if encontrado == 0:
         #print ("PID não encontrado em estoque na " + str(local))
-        ft = None
+        msg = None
 
-    return ft
+    return msg
 
 
 

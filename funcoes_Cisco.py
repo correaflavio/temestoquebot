@@ -278,8 +278,8 @@ def find_ft(pid, data_ft_brasil, data_ft_importado,local):
             encontrado=encontrado+1
             print ("Find ft  Encontrado x " + str(encontrado) + " vezes.")
             print ("Pid " + str(pid) + " com ft: " + str(ft) + "%")
-            msg=msg+formata_pid(linha_ft,local,ft)
-            
+            #msg=msg+formata_pid(linha_ft,local,ft)
+            msg=formata_pid(linha_ft,local,ft)
             
         count=count+1
     

@@ -368,9 +368,9 @@ def formata_pid(dados, local, ft):
             
         #monta a linha e imprime. Se o PID tem fasttrack imprime a informação, caso contrário não.
         if ft == "" or ft == None:
-            msg=msg+(" **PID:** "+ pid + " **Qtd:** " + qty_available + "  \n")
+            msg=(" **PID:** "+ pid + " **Qtd:** " + qty_available + "  \n")
         else: 
-            msg=msg+(" **PID:** "+ pid + " **Qtd:** " + qty_available + " **FastTrack:** " + ft + "%" + "  \n")
+            msg=(" **PID:** "+ pid + " **Qtd:** " + qty_available + " **FastTrack:** " + ft + "%" + "123" + "  \n")
 
         #print ("msg formata pid")        
         #print (msg)
@@ -397,9 +397,9 @@ def formata_pid(dados, local, ft):
         #print ("ft = " + str(ft))    
         #monta a linha e imprime
         if ft == "" or ft == None:
-            msg=msg+(" **PID:** "+ pid + " **Qtd:** " + qty_available + "  \n")
+            msg=(" **PID:** "+ pid + " **Qtd:** " + qty_available + "  \n")
         else: 
-            msg=msg+(" **PID:** "+ pid + " **Qtd:** " + qty_available + " **FastTrack:** " + ft + "%" + "  \n")
+            msg=(" **PID:** "+ pid + " **Qtd:** " + qty_available + " **FastTrack:** " + ft + "%" + "456" + "  \n")
         
         #print ("msg formata pid")
     #print (msg)

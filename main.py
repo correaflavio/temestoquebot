@@ -15,7 +15,7 @@ if msg=="erro":
     print ("Erro de Webhook")
 
 # Selecione (c) para teste e (w) para producao
-formato = "c"
+formato = "w"
 
 
 # http server
@@ -53,8 +53,6 @@ def trataPOST(content):
 
     # resposta as perguntas
     # trata mensagem quando nao e' gerada pelo bot. Se nao e' bot, entao usuario
-    #print (content['name'])
-    #print (content['data']['personEmail']!=botmail)
     if content['name']==webhook_name and content['data']['personEmail']!=botmail:
         # identifica id da mensagem
         msg_id=(content['data']['id'])
@@ -64,13 +62,33 @@ def trataPOST(content):
         mensagem=webextalk[0]
         sala=webextalk[1]
         print ("Usuário "+ usermail + " solicitou " + mensagem)
+
+
         # executa a logica
         msg=logica(mensagem,usermail)
+        
+        # Envia log de uso para outra sala
+        #sala_log = getwebexRoomID(log_bot)
+        #print (sala_log)
+        #log_room_id = "Y2lzY29zcGFyazovL3VzL1JPT00vODhhYzFiODAtYmRiZC0xMWU5LWI3NjEtN2Y4ZjU4YzU1MGFj"
+        #print (log_room_id)
+        #msg_log = "bot: Tem Estoque |" + "user:" + usermail + "| comando:" + mensagem
+        #print (msg_log)
+        #webexmsgRoomviaID(sala_log,msg_log)
+            
         # Envia resposta na sala apropriada
         print ("Cheguei na funcao post no webex teams")
-        webexmsgRoomviaID(sala,msg)        
+        webexmsgRoomviaID(sala,msg)
+        
         print ("Cheguei na funcao de log no smartsheet")    
         log_bot_smartsheet(usermail,mensagem)
+        # Envia log de uso para outra sala
+        #log_bot_room_name = "log_bot"
+        #Log hardcoded para uma sala o Webex Teams
+        #sala_log = "Y2lzY29zcGFyazovL3VzL1JPT00vODhhYzFiODAtYmRiZC0xMWU5LWI3NjEtN2Y4ZjU4YzU1MGFj"
+        #msg_log = "bot: Tem Estoque |" + "user:" + usermail + "| comando:" + mensagem
+        #print (msg_log)
+        #webexmsgRoomviaID(sala_log,msg_log)
 
     else:
         print("POST nao reconhecido")

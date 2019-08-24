@@ -6,15 +6,22 @@ def logica(comando,usermail):
     # faz a logica de entender o comando pedido e a devida resposta para o usuario
     # o parametro usermail e' utilizado para identificar o usuario que solicitou o comando
     # O usuario pode ser uzado como filtro para se executar ou negar o comando
+    #
     # Retorna mensagem para ser enviada para console ou Webex teams
+
     #Separa o comando por espacos
     #Primeiro item e'o comando em si, os demais sao parametros deste comando
     #tudo minusculo
     comando=comando.lower()
+    #print("comando:")
+    #print(comando)
+
     # identifica e trata comandos relacionados a parceiros - palavra chave partner
     # logo a primeira parte do comando e' o que queremos procurar e
     # a segunda e' o nome do parceiro
     # logo comando = o comando completo, box = funcao esperada e parceiro = nome do parceiro
+    #sp=comando.split("partner")
+    #sp=comando.split("disti")
     lista_comando=comando.split()
     #print ("lista de comandos:")
     #print(lista_comando)
@@ -24,12 +31,24 @@ def logica(comando,usermail):
 
     # comando ou a primeira palavra na variavel box
     box=lista_comando[0]
+    # ajusta a segunda variavel com o nome do parceiro eliminando elista_comandoacos a esquerda e direita
+    #if len(lista_comando)>1:
+    #    disti=lista_comando[1].strip()
+    #    print ("dist:")
+    #    print(disti)
+        # remove elista_comandoacos no final, caso existam
+        #parceiro=parceiro.rstrip()
+
+
+    #msg=""
+
     # Comandos para todos usuários:
 
     if "help" in comando:
         msg=ajuda()
 
     # Funcoes somente para users Cisco
+
     else:
         #verifica se o usuários é da Cisco
         if autorizauser(usermail)==True:
@@ -47,9 +66,9 @@ def logica(comando,usermail):
                     if pid.lower() =="" or None:
                         msg = "Digite o partnumber desejado. Utilizar 'help' para saber os comandos válidos disponíveis."
                         return msg
-                    if str(pid.lower()) == "fabrica" or "comstor" or "ingram" or "scansource" or "alcateia":
-                        msg = "Partnumber do produto não é válido. Utilizar 'help' para saber os comandos válidos disponíveis."
-                        return msg
+                    #elif str(pid.lower()) == "fabrica" or "comstor" or "ingram" or "scansource" or "alcateia":
+                    #    msg = "Partnumber do produto não é válido. Utilizar 'help' para saber os comandos válidos disponíveis."
+                    #    return msg
                     #print("pid:")
                     #print (pid)
                     local = "All"
@@ -62,10 +81,15 @@ def logica(comando,usermail):
                 #Comando tipo "pid local_id pid_id"
                 elif len(lista_comando) == 3:
                     pid = lista_comando[2]
+                    #print("pid:")
+                    #print (pid)
                     local = lista_comando[1]
-                    #if pid.lower() == "fabrica" or "comstor" or "ingram" or "scansource" or "alcateia":
-                    #    msg = "Partnumber do produto não é válido. Utilizar 'help' para saber os comandos válidos disponíveis. Cod: 123"
-                    #    return msg
+                    
+                    if pid.lower() == "fabrica" or "comstor" or "ingram" or "scansource" or "alcateia":
+                        msg = "Partnumber do produto não é válido. Utilizar 'help' para saber os comandos válidos disponíveis."
+                        return msg
+                    #print ("Local:")
+                    #print (local)
                     msg=smartpid(pid,local)
                     #return smartpid(pid,local)
                     return msg

@@ -84,8 +84,8 @@ def logica(comando,usermail):
                     #print("pid:")
                     #print (pid)
                     local = lista_comando[1]
-                    
-                    if pid.lower() == "fabrica" or "comstor" or "ingram" or "scansource" or "alcateia":
+                    lista_de_locais = ["fabrica","comstor","ingram","scansource","alcateia"]
+                    if pid.lower() in lista_de_locais:
                         msg = "Partnumber do produto não é válido. Utilizar 'help' para saber os comandos válidos disponíveis."
                         return msg
                     #print ("Local:")

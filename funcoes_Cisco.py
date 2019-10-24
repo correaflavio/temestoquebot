@@ -243,7 +243,7 @@ def formata_pid(dados, local):
         except:
             pass
         try:
-            qty_available=int(dados['cells'][1]['value'])
+            qty_available=str(dados['cells'][1]['value'])
         except:
             pass
         try:
@@ -251,7 +251,7 @@ def formata_pid(dados, local):
         except:
             pass
         try:
-            updated=str(dados['cells'][3]['value'])
+            updated=str(dados['cells'][3]['value']).split('.')[0]
         except:
             pass
             
@@ -266,7 +266,7 @@ def formata_pid(dados, local):
         except:
             pass
         try:
-            qty_available=int(dados['cells'][7]['value'])
+            qty_available=str(dados['cells'][7]['value']).split('.')[0]
         except:
             pass
         try:

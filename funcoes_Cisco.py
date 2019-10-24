@@ -243,7 +243,7 @@ def formata_pid(dados, local):
         except:
             pass
         try:
-            qty_available=str(dados['cells'][1]['value']).rstrip(".0")
+            qty_available=str(dados['cells'][1]['value'])
         except:
             pass
         try:
@@ -266,7 +266,7 @@ def formata_pid(dados, local):
         except:
             pass
         try:
-            qty_available=str(dados['cells'][7]['value']).rstrip(".0")
+            qty_available=str(dados['cells'][7]['value'])
         except:
             pass
         try:

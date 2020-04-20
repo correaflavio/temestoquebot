@@ -139,7 +139,7 @@ def smartpid(pid,local):
     #    data = smartsheet("fabrica")
     #    msg = msg + findpid(pid,data)
     else:
-        msg = "Local inválido. Locais válidos: Ingram, Scansource, Alcateia, Comstor e Fabrica"
+        msg = "Local inválido. Locais válidos: Ingram, Scansource e Comstor."
         return msg
 
 
@@ -319,7 +319,7 @@ Forma de uso:  \n
 **Procura se tem um partnumber em estoque:**  \n
 ___
 Consulta o estoque de todos os distis e fabrica: estoque ***pid_id*** - Exemplo: estoque 9300 \n
-Consulta o estoque de um disti e da fabrica: estoque ***local*** ***pid_id*** - Exemplo: estoque fabrica 1815 \n
+Consulta o estoque de um disti e da fabrica: estoque ***local*** ***pid_id*** - Exemplo: estoque Comstor 1815 \n
 Valores válidos para local são: Scansource, Comstor e Ingram  \n
 """
 

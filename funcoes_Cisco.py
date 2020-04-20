@@ -24,10 +24,10 @@ def smartsheet(planilha):
         sheet="6726686227097476"
     elif "ingram" in planilha:
         sheet="5371646502788"
-    elif "fabrica" in planilha:
-        sheet="4374521617639300"
-    elif "alcateia" in planilha:
-        sheet="4103938677991300"
+    #elif "fabrica" in planilha:
+    #    sheet="4374521617639300"
+    #elif "alcateia" in planilha:
+    #    sheet="4103938677991300"
 
 
     #planilha de managers
@@ -118,26 +118,26 @@ def smartpid(pid,local):
     elif local == "comstor":
         data = smartsheet("comstor")
         msg = findpid(pid,data)
-    elif local == "alcateia":
-        data = smartsheet("alcateia")
-        msg = findpid(pid,data)
+    #elif local == "alcateia":
+    #    data = smartsheet("alcateia")
+    #    msg = findpid(pid,data)
     elif local == "ingram":
         data = smartsheet("ingram")
         msg = findpid(pid,data)
-    elif local == "fabrica":
-        data = smartsheet("fabrica")
-        msg = findpid(pid,data)
+    #elif local == "fabrica":
+    #    data = smartsheet("fabrica")
+    #    msg = findpid(pid,data)
     elif local == "All":
         data = smartsheet("scansource")
         msg = findpid(pid,data)
         data = smartsheet("comstor")
         msg = msg + findpid(pid,data)
-        data = smartsheet("alcateia")
-        msg = msg + findpid(pid,data)
+    #    data = smartsheet("alcateia")
+    #    msg = msg + findpid(pid,data)
         data = smartsheet("ingram")
         msg = msg + findpid(pid,data)
-        data = smartsheet("fabrica")
-        msg = msg + findpid(pid,data)
+    #    data = smartsheet("fabrica")
+    #    msg = msg + findpid(pid,data)
     else:
         msg = "Local inválido. Locais válidos: Ingram, Scansource, Alcateia, Comstor e Fabrica"
         return msg
@@ -183,18 +183,19 @@ def findpid(pid,data):
             linha_pid = "Sem_PID"
             print ("Verificar se o Smartsheet está com a coluna de PID sem preencher")
         # quantidade esta na columa 2 se for o reporta da fabrica ou columa 8 se for dos distribuidores
-        if local == "fabrica":
-            try:
-                qty_available = linha['cells'][1]['value']
-            except:
-                qty_available = 0
-                print ("Verificar se o Smartsheet está com a coluna Quantity sem preencher")
-        else:
-            try:
-                qty_available = linha['cells'][7]['value']
-            except:
-                qty_available = 0
-                print ("Verificar se o Smartsheet com a coluna Quantity sem preencher")
+
+        #if local == "fabrica":
+        #    try:
+        #        qty_available = linha['cells'][1]['value']
+        #    except:
+        #        qty_available = 0
+        #        print ("Verificar se o Smartsheet está com a coluna Quantity sem preencher")
+        #else:
+        try:
+            qty_available = linha['cells'][7]['value']
+        except:
+            qty_available = 0
+            print ("Verificar se o Smartsheet com a coluna Quantity sem preencher")
         #print (linha_pid)
         #print (linha_pid)
         # gera a linha formatada caso parceiro encontrado
@@ -249,54 +250,56 @@ def formata_pid(dados, local):
     #print (dados)
     # tenta pegar valores. Tenta pois se a celula estiver vazia, dará erro de conteúdo, por isto o 'try'
 
-    if local == "fabrica":
+    #Consulta original quanto tinhamos a fabrica também.
+    #if local == "fabrica":
 
-        try:
-            pid=str(dados['cells'][0]['value'])
-        except:
-            pass
-        try:
-            qty_available=str(dados['cells'][1]['value']).split('.')[0]
-        except:
-            pass
-        try:
-            updated_by=str(dados['cells'][2]['value'])
-        except:
-            pass
-        try:
-            updated=str(dados['cells'][3]['value'])
-        except:
-            pass
+    #    try:
+    #        pid=str(dados['cells'][0]['value'])
+    #    except:
+    #        pass
+    #    try:
+    #        qty_available=str(dados['cells'][1]['value']).split('.')[0]
+    #    except:
+    #        pass
+    #    try:
+    #        updated_by=str(dados['cells'][2]['value'])
+    #    except:
+    #        pass
+    #    try:
+    #        updated=str(dados['cells'][3]['value'])
+    #    except:
+    #        pass
 
-        #monta a linha e imprime
-        msg=msg+(" **PID:** "+ pid + " **Qtd:** " + qty_available + "  \n")
-        print (msg)
-        return msg
+    #    #monta a linha e imprime
+    #    msg=msg+(" **PID:** "+ pid + " **Qtd:** " + qty_available + "  \n")
+    #    print (msg)
+    #    return msg
 
-    else:
-        try:
-            pid=str(dados['cells'][0]['value'])
-        except:
-            pass
-        try:
-            qty_available=str(dados['cells'][7]['value']).split('.')[0]
-        except:
-            pass
-        try:
-            updated_by=str(dados['cells'][8]['value'])
-        except:
-            pass
-        try:
-            updated=str(dados['cells'][9]['value'])
-        except:
-            pass
+    #Fazia um else para quando não era fabrica
+    #else:
+    try:
+        pid=str(dados['cells'][0]['value'])
+    except:
+        pass
+    try:
+        qty_available=str(dados['cells'][7]['value']).split('.')[0]
+    except:
+        pass
+    try:
+        updated_by=str(dados['cells'][8]['value'])
+    except:
+        pass
+    try:
+        updated=str(dados['cells'][9]['value'])
+    except:
+        pass
 
-        #monta a linha e imprime
-        msg=msg+(" **PID:** "+ pid + " **Qtd:** " + qty_available + "  \n")
-        #print ("msg formata pid")
-        print (msg)
-        return msg
-        print ("msn formata pid depois de retornar o resultado")
+    #monta a linha e imprime
+    msg=msg+(" **PID:** "+ pid + " **Qtd:** " + qty_available + "  \n")
+    #print ("msg formata pid")
+    print (msg)
+    return msg
+    print ("msn formata pid depois de retornar o resultado")
 
     #return msg
 
@@ -317,7 +320,7 @@ Forma de uso:  \n
 ___
 Consulta o estoque de todos os distis e fabrica: estoque ***pid_id*** - Exemplo: estoque 9300 \n
 Consulta o estoque de um disti e da fabrica: estoque ***local*** ***pid_id*** - Exemplo: estoque fabrica 1815 \n
-Valores válidos para local são: Scansource, Comstor, Ingram, Alcateia e Fabrica  \n
+Valores válidos para local são: Scansource, Comstor e Ingram  \n
 """
 
     return msg

@@ -183,11 +183,13 @@ def findpid(pid,data):
             try:
                 qty_available = linha['cells'][1]['value']
             except:
+                qty_available = 0
                 print ("Verificar se o Smartsheet tem colunas sem preencher")
         else:
             try:
                 qty_available = linha['cells'][7]['value']
             except:
+                qty_available = 0
                 print ("Verificar se o Smartsheet tem colunas sem preencher")
         #print (linha_pid)
         #print (linha_pid)

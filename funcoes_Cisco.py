@@ -180,6 +180,7 @@ def findpid(pid,data):
         try:
             linha_pid=str(linha['cells'][0]['value'])
         except:
+            linha_pid = "Sem_PID"
             print ("Verificar se o Smartsheet está com a coluna de PID sem preencher")
         # quantidade esta na columa 2 se for o reporta da fabrica ou columa 8 se for dos distribuidores
         if local == "fabrica":

@@ -1,6 +1,6 @@
 ﻿import requests
 import os
-import json 
+import json
 
 #########################################################
 ## FUNCOES SMARTSHEET
@@ -41,9 +41,9 @@ def smartsheet(planilha):
 #        'Postman-Token': "6y1ult32nio7vth2d2nnwbnprx"
         }
 
-    
+
     response = requests.request("GET", url, data=payload, headers=headers)
-    
+
     #pega conteudo pleno da planilha
     if response.status_code==200:
         json_res = json.loads(response.text)
@@ -61,21 +61,21 @@ def log_bot_smartsheet(user,comando):
 
     #token esta na variável de ambiente
     smartsheet_token=os.environ['SMART_TOKEN']
-    
+
     smartsheet_bot_log_id = "6418465415292804"
-    
+
     bot_name = "Tem Estoque"
     user_id = user
     command = comando
-    
 
-    #URL smartsheet para adicionar linhas 
+
+    #URL smartsheet para adicionar linhas
     url = "https://api.smartsheet.com/2.0/sheets/"+ smartsheet_bot_log_id + "/rows"
     print (url)
     #payload com cada columa e o comando por coluna
     payload = {"toTop":True, "cells": [{"columnId": 1904224842868612, "value": bot_name}, {"columnId": 6407824470239108, "value": user_id}, {"columnId": 4156024656553860, "value": command}]}
     print (payload)
-    
+
     headers = {
         'Authorization': "Bearer "+ smartsheet_token,
         'Content-Type': "application/json",
@@ -84,7 +84,7 @@ def log_bot_smartsheet(user,comando):
 
     response = requests.request("POST", url, data=json.dumps(payload), headers=headers)
     print(response.text)
-    
+
     #pega conteudo pleno da planilha
     if response.status_code==200:
         json_res = json.loads(response.text)
@@ -104,7 +104,7 @@ def log_bot_smartsheet(user,comando):
 
 
 def smartpid(pid,local):
-    
+
     # Procura por pids
     # 13.9.2019
     if pid=="":
@@ -138,37 +138,38 @@ def smartpid(pid,local):
         msg = msg + findpid(pid,data)
         data = smartsheet("fabrica")
         msg = msg + findpid(pid,data)
-    else: 
+    else:
         msg = "Local inválido. Locais válidos: Ingram, Scansource, Alcateia, Comstor e Fabrica"
         return msg
-        
+
 
     #aborta caso nao tenha sido possivel acessar smartsheet
     if data=="erro":
         msg="Erro de acesso\n"
-    
+
     return msg
 
 def findpid(pid,data):
     # quantas linhas tem a planilha
     linhas = data['totalRowCount']
+    #ultima vez que a planilha foi modificada
     data_modificacao = data['modifiedAt']
 
     #print (linhas)
     #print ("# de linhas na tabela: " + str(linhas))
     local = data['name'].lower()
     #print (local)
-    
+
     #print (nome_disti)
     # loop para procurar o pam e imprime
 
     msg=""
     count=0
     encontrado=0
-    
+
     # formata nome do Distribuidir e a data de atualizacao da planilha (pega a data e elimina a hora)
     msg=msg+("  \n**Local:** " + str(local.upper()) + " **Atualizado:** "+ data_modificacao.split("T")[0]+"  \n")
-    
+
     while (count<linhas):
 
         # valida 1 linha por vez
@@ -176,16 +177,16 @@ def findpid(pid,data):
         #print (linha)
         #print(linha)
         # acessa a primeira celula da linha (parceiro)
-        linha_pid=linha['cells'][0]['value']
+        linha_pid=str(linha['cells'][0]['value'])
         # quantidade esta na columa 2 se for o reporta da fabrica ou columa 8 se for dos distribuidores
         if local == "fabrica":
             qty_available = linha['cells'][1]['value']
         else:
             qty_available = linha['cells'][7]['value']
         #print (linha_pid)
-        #print (linha_pid)         
+        #print (linha_pid)
         # gera a linha formatada caso parceiro encontrado
-            
+
         if pid in linha_pid.lower() and qty_available > 0:
             #print (local, qty_available)
             msg=msg+formata_pid(linha,local)
@@ -197,15 +198,15 @@ def findpid(pid,data):
             #print ("pid encontrado " + str(encontrado) + " vezes em estoque na " + str(local))
             #return msg
 
-                
+
         count=count+1
         #print ("Loop count = " + str(count))
         #print(count)
 
-                
+
         # devolva negativa caso nada encontrado
     #print (msg)
-    
+
     if encontrado == 0:
         #print ("PID não encontrado em estoque na " + str(local))
         msg=("  \n" + "**Local:** " + str(local.upper()) + " **PID:** "+ pid + " não tem estoque " + "  \n")
@@ -223,7 +224,7 @@ def formata_pid(dados, local):
 
     #lista de pids
     #13.09.2019
-    
+
     # zera variaveis
     #print ("cheguei na funcao formata_pid")
     #print(dados)
@@ -235,7 +236,7 @@ def formata_pid(dados, local):
     updated_by=""
     #print (dados)
     # tenta pegar valores. Tenta pois se a celula estiver vazia, dará erro de conteúdo, por isto o 'try'
-    
+
     if local == "fabrica":
 
         try:
@@ -254,12 +255,12 @@ def formata_pid(dados, local):
             updated=str(dados['cells'][3]['value'])
         except:
             pass
-            
+
         #monta a linha e imprime
         msg=msg+(" **PID:** "+ pid + " **Qtd:** " + qty_available + "  \n")
         print (msg)
         return msg
-               
+
     else:
         try:
             pid=str(dados['cells'][0]['value'])
@@ -277,16 +278,16 @@ def formata_pid(dados, local):
             updated=str(dados['cells'][9]['value'])
         except:
             pass
-            
+
         #monta a linha e imprime
         msg=msg+(" **PID:** "+ pid + " **Qtd:** " + qty_available + "  \n")
         #print ("msg formata pid")
         print (msg)
         return msg
         print ("msn formata pid depois de retornar o resultado")
-        
+
     #return msg
-    
+
 
 
 
@@ -306,12 +307,12 @@ Consulta o estoque de todos os distis e fabrica: estoque ***pid_id*** - Exemplo:
 Consulta o estoque de um disti e da fabrica: estoque ***local*** ***pid_id*** - Exemplo: estoque fabrica 1815 \n
 Valores válidos para local são: Scansource, Comstor, Ingram, Alcateia e Fabrica  \n
 """
-    
+
     return msg
 
 
 def getCiscoApiToken():
-    
+
     #Chama Cisco.com para gerar token para consultas. Retorna Token
 
     url = "https://cloudsso.cisco.com/as/token.oauth2"
@@ -352,15 +353,15 @@ def SupportAPIHello():
     token=getCiscoApiToken()
     nova_resp=CiscoApiHello(token)
     return nova_resp
-        
-    
+
+
 
 #########################################################
 ## FUNCOES TECHMAPPING CISCO BRASIL
 ## Funcoes abaixo nao mais utilizadas apos migracao da base para Smartsheet
 
 #########################################################
-        
+
 def autorizauser(usermail):
 
     # Esta funcao devolve true ou false para validar se usermail e' valido
@@ -368,11 +369,11 @@ def autorizauser(usermail):
 
     # primeiro checa se email e da Cisco
     email=usermail.split("@")
-        
+
     # caso positivo devolve true ou false
     if email[1]=="cisco.com":
         resultado = True
     else:
         resultado = False
-   
+
     return resultado

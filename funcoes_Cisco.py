@@ -177,20 +177,23 @@ def findpid(pid,data):
         #print (linha)
         #print(linha)
         # acessa a primeira celula da linha (parceiro)
-        linha_pid=str(linha['cells'][0]['value'])
+        try:
+            linha_pid=str(linha['cells'][0]['value'])
+        except:
+            print ("Verificar se o Smartsheet está com a coluna de PID sem preencher")
         # quantidade esta na columa 2 se for o reporta da fabrica ou columa 8 se for dos distribuidores
         if local == "fabrica":
             try:
                 qty_available = linha['cells'][1]['value']
             except:
                 qty_available = 0
-                print ("Verificar se o Smartsheet tem colunas sem preencher")
+                print ("Verificar se o Smartsheet está com a coluna Quantity sem preencher")
         else:
             try:
                 qty_available = linha['cells'][7]['value']
             except:
                 qty_available = 0
-                print ("Verificar se o Smartsheet tem colunas sem preencher")
+                print ("Verificar se o Smartsheet com a coluna Quantity sem preencher")
         #print (linha_pid)
         #print (linha_pid)
         # gera a linha formatada caso parceiro encontrado

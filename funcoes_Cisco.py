@@ -128,7 +128,7 @@ def smartpid(pid,local):
     #    data = smartsheet("alcateia")
     #    msg = findpid(pid,data)
     elif local == "ingram":
-        data = smartsheet("ingram")
+        data = smartsheet("ftrack_ingram")
         msg = findpid(pid,data)
     #elif local == "fabrica":
     #    data = smartsheet("fabrica")

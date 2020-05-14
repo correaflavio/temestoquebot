@@ -24,6 +24,12 @@ def smartsheet(planilha):
         sheet="6726686227097476"
     elif "ingram" in planilha:
         sheet="5371646502788"
+    elif "ftrack_ingram" in planilha:
+        sheet="7891488269985668"
+    elif "ftrack_comstor" in planilha:
+        sheet="1124904734091140"
+    elif "ftrack_scansource" in planilha:
+        sheet="3773679785011076"
     #elif "fabrica" in planilha:
     #    sheet="4374521617639300"
     #elif "alcateia" in planilha:
@@ -149,6 +155,42 @@ def smartpid(pid,local):
 
     return msg
 
+def smartpid_ftrack(pid,local):
+
+    # Procura por pids
+    # 13.9.2019
+    if pid=="":
+        return
+
+    # planilha do smartsheet
+    # chama a funcao que busca planilha no smartsheet e devolve como JSON
+    if local == "ingram":
+        data = smartsheet("ftrack_ingram")
+        msg = findpid_ftrack(pid,data)
+    elif local == "comstor":
+        data = smartsheet("ftrack_comstor")
+        msg = findpid_ftrack(pid,data)
+    elif local == "scansource":
+        data = smartsheet("ftrack_scansource")
+        msg = findpid_ftrack(pid,data)
+    elif local == "All_ftrack":
+        data = smartsheet("ftrack_ingram")
+        msg = findpid_ftrack(pid,data)
+        data = smartsheet("ftrack_scansource")
+        msg = msg + findpid_ftrack(pid,data)
+        data = smartsheet("ftrack_comstor")
+        msg = msg + findpid_ftrack(pid,data)
+    else:
+        msg = "Local inválido. Locais válidos: Ingram, Scansource e Comstor."
+        return msg
+
+
+    #aborta caso nao tenha sido possivel acessar smartsheet
+    if data=="erro":
+        msg="Erro de acesso\n"
+
+    return msg
+
 def findpid(pid,data):
     # quantas linhas tem a planilha
     linhas = data['totalRowCount']
@@ -227,6 +269,76 @@ def findpid(pid,data):
     return msg
 
 
+def findpid_ftrack(pid,data):
+    # quantas linhas tem a planilha
+    linhas = data['totalRowCount']
+    #ultima vez que a planilha foi modificada
+    data_modificacao = data['modifiedAt']
+
+    #print (linhas)
+    #print ("# de linhas na tabela: " + str(linhas))
+    local = data['name'].lower()
+    #print (local)
+
+    #print (nome_disti)
+    # loop para procurar o pam e imprime
+
+    msg=""
+    count=0
+    encontrado=0
+
+    # formata nome do Distribuidir e a data de atualizacao da planilha (pega a data e elimina a hora)
+    msg=msg+("  \n**Local:** " + str(local.upper()) + " **Atualizado:** "+ data_modificacao.split("T")[0]+"  \n")
+
+    while (count<linhas):
+
+        # valida 1 linha por vez
+        linha=data['rows'][count]
+        #print (linha)
+        #print(linha)
+        # acessa a primeira celula da linha (parceiro)
+        try:
+            linha_pid=str(linha['cells'][0]['value'])
+        except:
+            linha_pid = "Sem_PID"
+            print ("Verificar se o Smartsheet está com a coluna de PID sem preencher")
+
+        try:
+            qty_available = linha['cells'][1]['value']
+        except:
+            qty_available = 0
+            print ("Verificar se o Smartsheet com a coluna Quantity sem preencher")
+        #print (linha_pid)
+        #print (linha_pid)
+        # gera a linha formatada caso parceiro encontrado
+
+        if pid in linha_pid.lower() and qty_available > 0:
+            #print (local, qty_available)
+            msg=msg+formata_pid_ftrack(linha,local)
+            #print (linha_pid + " contains given substring " +pid)
+            #encontrado=encontrado+1
+            #print ("Encontrado " + encontrado + " vezes.")
+            #print (msg)
+            encontrado=encontrado+1
+            #print ("pid encontrado " + str(encontrado) + " vezes em estoque na " + str(local))
+            #return msg
+
+
+        count=count+1
+        #print ("Loop count = " + str(count))
+        #print(count)
+
+
+        # devolva negativa caso nada encontrado
+    #print (msg)
+
+    if encontrado == 0:
+        #print ("PID não encontrado em estoque na " + str(local))
+        msg=("  \n" + "**Local:** " + str(local.upper()) + " **PID:** "+ pid + " não está disponível para FastTrack no momento " + "  \n")
+
+    return msg
+
+
 
 #########################################################
 ## FUNCOES de formatacao de texto para saida Webexteams
@@ -277,6 +389,7 @@ def formata_pid(dados, local):
 
     #Fazia um else para quando não era fabrica
     #else:
+    
     try:
         pid=str(dados['cells'][0]['value'])
     except:
@@ -303,6 +416,40 @@ def formata_pid(dados, local):
 
     #return msg
 
+
+def formata_pid_ftrack(dados, local):
+
+    #lista de pids
+    #13.09.2019
+
+    # zera variaveis
+    #print ("cheguei na funcao formata_pid")
+    #print(dados)
+    #print(local)
+    msg=""
+    pid=""
+    qty_available=""
+    updated=""
+    updated_by=""
+    #print (dados)
+    # tenta pegar valores. Tenta pois se a celula estiver vazia, dará erro de conteúdo, por isto o 'try'
+
+    try:
+        pid=str(dados['cells'][0]['value'])
+    except:
+        pass
+    try:
+        qty_available=str(dados['cells'][1]['value']).split('.')[0]
+    except:
+        pass
+    #monta a linha e imprime
+    msg=msg+(" **PID:** "+ pid + " **Qtd:** " + qty_available + "  \n")
+    #print ("msg formata pid")
+    print (msg)
+    return msg
+    print ("msn formata pid depois de retornar o resultado")
+
+    #return msg
 
 
 

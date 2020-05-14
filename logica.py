@@ -1,4 +1,4 @@
-﻿from funcoes_Cisco import ajuda, smartpid, autorizauser
+﻿from funcoes_Cisco import ajuda, smartpid, smartpid_ftrack, autorizauser
 from webexteams import getwebexRoomID, webexmsgRoomviaID
 
 def logica(comando,usermail):

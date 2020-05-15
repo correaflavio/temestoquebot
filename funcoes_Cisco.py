@@ -156,7 +156,7 @@ def smartpid(pid,local):
     return msg
 
 def smartpid_ftrack(pid,local):
-
+    print("entro smart_pid_ftrak")
     # Procura por pids
     # 13.9.2019
     if pid=="":
@@ -177,9 +177,9 @@ def smartpid_ftrack(pid,local):
         data = smartsheet("ftrack_scansource")
         msg = findpid_ftrack(pid,data)
         data = smartsheet("ftrack_comstor")
-        msg = msg + findpid(pid,data)
+        msg = msg + findpid_ftrack(pid,data)
         data = smartsheet("ftrack_ingram")
-        msg = msg + findpid(pid,data)
+        msg = msg + findpid_ftrack(pid,data)
     else:
         msg = "Local inválido. Locais válidos: Ingram, Scansource e Comstor."
         return msg

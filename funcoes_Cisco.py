@@ -174,12 +174,12 @@ def smartpid_ftrack(pid,local):
         data = smartsheet("ftrack_scansource")
         msg = findpid_ftrack(pid,data)
     elif local == "All_ftrack":
-        data = smartsheet("ftrack_ingram")
-        msg = findpid_ftrack(pid,data)
         data = smartsheet("ftrack_scansource")
-        msg = msg + findpid_ftrack(pid,data)
+        msg = findpid_ftrack(pid,data)
         data = smartsheet("ftrack_comstor")
-        msg = msg + findpid_ftrack(pid,data)
+        msg = msg + findpid(pid,data)
+        data = smartsheet("ftrack_ingram")
+        msg = msg + findpid(pid,data)
     else:
         msg = "Local inválido. Locais válidos: Ingram, Scansource e Comstor."
         return msg
@@ -288,7 +288,7 @@ def findpid_ftrack(pid,data):
     encontrado=0
 
     # formata nome do Distribuidir e a data de atualizacao da planilha (pega a data e elimina a hora)
-    msg=msg+("  \n**Local:** " + str(local.upper()) + " **Atualizado:** "+ data_modificacao.split("T")[0]+"  \n")
+    #msg=msg+("  \n**Local:** " + str(local.upper()) + " **Atualizado:** "+ data_modificacao.split("T")[0]+"  \n")
 
     while (count<linhas):
 
@@ -429,8 +429,6 @@ def formata_pid_ftrack(dados, local):
     msg=""
     pid=""
     qty_available=""
-    updated=""
-    updated_by=""
     #print (dados)
     # tenta pegar valores. Tenta pois se a celula estiver vazia, dará erro de conteúdo, por isto o 'try'
 
@@ -447,7 +445,6 @@ def formata_pid_ftrack(dados, local):
     #print ("msg formata pid")
     print (msg)
     return msg
-    print ("msn formata pid depois de retornar o resultado")
 
     #return msg
 

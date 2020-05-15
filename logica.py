@@ -76,6 +76,7 @@ def logica(comando,usermail):
 
                 #Comando tipo "pid local_id pid_id"
                 elif len(lista_comando) == 3:
+                    print ("tem 3 palavras")
                     pid = lista_comando[2]
                     #print("pid:")
                     #print (pid)

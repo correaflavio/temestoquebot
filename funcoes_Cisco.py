@@ -275,7 +275,7 @@ def findpid_ftrack(pid,data):
     #ultima vez que a planilha foi modificada
     #data_modificacao = data['modifiedAt']
 
-    #print (linhas)
+    print (linhas)
     #print ("# de linhas na tabela: " + str(linhas))
     local = data['name'].lower()
     #print (local)
@@ -291,11 +291,10 @@ def findpid_ftrack(pid,data):
     #msg=msg+("  \n**Local:** " + str(local.upper()) + " **Atualizado:** "+ data_modificacao.split("T")[0]+"  \n")
 
     while (count<linhas):
-
+        print("entrou while") 
         # valida 1 linha por vez
         linha=data['rows'][count]
         #print (linha)
-        print(linha)
         # acessa a primeira celula da linha (parceiro)
         try:
             linha_pid=str(linha['cells'][0]['value'])

@@ -106,21 +106,21 @@ def logica(comando,usermail):
                 if len (lista_comando) == 1:
                     msg = "Digite o partnumber desejado. Utilizar 'help' para saber os comandos válidos disponíveis."
                     return msg
-                elif len(lista_comando) == 2:
+                if len(lista_comando) == 2:
                     pid = lista_comando[1]
-                print(str(pid.lower()))
-                if pid.lower() =="" or None:
-                    msg = "Digite o partnumber desejado. Utilizar 'help' para saber os comandos válidos disponíveis."
-                    return msg
+                    print(str(pid.lower()))
+                    if pid.lower() =="" or None:
+                        msg = "Digite o partnumber desejado. Utilizar 'help' para saber os comandos válidos disponíveis."
+                        return msg
                 
                     local = "All_ftrack"
-                #print ("Local:")
-                #print (local)
+                    #print ("Local:")
+                    #print (local)
                     msg=smartpid_ftrack(pid,local)
-                #return smartpid(pid,local)
+                    #return smartpid(pid,local)
                     return msg
 
-                #Comando tipo "pid local_id pid_id"
+                    #Comando tipo "pid local_id pid_id"
                 elif len(lista_comando) == 3:
                     print ("tem 3 palavras")
                     pid = lista_comando[2]

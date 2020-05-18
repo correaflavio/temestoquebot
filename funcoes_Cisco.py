@@ -271,10 +271,10 @@ def findpid_ftrack(pid,data):
     #ultima vez que a planilha foi modificada
     #data_modificacao = data['modifiedAt']
 
-    print ("Qtdade linhas da planilha = " + linhas)
+    print ("Qtdade linhas da planilha = " + str(linhas))
     #print ("# de linhas na tabela: " + str(linhas))
     local = data['name'].lower()
-    print ("Nome da planilha = " + local)
+    print ("Nome da planilha = " + str(local))
 
     #print (nome_disti)
     # loop para procurar o pam e imprime

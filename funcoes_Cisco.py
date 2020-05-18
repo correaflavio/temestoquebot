@@ -466,7 +466,7 @@ Consulta o estoque de um disti e da fabrica: estoque ***local*** ***pid_id*** - 
 
 **Procura se o partnumber faz parte do programa FastTrack:** \n
 ___
-Consultar o partnumbers participantes do FastTrack: ftrack ****local*** ***pidi_id**** - Exemplo: ftrack 9300  \n
+Consultar o partnumbers participantes do FastTrack: ftrack ****local*** ***pid_id**** - Exemplo: ftrack 9300  \n
 Consultar os partnumbers participantes do FastTrack disponíveis por distribuidor: ftrack ***local*** ***pid_id*** - Exemplo: ftrack Comstor 1815 \n 
 
 Valores válidos para local são: Scansource, Comstor e Ingram  \n

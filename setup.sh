@@ -1,0 +1,2 @@
+export SMART_TOKEN=j7txpag2g7iddvq0jtd3rahl6m
+source TemEstoqueBot/bin/activate

@@ -1,0 +1,14 @@
+Melhorias - Tem Estoque bot - 14/04/2020
+
+Tratar erros:
+1) quando vem sem nenhuma quantidade para um partnumber (RESOLVIDO)
+2) quando a celular de partnumber está vazia mas as colunas de update estão preenchidas (RESOLVIDO)
+3) quando um partnumber só tem numeros e acaba sendo tratado como inteiro e não string. (RESOLVIDO)
+
+Remover as funcionalidades:
+1) Consulta ao estoque da Fábrica - remover do help também (RESOLVIDO)
+2) Consulta ao estoque da Alcatéia - remover do help também (RESOLVIDO)
+
+Novas funcionalidades:
+1) Mostrar se o partnumber consultado faz parte do programa Fast track
+2) Novo comando / função para consultar o desconto de um PN Fast track

@@ -275,10 +275,10 @@ def findpid_ftrack(pid,data):
     #ultima vez que a planilha foi modificada
     #data_modificacao = data['modifiedAt']
 
-    print (linhas)
+    print ("Qtdade linhas da planilha = " + linhas)
     #print ("# de linhas na tabela: " + str(linhas))
     local = data['name'].lower()
-    #print (local)
+    print ("Nome da planilha = " + local)
 
     #print (nome_disti)
     # loop para procurar o pam e imprime
@@ -291,7 +291,7 @@ def findpid_ftrack(pid,data):
     #msg=msg+("  \n**Local:** " + str(local.upper()) + " **Atualizado:** "+ data_modificacao.split("T")[0]+"  \n")
 
     while (count<linhas):
-        print("entrou while") 
+        print("entrou while")
         # valida 1 linha por vez
         linha=data['rows'][count]
         #print (linha)
@@ -303,7 +303,7 @@ def findpid_ftrack(pid,data):
             print ("Verificar se o Smartsheet está com a coluna de PID sem preencher")
 
         try:
-            qty_available = linha['cells'][1]['value']
+            qty_available = int(linha['cells'][1]['value'])
         except:
             qty_available = 0
             print ("Verificar se o Smartsheet com a coluna Quantity sem preencher")
@@ -388,7 +388,7 @@ def formata_pid(dados, local):
 
     #Fazia um else para quando não era fabrica
     #else:
-    
+
     try:
         pid=str(dados['cells'][0]['value'])
     except:
@@ -467,7 +467,7 @@ Consulta o estoque de um disti e da fabrica: estoque ***local*** ***pid_id*** - 
 **Procura se o partnumber faz parte do programa FastTrack:** \n
 ___
 Consultar o partnumbers participantes do FastTrack: ftrack ***pid_id*** - Exemplo: ftrack 9300  \n
-Consultar os partnumbers participantes do FastTrack disponíveis por distribuidor: ftrack ***local*** ***pid_id*** - Exemplo: ftrack Comstor 1815 \n 
+Consultar os partnumbers participantes do FastTrack disponíveis por distribuidor: ftrack ***local*** ***pid_id*** - Exemplo: ftrack Comstor 1815 \n
 
 Valores válidos para local são: Scansource, Comstor e Ingram  \n
 """

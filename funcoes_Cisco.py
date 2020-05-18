@@ -24,12 +24,8 @@ def smartsheet(planilha):
         sheet="6726686227097476"
     elif "ingram" in planilha:
         sheet="5371646502788"
-    elif "ftrack_ingram" in planilha:
+    elif "ftrack" in planilha:
         sheet="7891488269985668"
-    elif "ftrack_comstor" in planilha:
-        sheet="1124904734091140"
-    elif "ftrack_scansource" in planilha:
-        sheet="3773679785011076"
     #elif "fabrica" in planilha:
     #    sheet="4374521617639300"
     #elif "alcateia" in planilha:

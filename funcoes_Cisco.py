@@ -44,7 +44,7 @@ def smartsheet(planilha):
         'Authorization': "Bearer "+ smartsheet_token,
         'Content-Type': "application/json",
         'cache-control': "no-cache",
-#        'Postman-Token': "6y1ult32nio7vth2d2nnwbnprx"
+        #'Postman-Token': "6y1ult32nio7vth2d2nnwbnprx"
         }
 
 
@@ -411,7 +411,7 @@ def formata_pid(dados, local):
     #print ("msg formata pid")
     print (msg)
     return msg
-    print ("msn formata pid depois de retornar o resultado")
+    #print ("msn formata pid depois de retornar o resultado")
 
     #return msg
 
@@ -422,7 +422,7 @@ def formata_pid_ftrack(dados, local):
     #13.09.2019
 
     # zera variaveis
-    #print ("cheguei na funcao formata_pid")
+    #print ("cheguei na funcao formata_pid_ftrack")
     #print(dados)
     #print(local)
     msg=""
@@ -466,7 +466,7 @@ Consulta o estoque de um disti e da fabrica: estoque ***local*** ***pid_id*** - 
 
 **Procura se o partnumber faz parte do programa FastTrack:** \n
 ___
-Consultar o partnumbers participantes do FastTrack: ftrack ****local*** ***pid_id**** - Exemplo: ftrack 9300  \n
+Consultar o partnumbers participantes do FastTrack: ftrack ***pid_id**** - Exemplo: ftrack 9300  \n
 Consultar os partnumbers participantes do FastTrack disponíveis por distribuidor: ftrack ***local*** ***pid_id*** - Exemplo: ftrack Comstor 1815 \n 
 
 Valores válidos para local são: Scansource, Comstor e Ingram  \n

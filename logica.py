@@ -99,14 +99,14 @@ def logica(comando,usermail):
                     
             
                 #Nenhum comando conhecido
-            elif lista_comando[0] == "ftrack":
+            elif lista_comando[0] == "ft":
                 # funcoes relacionadas a parceiro
                 #comandos para usuarios Cisco:
                 #Comando tipo "pid pid_id"
                 if len (lista_comando) == 1:
                     msg = "Digite o partnumber desejado. Utilizar 'help' para saber os comandos válidos disponíveis."
                     return msg
-                if len(lista_comando) == 2:
+                elif len(lista_comando) == 2:
                     pid = lista_comando[1]
                     print(str(pid.lower()))
                     if pid.lower() =="" or None:
@@ -124,17 +124,17 @@ def logica(comando,usermail):
                 elif len(lista_comando) == 3:
                     print ("tem 3 palavras")
                     pid = lista_comando[2]
-                #print("pid:")
-                #print (pid)
+                    #print("pid:")
+                    #print (pid)
                     local = lista_comando[1]
                     lista_de_locais = ["comstor","ingram","scansource"]
                     if pid.lower() in lista_de_locais:
                         msg = "Partnumber do produto não é válido. Utilizar 'help' para saber os comandos válidos disponíveis."
                         return msg
-                #print ("Local:")
-                #print (local)
+                    #print ("Local:")
+                    #print (local)
                     msg=smartpid_ftrack(pid,local)
-                #return smartpid(pid,local)
+                    #return smartpid(pid,local)
                     return msg
             else:
                 msg = "Desculpe não conheço esse comando, utilizar 'help' para saber os comandos disponíveis."

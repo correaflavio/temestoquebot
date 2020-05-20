@@ -161,21 +161,8 @@ def smartpid_ftrack(pid,local):
     # planilha do smartsheet
     # chama a funcao que busca planilha no smartsheet e devolve como JSON
     if local == "ingram":
-        data = smartsheet("ftrack_ingram")
+        data = smartsheet("ftrack")
         msg = findpid_ftrack(pid,data)
-    elif local == "comstor":
-        data = smartsheet("ftrack_comstor")
-        msg = findpid_ftrack(pid,data)
-    elif local == "scansource":
-        data = smartsheet("ftrack_scansource")
-        msg = findpid_ftrack(pid,data)
-    elif local == "All_ftrack":
-        data = smartsheet("ftrack_scansource")
-        msg = findpid_ftrack(pid,data)
-        data = smartsheet("ftrack_comstor")
-        msg = msg + findpid_ftrack(pid,data)
-        data = smartsheet("ftrack_ingram")
-        msg = msg + findpid_ftrack(pid,data)
     else:
         msg = "Local inválido. Locais válidos: Ingram, Scansource e Comstor."
         return msg

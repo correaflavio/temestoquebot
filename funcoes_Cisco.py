@@ -163,6 +163,12 @@ def smartpid_ftrack(pid,local):
     if local == "ingram":
         data = smartsheet("ftrack")
         msg = findpid_ftrack(pid,data)
+    elif local == "comstor":
+        data = smartsheet("ftrack")
+        msg = findpid_ftrack(pid,data)
+    elif local == "scansource":
+        data = smartsheet("ftrack")
+        msg = findpid_ftrack(pid,data)   
     else:
         msg = "Local inválido. Locais válidos: Ingram, Scansource e Comstor."
         return msg
@@ -279,20 +285,45 @@ def findpid_ftrack(pid,data):
         linha=data['rows'][count]
         #print (linha)
         # acessa a primeira celula da linha (parceiro)
-        try:
-            linha_pid=str(linha['cells'][0]['value'])
-        except:
-            linha_pid = "Sem_PID"
-            print ("Verificar se o Smartsheet está com a coluna de PID sem preencher")
+        if local == "ingram":
+            try:
+                linha_pid=str(linha['cells'][0]['value'])
+            except:
+                linha_pid = "Sem_PID"
+                print ("Verificar se o Smartsheet está com a coluna de PID sem preencher")
 
-        try:
-            qty_available = int(linha['cells'][1]['value'])
-        except:
-            qty_available = 0
-            print ("Verificar se o Smartsheet com a coluna Quantity sem preencher")
-        #print (linha_pid)
-        #print (linha_pid)
-        # gera a linha formatada caso parceiro encontrado
+            try:
+                qty_available = int(linha['cells'][1]['value'])
+            except:
+                qty_available = 0
+                print ("Verificar se o Smartsheet com a coluna Quantity sem preencher")
+                #print (linha_pid)
+            #print (linha_pid)
+            # gera a linha formatada caso parceiro encontrado
+        elif local == "comstor":
+             try:
+                linha_pid=str(linha['cells'][0]['value'])
+            except:
+                linha_pid = "Sem_PID"
+                print ("Verificar se o Smartsheet está com a coluna de PID sem preencher")
+
+            try:
+                qty_available = int(linha['cells'][2]['value'])
+            except:
+                qty_available = 0
+                print ("Verificar se o Smartsheet com a coluna Quantity sem preencher")
+        elif local == "scansource":
+             try:
+                linha_pid=str(linha['cells'][0]['value'])
+            except:
+                linha_pid = "Sem_PID"
+                print ("Verificar se o Smartsheet está com a coluna de PID sem preencher")
+
+            try:
+                qty_available = int(linha['cells'][3]['value'])
+            except:
+                qty_available = 0
+                print ("Verificar se o Smartsheet com a coluna Quantity sem preencher")
 
         if pid in linha_pid.lower() and qty_available > 0:
             #print (local, qty_available)

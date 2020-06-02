@@ -256,7 +256,7 @@ def findpid_ftrack(local,data):
 
     #print (linhas)
     #print ("# de linhas na tabela: " + str(linhas))
-    local = data['name'].lower()
+    local == "ingram"
     #print (local)
 
     #print (nome_disti)

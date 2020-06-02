@@ -77,13 +77,7 @@ def logica(comando,usermail):
                     msg=smartpid(pid,local)
                     #return smartpid(pid,local) len
                     return msg
-
-                elif len(lista_comando) == 3:
-                    local = lista_comando[2]
-                    print("pid: ft")
-                    lista_de_locais = ["ingram","comstor","scansource"]
-                    
-
+            
                 #Comando tipo "pid local_id pid_id"
                 elif len(lista_comando) == 3:
                     pid = lista_comando[2]

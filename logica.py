@@ -103,7 +103,7 @@ def logica(comando,usermail):
             if lista_comando[0] == "ft":
                  
                 if len (lista_comando) == 1:
-                    msg = "Digite '***ft + local***' para verificar os partnumbers disponíveis por distribuidor" + "\n que participam do programa FastTrack."
+                    msg = "Digite '***ft + local***' para verificar os PNs disponíveis por distribuidor que participam do programa ***FastTrack***."
                     return msg
                 if len(lista_comando) == 2:
                     local = lista_comando[1]

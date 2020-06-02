@@ -108,12 +108,9 @@ def logica(comando,usermail):
                 if len(lista_comando) == 2:
                     local = lista_comando[1]
                     print(str(local.lower()))
-                    lista_de_locais = ["comstor","ingram","scansource"]
-                    if local.lower() in lista_de_locais:
-                        msg=ft(local)
-                    else:
-                        msg = "o local digitado é invalido, tente novamente."
-                        return msg
+                                         
+                    msg=ft(local)
+                    
                 
 
         else:

@@ -107,7 +107,7 @@ def logica(comando,usermail):
                     return msg
                 if len(lista_comando) == 2:
                     local = lista_comando[1]
-                    lista_de_locais = ["comstor","ingram","scansource"]
+                    print(str(local.lower()))
                     if local.lower() =="" or None:
                         msg = "Digite o parceiro desejado. Utilizar 'help' para saber os comandos válidos disponíveis."
                         return msg

@@ -103,15 +103,17 @@ def logica(comando,usermail):
             if lista_comando[0] == "ft":
                  
                 if len (lista_comando) == 1:
-                    msg = "Digite 'ft + local' para verificar quais equipamentos participam do programa FastTrack ."
+                    msg = "Digite 'ft + local' para verificar quais equipamentos participam do programa FastTrack."
                     return msg
                 if len(lista_comando) == 2:
                     local = lista_comando[1]
                     print(str(local.lower()))
-                    if local.lower() =="" or None:
-                        msg = "Digite o parceiro desejado. Utilizar 'help' para saber os comandos válidos disponíveis."
+                    lista_de_locais = ["comstor","ingram","scansource"]
+                    if local.lower() == lista_de_locais:
+                        msg=ft(local)
+                    else:
+                        msg = "o local digitado é invalido, tente novamente."
                         return msg
-                    msg=ft(local)
                 
 
         else:

@@ -320,7 +320,7 @@ def findpid_ftrack(local,data):
 
         if linha_pid.lower() and qty_available > 0:
                 #print (local, qty_available)
-                msg=msg+formata_pid(linha,local)
+                msg=msg+formata_ftrack(linha,local)
                 #print (linha_pid + " contains given substring " +pid)
                 #encontrado=encontrado+1
                 #print ("Encontrado " + encontrado + " vezes.")
@@ -415,6 +415,59 @@ def formata_pid(dados, local):
     #print ("msn formata pid depois de retornar o resultado")
 
     #return msg
+
+def formata_ftrack(dados, local):
+    msg=""
+    pid=""
+    qty_available=""
+    updated=""
+
+    if local == "ingram":
+        try:
+            pid=str(dados['cells'][0]['value'])
+        except:
+            pass
+        try:
+            qty_available=str(dados['cells'][1]['value']).split('.')[0]
+        except:
+            pass
+        try:
+            updated=str(dados['cells'][5]['value'])
+        except:
+            pass
+    elif local == "comstor":
+        try:
+            pid=str(dados['cells'][0]['value'])
+        except:
+            pass
+        try:
+            qty_available=str(dados['cells'][2]['value']).split('.')[0]
+        except:
+            pass
+        try:
+            updated=str(dados['cells'][5]['value'])
+        except:
+            pass
+    elif local == "scansource":
+        try:
+            pid=str(dados['cells'][0]['value'])
+        except:
+            pass
+        try:
+            qty_available=str(dados['cells'][3]['value']).split('.')[0]
+        except:
+            pass
+        try:
+            updated=str(dados['cells'][5]['value'])
+        except:
+            pass
+    
+     #monta a linha e imprime
+    msg=msg+(" **PID:** "+ pid + " **Qtd:** " + qty_available + "  \n")
+    #print ("msg formata pid")
+    print (msg)
+    return msg
+
 
 
 #########################################################

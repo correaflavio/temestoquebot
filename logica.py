@@ -1,4 +1,4 @@
-﻿from funcoes_Cisco import ajuda, smartpid, autorizauser
+﻿from funcoes_Cisco import ajuda, smartpid,ft, autorizauser
 from webexteams import getwebexRoomID, webexmsgRoomviaID
 
 def logica(comando,usermail):
@@ -75,8 +75,14 @@ def logica(comando,usermail):
                     #print ("Local:")
                     #print (local)
                     msg=smartpid(pid,local)
-                    #return smartpid(pid,local)
+                    #return smartpid(pid,local) len
                     return msg
+
+                elif len(lista_comando) == 3:
+                    local = lista_comando[2]
+                    print("pid: ft")
+                    lista_de_locais = ["ingram","comstor","scansource"]
+                    
 
                 #Comando tipo "pid local_id pid_id"
                 elif len(lista_comando) == 3:
@@ -84,7 +90,7 @@ def logica(comando,usermail):
                     #print("pid:")
                     #print (pid)
                     local = lista_comando[1]
-                    lista_de_locais = ["fabrica","comstor","ingram","scansource","alcateia"]
+                    lista_de_locais = ["comstor","ingram","scansource"]
                     if pid.lower() in lista_de_locais:
                         msg = "Partnumber do produto não é válido. Utilizar 'help' para saber os comandos válidos disponíveis."
                         return msg
@@ -99,6 +105,21 @@ def logica(comando,usermail):
                     
             
                 #Nenhum comando conhecido
+
+            if lista_comando[0] == "ft":
+                 
+                if len (lista_comando) == 1:
+                    msg = "Digite 'ft + local' para verificar quais equipamentos participam do programa FastTrack ."
+                    return msg
+                if len(lista_comando) == 2:
+                    local = lista_comando[1]
+                    lista_de_locais = ["comstor","ingram","scansource"]
+                    if local.lower() =="" or None:
+                        msg = "Digite o parceiro desejado. Utilizar 'help' para saber os comandos válidos disponíveis."
+                        return msg
+                    msg=ft(local)
+                
+
         else:
             msg = "Você não está autorizado a utilizar esses comandos"
             return msg

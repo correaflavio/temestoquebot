@@ -229,6 +229,8 @@ def findpid(pid,data):
     return msg
 
 def ft(local):
+
+    print("cheguei na funcao ft")
     
     if local == "scansource":
         data = smartsheet("ftrack")

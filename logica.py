@@ -111,12 +111,8 @@ def logica(comando,usermail):
                     if local.lower() in lista_de_locais:
                         msg=ft(local)
                     else:
-                        msg = "o local ou partnumber digitado é invalido, tente novamente."
-                    return msg
-                else:
-                    msg = "o local digitado é invalido, tente novamente."
-                    return msg
-
+                        msg = "o local digitado é invalido, tente novamente."
+                        return msg
                 
 
         else:

@@ -265,11 +265,7 @@ def ft(local):
 
     return msg
 
-<<<<<<< HEAD
 
-
-=======
->>>>>>> parent of 65bb440... Adicionando funcionalidades de pesquisa ft por partnumber
 def findpid_ftrack(local,data):
     # quantas linhas tem a planilha
     linhas = data['totalRowCount']

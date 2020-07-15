@@ -43,7 +43,6 @@ def logica(comando,usermail):
     #msg=""
 
     # Comandos para todos usuários:
-
     if "help" in comando:
         msg=ajuda()
 

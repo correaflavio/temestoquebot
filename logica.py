@@ -109,14 +109,14 @@ def logica(comando,usermail):
                     local = lista_comando[1]
                     print(str(local.lower()))
                     lista_de_locais = ["comstor","ingram","scansource"]
-                    if local.lower() in lista_de_locais:
+                    try local.lower() in lista_de_locais:
                         msg=ft(local)
-                    elif local.lower() not in lista_de_locais:
+                    except local.lower() not in lista_de_locais:
                         local= "All"
                         msg=ft_pid(local) 
-                    else:
-                        msg = "o local ou partnumber digitado é invalido, tente novamente."
-                        return msg
+                else:
+                    msg = "o local ou partnumber digitado é invalido, tente novamente."
+                    return msg
                 
 
         else:

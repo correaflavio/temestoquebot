@@ -1,4 +1,4 @@
-﻿from funcoes_Cisco import ajuda, smartpid,ft,ft_pid, autorizauser
+﻿from funcoes_Cisco import ajuda, smartpid,ft, autorizauser
 from webexteams import getwebexRoomID, webexmsgRoomviaID
 
 def logica(comando,usermail):
@@ -111,9 +111,6 @@ def logica(comando,usermail):
                     lista_de_locais = ["comstor","ingram","scansource"]
                     if local.lower() in lista_de_locais:
                         msg=ft(local)
-                    elif local.lower() not in lista_de_locais:
-                        local= "All"
-                        msg=ft_pid(local) 
                     else:
                         msg = "o local ou partnumber digitado é invalido, tente novamente."
                     return msg

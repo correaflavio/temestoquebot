@@ -228,21 +228,7 @@ def findpid(pid,data):
 
     return msg
 
-def ft_pid(local):
 
-    print("cheguei na funcao ft_pid")
-    
-    if local == "All":
-        data = smartsheet("ftrack")
-        msg = findpid_ftrack(local,data)
-    else:
-        msg = "Local inválido. Locais válidos: Ingram, Scansource e Comstor."
-        return msg
-    
-    if data=="erro":
-        msg="Erro de acesso\n"
-
-    return msg
 def ft(local):
 
     print("cheguei na funcao ft")

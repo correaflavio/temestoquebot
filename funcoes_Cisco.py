@@ -251,7 +251,6 @@ def ft(local):
 
     return msg
 
-
 def findpid_ftrack(local,data):
     # quantas linhas tem a planilha
     linhas = data['totalRowCount']

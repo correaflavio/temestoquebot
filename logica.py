@@ -105,14 +105,30 @@ def logica(comando,usermail):
                     msg = "Digite '***ft + local***' para verificar os partnumbers disponíveis por distribuidor" + "\n que participam do programa FastTrack."
                     return msg
                 if len(lista_comando) == 2:
-                    local = lista_comando[1]
-                    print(str(local.lower()))
-                    lista_de_locais = ["comstor","ingram","scansource"]
-                    if local.lower() in lista_de_locais:
-                        msg=ft(local)
-                    else:
-                        msg = "o local digitado é invalido, tente novamente."
+                    pid = lista_comando[1]
+                    print(str(pid.lower()))
+                    if pid.lower() =="" or None:
+                        msg = "Digite o partnumber desejado. Utilizar 'help' para saber os comandos válidos disponíveis."
                         return msg
+                    
+					local ="All"
+                    msg=ft(pid,local)
+					return msg
+						
+				elif len(lista_comando) == 3:
+                    pid = lista_comando[2]
+                    
+                    local = lista_comando[1]
+                    lista_de_locais = ["comstor","ingram","scansource"]
+                    if pid.lower() in lista_de_locais:
+                        msg = "Partnumber do produto não é válido. Utilizar 'help' para saber os comandos válidos disponíveis."
+                        return msg
+                    
+                    msg=ft(pid,local)
+                    return msg
+                else:
+                    msg = "Desculpe não conheço esse comando, utilizar 'help' para saber os comandos disponíveis."
+                    return msg
                 
 
         else:

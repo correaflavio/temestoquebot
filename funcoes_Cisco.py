@@ -228,20 +228,25 @@ def findpid(pid,data):
 
     return msg
 
-
-def ft(local):
+def ft(pid,local):
 
     print("cheguei na funcao ft")
+
+    if pid =="":
+        return
     
     if local == "scansource":
         data = smartsheet("ftrack")
-        msg = findpid_ftrack(local,data)
+        msg = findpid_ftrack(pid,data)
     elif local == "comstor":
         data = smartsheet("ftrack")
-        msg = findpid_ftrack(local,data)
+        msg = findpid_ftrack(pid,data)
     elif local == "ingram":
         data = smartsheet("ftrack")
-        msg = findpid_ftrack(local,data)
+        msg = findpid_ftrack(pid,data)
+    elif local == "All":
+        data = smartsheet("ftrack")
+        msg = findpid_ftrack(pid,data)
     else:
         msg = "Local inválido. Locais válidos: Ingram, Scansource e Comstor."
         return msg
@@ -251,7 +256,7 @@ def ft(local):
 
     return msg
 
-def findpid_ftrack(local,data):
+def findpid_ftrack(pid,data):
     # quantas linhas tem a planilha
     linhas = data['totalRowCount']
     #ultima vez que a planilha foi modificada

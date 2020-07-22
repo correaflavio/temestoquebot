@@ -345,6 +345,8 @@ def findpid_ftrack(local,data):
 
 def smartft(pid,local):
 
+    print("cheguei na funcao smartft")
+
     if pid=="":
         return
 

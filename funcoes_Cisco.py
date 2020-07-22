@@ -366,12 +366,17 @@ def smartft(pid,local):
     return msg
 
 def findpid_ft(pid,data):
+
+    print("cheguei na funcao findpid_ft")
     
     linhas = data['totalRowCount']
     data_modificacao = data['modifiedAt']
 
     local=""
     linha_pid=""
+    qty_available =""
+    qty_available2 =""
+    qty_available3=""
 
     msg=""
     count=0

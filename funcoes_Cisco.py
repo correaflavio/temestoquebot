@@ -371,6 +371,7 @@ def findpid_ft(pid,data):
     data_modificacao = data['modifiedAt']
 
     local=""
+    linha_pid=""
 
     msg=""
     count=0
@@ -442,7 +443,7 @@ def findpid_ft(pid,data):
             except:
                 qty_available3 = 0
                 print ("Verificar se o Smartsheet com a coluna Quantity sem preencher")
-            #print (linha_pid)
+            print (linha_pid)
             
 
             

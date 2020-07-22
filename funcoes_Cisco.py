@@ -421,9 +421,33 @@ def findpid_ft(pid,data):
                 qty_available = 0
                 print ("Verificar se o Smartsheet com a coluna Quantity sem preencher")
             #print (linha_pid)
+        elif local == "All":
+            try:
+                linha_pid=str(linha['cells'][0]['value'])
+            except:
+                linha_pid = "Sem_PID"
+                print ("Verificar se o Smartsheet está com a coluna de PID sem preencher")
+            try:
+                qty_available = linha['cells'][1]['value']
+            except:
+                qty_available = 0
+                print ("Verificar se o Smartsheet com a coluna Quantity sem preencher")
+            try:
+                qty_available2 = linha['cells'][2]['value']
+            except:
+                qty_available2 = 0
+                print ("Verificar se o Smartsheet com a coluna Quantity sem preencher")
+            try:
+                qty_available3 = linha['cells'][3]['value']
+            except:
+                qty_available3 = 0
+                print ("Verificar se o Smartsheet com a coluna Quantity sem preencher")
+            #print (linha_pid)
             
 
-        if linha_pid.lower() and qty_available > 0:
+            
+
+        if linha_pid.lower() and qty_available or qty_available2 or qty_available3  > 0:
                 #print (local, qty_available)
                 msg=msg+formata_ft(linha,local)
                 #print (linha_pid + " contains given substring " +pid)

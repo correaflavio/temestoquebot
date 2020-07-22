@@ -374,9 +374,9 @@ def findpid_ft(pid,data):
 
     local=""
     linha_pid=""
-    qty_available =""
-    qty_available2 =""
-    qty_available3=""
+    qty_available =0
+    qty_available2 =0
+    qty_available3=0
 
     msg=""
     count=0

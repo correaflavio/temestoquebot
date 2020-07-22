@@ -372,7 +372,7 @@ def findpid_ft(pid,data):
     linhas = data['totalRowCount']
     data_modificacao = data['modifiedAt']
 
-    local= data['columns']['title'].lower()
+    local= str(data['columns']['title'].lower())
     linha_pid=""
     qty_available =0
     qty_available2 =0

@@ -348,7 +348,16 @@ def smartft(pid,local):
     if pid=="":
         return
 
-    if local == "scansource" or "ingram" or "comstor" or "All":
+    if local == "scansource":
+        data = smartsheet("ftrack")
+        msg = findpid_ft(pid,data)
+    elif local == "ingram":
+        data = smartsheet("ftrack")
+        msg = findpid_ft(pid,data)
+    elif local == "comstor":
+        data = smartsheet("ftrack")
+        msg = findpid_ft(pid,data)
+    elif local == "All":
         data = smartsheet("ftrack")
         msg = findpid_ft(pid,data)
 

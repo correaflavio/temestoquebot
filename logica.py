@@ -139,7 +139,7 @@ def logica(comando,usermail):
                         msg = "Partnumber inválido"
                         return msg
                     
-                    msg=smartpid(pid,local)
+                    msg=smartft(pid,local)
                     return msg
 
                     

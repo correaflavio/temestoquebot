@@ -138,6 +138,9 @@ def logica(comando,usermail):
                     if pid.lower() in lista_de_locais:
                         msg = "Partnumber inválido"
                         return msg
+                    
+                    msg=smartpid(pid,local)
+                    return msg
 
                     
                 

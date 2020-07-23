@@ -26,9 +26,9 @@ def smartsheet(planilha):
         sheet="5371646502788"
     elif "ftrack" in planilha:
         sheet="7891488269985668"
-    elif "com_ft" in planilha:
+    elif "comft" in planilha:
         sheet="5625710653007748"
-    elif "scan_ftr" in planilha:
+    elif "scanftr" in planilha:
         sheet="5115434178504580"
     #elif "fabrica" in planilha:
     #    sheet="4374521617639300"
@@ -241,20 +241,20 @@ def smartft(pid,local):
         return
 
     if local == "scansource":
-        data = smartsheet("scan_ftr")
+        data = smartsheet("scanftr")
         msg = findpid_ft(pid,data)
     elif local == "ingram":
         data = smartsheet("ftrack")
         msg = findpid_ft(pid,data)
     elif local == "comstor":
-        data = smartsheet("com_ft")
+        data = smartsheet("comft")
         msg = findpid_ft(pid,data)
     elif local == "All":
         data = smartsheet("ftrack")
         msg = findpid_ft(pid,data)
-        data = smartsheet("com_ft")
+        data = smartsheet("comft")
         msg = msg + findpid_ft(pid,data)
-        data = smartsheet("scan_ftr")
+        data = smartsheet("scanftr")
         msg = msg + findpid_ft(pid,data)
 
     else:

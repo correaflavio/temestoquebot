@@ -273,7 +273,7 @@ def findpid_ft(pid,data):
     print("cheguei na funcao findpid_ft")
 
         
-    linhas = data['totalRowCount']
+    linhas = 105
     print(linhas)
     data_modificacao = data['modifiedAt']
 

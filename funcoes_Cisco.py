@@ -271,6 +271,8 @@ def smartft(pid,local):
 def findpid_ft(pid,data):
 
     print("cheguei na funcao findpid_ft")
+
+    print(data)
     
     linhas = data['totalRowCount']
     data_modificacao = data['modifiedAt']

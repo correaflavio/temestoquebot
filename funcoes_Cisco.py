@@ -411,59 +411,11 @@ def formata_pid(dados, local):
 
     #return msg
 
-def formata_ftrack(dados, local):
-    msg=""
-    pid=""
-    qty_available=""
-    updated=""
-
-    if local == "ingram":
-        try:
-            pid=str(dados['cells'][0]['value'])
-        except:
-            pass
-        try:
-            qty_available=str(dados['cells'][1]['value']).split('.')[0]
-        except:
-            pass
-        try:
-            updated=str(dados['cells'][5]['value'])
-        except:
-            pass
-    elif local == "comstor":
-        try:
-            pid=str(dados['cells'][0]['value'])
-        except:
-            pass
-        try:
-            qty_available=str(dados['cells'][2]['value']).split('.')[0]
-        except:
-            pass
-        try:
-            updated=str(dados['cells'][5]['value'])
-        except:
-            pass
-    elif local == "scansource":
-        try:
-            pid=str(dados['cells'][0]['value'])
-        except:
-            pass
-        try:
-            qty_available=str(dados['cells'][3]['value']).split('.')[0]
-        except:
-            pass
-        try:
-            updated=str(dados['cells'][5]['value'])
-        except:
-            pass
-    
-     #monta a linha e imprime
-    msg=msg+(" **PID:** "+ pid + " **Qtd:** " + qty_available + "  \n")
-    #print ("msg formata pid")
-    print (msg)
-    return msg
 
 def formata_ft(dados,local):
+
+    print("cheguei na funcao formata_ft")
+    print(local)
 
     msg=""
     pid=""

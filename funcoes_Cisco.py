@@ -250,11 +250,11 @@ def smartft(pid,local):
         data = smartsheet("com_ft")
         msg = findpid_ft(pid,data)
     elif local == "All":
-        data = smartsheet("scan_ftr")
+        data = smartsheet("ftrack")
         msg = findpid_ft(pid,data)
         data = smartsheet("com_ft")
         msg = msg + findpid_ft(pid,data)
-        data = smartsheet("ftrack")
+        data = smartsheet("scan_ftr")
         msg = msg + findpid_ft(pid,data)
 
     else:

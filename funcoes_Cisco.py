@@ -27,7 +27,7 @@ def smartsheet(planilha):
     elif "ftrack" in planilha:
         sheet="7891488269985668"
     elif "comft" in planilha:
-        sheet="4699642689546116"
+        sheet="5625710653007748"
     elif "scanftr" in planilha:
         sheet="5115434178504580"
     #elif "fabrica" in planilha:

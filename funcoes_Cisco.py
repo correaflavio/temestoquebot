@@ -661,11 +661,11 @@ def formata_ft(dados,local):
         except:
             pass
         try:
-            qty_available2=str(dados['cells'][2]['value']).split('.')[0]
+            qty_available=str(dados['cells'][2]['value']).split('.')[0]
         except:
             pass
         try:
-            qty_available3=str(dados['cells'][3]['value']).split('.')[0]
+            qty_available=str(dados['cells'][3]['value']).split('.')[0]
         except:
             pass
         try:

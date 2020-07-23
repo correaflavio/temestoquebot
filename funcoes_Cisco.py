@@ -308,7 +308,7 @@ def findpid_ft(pid,data):
 
             
 
-        if linha_pid.lower() and qty_available > 0:
+        if pid in linha_pid.lower() and qty_available > 0:
                 #print (local, qty_available)
                 msg=msg+formata_ft(linha,local)
                 #print (linha_pid + " contains given substring " +pid)

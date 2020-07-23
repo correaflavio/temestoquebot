@@ -99,26 +99,12 @@ def logica(comando,usermail):
             
                 #Nenhum comando conhecido
 
-            if lista_comando[0] == "ft":
-                 
-                if len (lista_comando) == 1:
-                    msg = "Digite '***ft + local***' para verificar os partnumbers disponíveis por distribuidor" + "\n que participam do programa FastTrack."
-                    return msg
-                if len(lista_comando) == 2:
-                    local = lista_comando[1]
-                    print(str(local.lower()))
-                    lista_de_locais = ["comstor","ingram","scansource"]
-                    if local.lower() in lista_de_locais:
-                        msg=ft(local)
-                    
-                    else:
-                        msg = "o local digitado é invalido, tente novamente."
-                        return msg
+            
 
-            if lista_comando[0] =="ao":
+            if lista_comando[0] =="ft":
 
                 if len(lista_comando) == 1:
-                    msg = "Digite '***ao + partnumber***' para checar os partnumbers participantes do programa Fast Track"
+                    msg = "Digite '***ft + partnumber***' para checar os partnumbers participantes do programa Fast Track"
                     return msg
                 if len(lista_comando) == 2:
                     pid = lista_comando[1]

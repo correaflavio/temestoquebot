@@ -233,120 +233,6 @@ def findpid(pid,data):
     return msg
 
 
-def ft(local):
-
-    print("cheguei na funcao ft")
-    
-    if local == "scansource":
-        data = smartsheet("ftrack")
-        msg = findpid_ftrack(local,data)
-    elif local == "comstor":
-        data = smartsheet("ftrack")
-        msg = findpid_ftrack(local,data)
-    elif local == "ingram":
-        data = smartsheet("ftrack")
-        msg = findpid_ftrack(local,data)
-    else:
-        msg = "Local inválido. Locais válidos: Ingram, Scansource e Comstor."
-        return msg
-    
-    if data=="erro":
-        msg="Erro de acesso\n"
-
-    return msg
-
-def findpid_ftrack(local,data):
-    # quantas linhas tem a planilha
-    linhas = data['totalRowCount']
-    #ultima vez que a planilha foi modificada
-    data_modificacao = data['modifiedAt']
-
-    #print (linhas)
-    #print ("# de linhas na tabela: " + str(linhas))
-    local == ""
-    #print (local)
-
-    #print (nome_disti)
-    # loop para procurar o pam e imprime
-
-    msg=""
-    count=0
-    encontrado=0
-
-    msg=msg+("  \n**Local:** " + str(local.upper()) + " **Atualizado:** "+ data_modificacao.split("T")[0]+"  \n")
-
-    while (count<linhas):
-
-        # valida 1 linha por vez
-        linha=data['rows'][count]
-        #print (linha)
-        #print(linha)
-        # acessa a primeira celula da linha (parceiro)
-        if local == "ingram":
-            try:
-                linha_pid=str(linha['cells'][0]['value'])
-            except:
-                linha_pid = "Sem_PID"
-                print ("Verificar se o Smartsheet está com a coluna de PID sem preencher")
-            try:
-                qty_available = linha['cells'][1]['value']
-            except:
-                qty_available = 0
-                print ("Verificar se o Smartsheet com a coluna Quantity sem preencher")
-            #print (linha_pid)
-            #print (linha_pid)
-            # gera a linha formatada caso parceiro encontrado
-        elif local == "comstor":
-            try:
-                linha_pid=str(linha['cells'][0]['value'])
-            except:
-                linha_pid = "Sem_PID"
-                print ("Verificar se o Smartsheet está com a coluna de PID sem preencher")
-            try:
-                qty_available = linha['cells'][2]['value']
-            except:
-                qty_available = 0
-                print ("Verificar se o Smartsheet com a coluna Quantity sem preencher")
-            #print (linha_pid)
-            #print (linha_pid)
-            # gera a linha formatada caso parceiro encontrado
-        elif local == "scansource":
-            try:
-                linha_pid=str(linha['cells'][0]['value'])
-            except:
-                linha_pid = "Sem_PID"
-                print ("Verificar se o Smartsheet está com a coluna de PID sem preencher")
-            try:
-                qty_available = linha['cells'][3]['value']
-            except:
-                qty_available = 0
-                print ("Verificar se o Smartsheet com a coluna Quantity sem preencher")
-            #print (linha_pid)
-            #print (linha_pid)
-            # gera a linha formatada caso parceiro encontrado
-
-        if linha_pid.lower() and qty_available > 0:
-                #print (local, qty_available)
-                msg=msg+formata_ftrack(linha,local)
-                #print (linha_pid + " contains given substring " +pid)
-                #encontrado=encontrado+1
-                #print ("Encontrado " + encontrado + " vezes.")
-                #print (msg)
-                encontrado=encontrado+1
-                #print ("pid encontrado " + str(encontrado) + " vezes em estoque na " + str(local))
-                #return msg
-
-        count=count+1
-        #print ("Loop count = " + str(count))
-        #print(count)
-
-
-        # devolva negativa caso nada encontrado
-    #print (msg)
-
-
-    return msg
-
 def smartft(pid,local):
 
     print("cheguei na funcao smartft")
@@ -381,6 +267,7 @@ def findpid_ft(pid,data):
     data_modificacao = data['modifiedAt']
 
     local= data['name'].lower()
+    print(local)
 
     msg=""
     count=0

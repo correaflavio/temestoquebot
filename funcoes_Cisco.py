@@ -26,6 +26,10 @@ def smartsheet(planilha):
         sheet="5371646502788"
     elif "ftrack" in planilha:
         sheet="7891488269985668"
+    elif "ftrack2" in planilha:
+        sheet="5625710653007748"
+    elif "ftrack3" in planilha:
+        sheet="5115434178504580"
     #elif "fabrica" in planilha:
     #    sheet="4374521617639300"
     #elif "alcateia" in planilha:
@@ -351,17 +355,21 @@ def smartft(pid,local):
         return
 
     if local == "scansource":
-        data = smartsheet("ftrack")
+        data = smartsheet("ftrack3")
         msg = findpid_ft(pid,data)
     elif local == "ingram":
         data = smartsheet("ftrack")
         msg = findpid_ft(pid,data)
     elif local == "comstor":
-        data = smartsheet("ftrack")
+        data = smartsheet("ftrack2")
         msg = findpid_ft(pid,data)
     elif local == "All":
         data = smartsheet("ftrack")
         msg = findpid_ft(pid,data)
+        data = smartsheet("ftrack2")
+        msg = msg + findpid_ft(pid,data)
+        data = smartsheet("ftrack3")
+        msg = msg + findpid_ft(pid,data)
 
     return msg
 
@@ -372,11 +380,7 @@ def findpid_ft(pid,data):
     linhas = data['totalRowCount']
     data_modificacao = data['modifiedAt']
 
-    local= ""
-    linha_pid=""
-    qty_available =0
-    qty_available2 =0
-    qty_available3=0
+    local= data['name'].lower()
 
     msg=""
     count=0
@@ -385,75 +389,40 @@ def findpid_ft(pid,data):
     msg=msg+("\n**Local:** " + str(local.upper()) + " **Atualizado:** "+ data_modificacao.split("T")[0]+"  \n")
 
     while (count<linhas):
-        
+
+        # valida 1 linha por vez
         linha=data['rows'][count]
-        if local == "ingram":
-            try:
-                linha_pid=str(linha['cells'][0]['value'])
-            except:
-                linha_pid = "Sem_PID"
-                print ("Verificar se o Smartsheet está com a coluna de PID sem preencher")
-            try:
-                qty_available = linha['cells'][1]['value']
-            except:
-                qty_available = 0
-                print ("Verificar se o Smartsheet com a coluna Quantity sem preencher")
-            #print (linha_pid)
-            #print (linha_pid)
-            # gera a linha formatada caso parceiro encontrado
-        elif local == "comstor":
-            try:
-                linha_pid=str(linha['cells'][0]['value'])
-            except:
-                linha_pid = "Sem_PID"
-                print ("Verificar se o Smartsheet está com a coluna de PID sem preencher")
-            try:
-                qty_available = linha['cells'][2]['value']
-            except:
-                qty_available = 0
-                print ("Verificar se o Smartsheet com a coluna Quantity sem preencher")
-            #print (linha_pid)
-            #print (linha_pid)
-            # gera a linha formatada caso parceiro encontrado
-        elif local == "scansource":
-            try:
-                linha_pid=str(linha['cells'][0]['value'])
-            except:
-                linha_pid = "Sem_PID"
-                print ("Verificar se o Smartsheet está com a coluna de PID sem preencher")
-            try:
-                qty_available = linha['cells'][3]['value']
-            except:
-                qty_available = 0
-                print ("Verificar se o Smartsheet com a coluna Quantity sem preencher")
-            #print (linha_pid)
-        elif local == "All":
-            try:
-                linha_pid=str(linha['cells'][0]['value'])
-            except:
-                linha_pid = "Sem_PID"
-                print ("Verificar se o Smartsheet está com a coluna de PID sem preencher")
-            try:
-                qty_available = linha['cells'][1]['value']
-            except:
-                qty_available = 0
-                print ("Verificar se o Smartsheet com a coluna Quantity sem preencher")
-            try:
-                qty_available2 = linha['cells'][2]['value']
-            except:
-                qty_available2 = 0
-                print ("Verificar se o Smartsheet com a coluna Quantity sem preencher")
-            try:
-                qty_available3 = linha['cells'][3]['value']
-            except:
-                qty_available3 = 0
-                print ("Verificar se o Smartsheet com a coluna Quantity sem preencher")
-            print (linha_pid)
+        #print (linha)
+        #print(linha)
+        # acessa a primeira celula da linha (parceiro)
+        try:
+            linha_pid=str(linha['cells'][0]['value'])
+        except:
+            linha_pid = "Sem_PID"
+            print ("Verificar se o Smartsheet está com a coluna de PID sem preencher")
+        # quantidade esta na columa 2 se for o reporta da fabrica ou columa 8 se for dos distribuidores
+
+        #if local == "fabrica":
+        #    try:
+        #        qty_available = linha['cells'][1]['value']
+        #    except:
+        #        qty_available = 0
+        #        print ("Verificar se o Smartsheet está com a coluna Quantity sem preencher")
+        #else:
+        try:
+            qty_available = linha['cells'][1]['value']
+        except:
+            qty_available = 0
+            print ("Verificar se o Smartsheet com a coluna Quantity sem preencher")
+        #print (linha_pid)
+        #print (linha_pid)
+        # gera a linha formatada caso parceiro encontrado
+
             
 
             
 
-        if linha_pid.lower() and qty_available or qty_available2 or qty_available3  > 0:
+        if linha_pid.lower() and qty_available > 0:
                 #print (local, qty_available)
                 msg=msg+formata_ft(linha,local)
                 #print (linha_pid + " contains given substring " +pid)
@@ -605,75 +574,31 @@ def formata_ftrack(dados, local):
     return msg
 
 def formata_ft(dados,local):
+
     msg=""
     pid=""
     qty_available=""
-    qty_available2=""
-    qty_available3=""
     updated=""
+    updated_by=""
 
-    if local == "ingram":
-        try:
-            pid=str(dados['cells'][0]['value'])
-        except:
-            pass
-        try:
-            qty_available=str(dados['cells'][1]['value']).split('.')[0]
-        except:
-            pass
-        try:
-            updated=str(dados['cells'][5]['value'])
-        except:
-            pass
-    elif local == "comstor":
-        try:
-            pid=str(dados['cells'][0]['value'])
-        except:
-            pass
-        try:
-            qty_available=str(dados['cells'][2]['value']).split('.')[0]
-        except:
-            pass
-        try:
-            updated=str(dados['cells'][5]['value'])
-        except:
-            pass
-    elif local == "scansource":
-        try:
-            pid=str(dados['cells'][0]['value'])
-        except:
-            pass
-        try:
-            qty_available=str(dados['cells'][3]['value']).split('.')[0]
-        except:
-            pass
-        try:
-            updated=str(dados['cells'][5]['value'])
-        except:
-            pass
-    elif local =="All":
-        try:
-            pid=str(dados['cells'][0]['value'])
-        except:
-            pass
-        try:
-            qty_available=str(dados['cells'][1]['value']).split('.')[0]
-        except:
-            pass
-        try:
-            qty_available=str(dados['cells'][2]['value']).split('.')[0]
-        except:
-            pass
-        try:
-            qty_available=str(dados['cells'][3]['value']).split('.')[0]
-        except:
-            pass
-        try:
-            updated=str(dados['cells'][5]['value'])
-        except:
-            pass
-    
-     #monta a linha e imprime
+    try:
+        pid=str(dados['cells'][0]['value'])
+    except:
+        pass
+    try:
+        qty_available=str(dados['cells'][1]['value']).split('.')[0]
+    except:
+        pass
+    try:
+        updated_by=str(dados['cells'][2]['value'])
+    except:
+        pass
+    try:
+        updated=str(dados['cells'][3]['value'])
+    except:
+        pass
+
+    #monta a linha e imprime
     msg=msg+(" **PID:** "+ pid + " **Qtd:** " + qty_available + "  \n")
     #print ("msg formata pid")
     print (msg)

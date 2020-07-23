@@ -26,9 +26,9 @@ def smartsheet(planilha):
         sheet="5371646502788"
     elif "ftrack" in planilha:
         sheet="7891488269985668"
-    elif "ftrack2" in planilha:
+    elif "c_ftrack" in planilha:
         sheet="5625710653007748"
-    elif "ftrack3" in planilha:
+    elif "s_ftrack" in planilha:
         sheet="5115434178504580"
     #elif "fabrica" in planilha:
     #    sheet="4374521617639300"
@@ -241,21 +241,22 @@ def smartft(pid,local):
         return
 
     if local == "scansource":
-        data = smartsheet("ftrack3")
+        data = smartsheet("s_ftrack")
         msg = findpid_ft(pid,data)
     elif local == "ingram":
         data = smartsheet("ftrack")
         msg = findpid_ft(pid,data)
     elif local == "comstor":
-        data = smartsheet("ftrack2")
+        data = smartsheet("c_ftrack")
         msg = findpid_ft(pid,data)
     elif local == "All":
         data = smartsheet("ftrack")
         msg = findpid_ft(pid,data)
-        data = smartsheet("ftrack2")
+        data = smartsheet("s_ftrack")
         msg = msg + findpid_ft(pid,data)
-        data = smartsheet("ftrack3")
+        data = smartsheet("c_ftrack")
         msg = msg + findpid_ft(pid,data)
+
     else:
         msg = "Local inválido. Locais válidos: Ingram, Scansource e Comstor."
         return msg

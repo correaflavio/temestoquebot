@@ -263,7 +263,7 @@ def findpid_ftrack(local,data):
 
     #print (linhas)
     #print ("# de linhas na tabela: " + str(linhas))
-    local == "ingram"
+    local == ""
     #print (local)
 
     #print (nome_disti)
@@ -400,15 +400,6 @@ def findpid_ft(pid,data):
         except:
             linha_pid = "Sem_PID"
             print ("Verificar se o Smartsheet está com a coluna de PID sem preencher")
-        # quantidade esta na columa 2 se for o reporta da fabrica ou columa 8 se for dos distribuidores
-
-        #if local == "fabrica":
-        #    try:
-        #        qty_available = linha['cells'][1]['value']
-        #    except:
-        #        qty_available = 0
-        #        print ("Verificar se o Smartsheet está com a coluna Quantity sem preencher")
-        #else:
         try:
             qty_available = linha['cells'][1]['value']
         except:

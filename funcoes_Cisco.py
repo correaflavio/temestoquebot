@@ -256,6 +256,14 @@ def smartft(pid,local):
         msg = msg + findpid_ft(pid,data)
         data = smartsheet("ftrack3")
         msg = msg + findpid_ft(pid,data)
+    else:
+        msg = "Local inválido. Locais válidos: Ingram, Scansource e Comstor."
+        return msg
+
+
+    #aborta caso nao tenha sido possivel acessar smartsheet
+    if data=="erro":
+        msg="Erro de acesso\n"
 
     return msg
 
@@ -318,6 +326,10 @@ def findpid_ft(pid,data):
 
         # devolva negativa caso nada encontrado
     #print (msg)
+    if encontrado == 0:
+        #print ("PID não encontrado em estoque na " + str(local))
+        msg=("  \n" + "**Local:** " + str(local.upper()) + " **PID:** "+ pid + " não tem estoque " + "  \n")
+
 
 
     

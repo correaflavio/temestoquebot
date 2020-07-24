@@ -280,7 +280,7 @@ def findpid_ft(pid,data):
     local= data['name'].lower()
     #print(local)
 
-    msg="***Programa FastTrack***"
+    msg=""
     count=0
     encontrado=0
 
@@ -331,7 +331,7 @@ def findpid_ft(pid,data):
     #print (msg)
     if encontrado == 0:
         #print ("PID não encontrado em estoque na " + str(local))
-        msg=("  \n" + "**Local:** " + str(local.upper()) + " **PID:** "+ pid + " não tem estoque para FastTrack " + "  \n")
+        msg=("  \n" + "**Local:** " + str(local.upper()) + " **PID:** "+ pid + " não tem estoque para FastTrack  no momento" + "  \n")
 
 
 

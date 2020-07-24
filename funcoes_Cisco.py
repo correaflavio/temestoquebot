@@ -281,7 +281,10 @@ def findpid_ft(pid,data):
     except:
         pass
 
-    local= data['name'].lower()
+    try:
+        local= data['name'].lower()
+    except:
+        pass
     print(local)
 
     msg=""

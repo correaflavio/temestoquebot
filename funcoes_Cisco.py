@@ -52,8 +52,8 @@ def smartsheet(planilha):
 
     #pega conteudo pleno da planilha
     if response.status_code==200:
-        json_res = json.loads(response.text)
-        print (json_res)
+        json_res = json.loads(response)
+        #print (json_res)
     else:
     # devolve erro caso nao consiga acessar smartsheet
         return "erro"
@@ -248,7 +248,6 @@ def smartft(pid,local):
         msg = findpid_ft(pid,data)
     elif local == "comstor":
         data = smartsheet("comft")
-        print(data)
         msg = findpid_ft(pid,data)
     elif local == "All":
         data = smartsheet("ftrack")

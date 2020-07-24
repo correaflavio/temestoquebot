@@ -52,7 +52,7 @@ def smartsheet(planilha):
 
     #pega conteudo pleno da planilha
     if response.status_code==200:
-        json_res = json.loads(response)
+        json_res = json.loads(response.text)
         #print (json_res)
     else:
     # devolve erro caso nao consiga acessar smartsheet

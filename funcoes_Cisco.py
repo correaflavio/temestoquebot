@@ -247,7 +247,8 @@ def smartft(pid,local):
         data = smartsheet("ftrack")
         msg = findpid_ft(pid,data)
     elif local == "comstor":
-        data = smartsheet("ftrack")
+        data = smartsheet("comft")
+        print(data)
         msg = findpid_ft(pid,data)
     elif local == "All":
         data = smartsheet("ftrack")

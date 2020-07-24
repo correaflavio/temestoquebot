@@ -241,7 +241,7 @@ def smartft(pid,local):
         return
 
     if local == "scansource":
-        data = smartsheet("ftrack")
+        data = smartsheet("scanftr")
         msg = findpid_ft(pid,data)
     elif local == "ingram":
         data = smartsheet("ftrack")
@@ -252,9 +252,9 @@ def smartft(pid,local):
     elif local == "All":
         data = smartsheet("ftrack")
         msg = findpid_ft(pid,data)
-        data = smartsheet("ftrack")
+        data = smartsheet("comft")
         msg = msg + findpid_ft(pid,data)
-        data = smartsheet("ftrack")
+        data = smartsheet("scanftr")
         msg = msg + findpid_ft(pid,data)
 
     else:
@@ -466,7 +466,8 @@ Consulta o estoque de um disti e da fabrica: estoque ***local*** ***pid_id*** - 
 
 **Procura se o partnumber faz parte do programa FastTrack:** \n
 ___
-Consultar o partnumbers participantes do FastTrack: ft  ***parceiro_cisco*** - Exemplo: ft comstor  \n
+Consultar os partnumbers participantes do FastTrack em todos os distis: ft  ***pid_id*** - Exemplo: ft 9300  \n
+Consulta os partnumbers do FastTrack por disti: ft ***local*** ***pid_id*** - Exemplo: ft Comstor 1815 \n
 
 Valores válidos para local são: Scansource, Comstor e Ingram  \n
 """

@@ -241,20 +241,20 @@ def smartft(pid,local):
         return
 
     if local == "scansource":
-        data = smartsheet("scanftr")
+        data = smartsheet("ftrack")
         msg = findpid_ft(pid,data)
     elif local == "ingram":
         data = smartsheet("ftrack")
         msg = findpid_ft(pid,data)
     elif local == "comstor":
-        data = smartsheet("comft")
+        data = smartsheet("ftrack")
         msg = findpid_ft(pid,data)
     elif local == "All":
         data = smartsheet("ftrack")
         msg = findpid_ft(pid,data)
-        data = smartsheet("comft")
+        data = smartsheet("ftrack")
         msg = msg + findpid_ft(pid,data)
-        data = smartsheet("scanftr")
+        data = smartsheet("ftrack")
         msg = msg + findpid_ft(pid,data)
 
     else:
@@ -272,20 +272,13 @@ def findpid_ft(pid,data):
 
     print("cheguei na funcao findpid_ft")
 
-    try:    
-        linhas = data['totalRowCount']
-    except:
-        pass
-    try:
-        data_modificacao = data['modifiedAt']
-    except:
-        pass
+        
+    linhas = data['totalRowCount']
+    
+    data_modificacao = data['modifiedAt']
 
-    try:
-        local= data['name'].lower()
-    except:
-        pass
-    print(local)
+    local= data['name'].lower()
+    #print(local)
 
     msg=""
     count=0
